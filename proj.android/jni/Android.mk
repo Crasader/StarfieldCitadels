@@ -12,7 +12,15 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/Scenes/LoadingScene.cpp
+				   ../../Classes/Layers/AnimationLayer.cpp \
+				   ../../Classes/Layers/BaseLayer.cpp \
+				   ../../Classes/Scenes/CombatScene.cpp \
+				   ../../Classes/Scenes/HeroScene.cpp \
+				   ../../Classes/Layers/HUDLayer.cpp \
+                   ../../Classes/Scenes/LoadingScene.cpp \
+				   ../../Classes/Scenes/MainScene.cpp \
+				   ../../Classes/Scenes/StoreScene.cpp \
+				   ../../Classes/Layers/UILayer.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
