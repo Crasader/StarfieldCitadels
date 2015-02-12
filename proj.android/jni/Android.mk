@@ -12,26 +12,26 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-				   ../../Classes/EntitySystem/Components/AnimationComponent.cpp \
-				   ../../Classes/EntitySystem/Component.cpp \
-				   ../../Classes/EntitySystem/Components/PositionComponent.cpp \
-				   ../../Classes/EntitySystem/ComponentType.cpp \
-				   ../../Classes/EntitySystem/ComponentTypeManager.cpp \
-				   ../../Classes/EntitySystem/Components/RenderComponent.cpp \
-				   ../../Classes/EntitySystem/Components/RotationComponent.cpp \
-				   ../../Classes/EntitySystem/Components/TextureComponent.cpp \
-				   ../../Classes/EntitySystem/Components/TouchComponent.cpp \
-				   ../../Classes/EntitySystem/DelayedEntitySystem.cpp \
-				   ../../Classes/EntitySystem/DelayedEntityProcessingSystem.cpp \
-				   ../../Classes/EntitySystem/Entity.cpp \
-				   ../../Classes/EntitySystem/EntityManager.cpp \
-				   ../../Classes/EntitySystem/EntityProcessingSystem.cpp \
-				   ../../Classes/EntitySystem/EntitySystem.cpp \
-				   ../../Classes/EntitySystem/GroupManager.cpp \
-				   ../../Classes/EntitySystem/SystemBitManager.cpp \
-				   ../../Classes/EntitySystem/SystemManager.cpp \
-				   ../../Classes/EntitySystem/TagManager.cpp \
-				   ../../Classes/EntitySystem/World.cpp \
+				   ../../Classes/Components/AnimationComponent.cpp \
+				   ../../Classes/Components/PositionComponent.cpp \
+				   ../../Classes/Components/RenderComponent.cpp \
+				   ../../Classes/Components/TextureComponent.cpp \
+				   ../../Classes/Components/TouchComponent.cpp \
+				   ../../Classes/Components/VelocityComponent.cpp \
+				   ../../Classes/Evolve/Component/Component.cpp \
+				   ../../Classes/Evolve/Component/ComponentType.cpp \
+				   ../../Classes/Evolve/Entity/DelayedEntityProcessingSystem.cpp \
+				   ../../Classes/Evolve/Entity/DelayedEntitySystem.cpp \
+				   ../../Classes/Evolve/Entity/Entity.cpp \
+				   ../../Classes/Evolve/Entity/EntityProcessingSystem.cpp \
+				   ../../Classes/Evolve/Entity/EntitySystem.cpp \
+				   ../../Classes/Evolve/Manager/ComponentTypeManager.cpp \
+				   ../../Classes/Evolve/Manager/EntityManager.cpp \
+				   ../../Classes/Evolve/Manager/GroupManager.cpp \
+				   ../../Classes/Evolve/Manager/SystemBitManager.cpp \
+				   ../../Classes/Evolve/Manager/SystemManager.cpp \
+				   ../../Classes/Evolve/Manager/TagManager.cpp \
+				   ../../Classes/Evolve/World/World.cpp \
 				   ../../Classes/Layers/AnimationLayer.cpp \
 				   ../../Classes/Layers/BaseLayer.cpp \
 				   ../../Classes/Layers/HUDLayer.cpp \
@@ -40,7 +40,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/Scenes/HeroScene.cpp \
                    ../../Classes/Scenes/LoadingScene.cpp \
 				   ../../Classes/Scenes/MainScene.cpp \
-				   ../../Classes/Scenes/StoreScene.cpp 
+				   ../../Classes/Scenes/StoreScene.cpp \
+				   ../../Classes/Systems/MovementSystem.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
