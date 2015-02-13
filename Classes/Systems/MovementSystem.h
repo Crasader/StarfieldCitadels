@@ -18,9 +18,9 @@ private:
 	ComponentMapper<VelocityComponent> velocityMapper;
 public:
 	MovementSystem();
-	virtual ~MovementSystem();
-	virtual void initialize();
-	virtual void processEntity(Entity &e);
+	~MovementSystem();
+	void initialize();
+	void processEntity(Entity &e);
 };
 
 #endif /* __MOVEMENT_SYSTEM_H__ */

@@ -15,6 +15,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/Components/AnimationComponent.cpp \
 				   ../../Classes/Components/PositionComponent.cpp \
 				   ../../Classes/Components/RenderComponent.cpp \
+				   ../../Classes/Components/SpriteComponent.cpp \
 				   ../../Classes/Components/TextureComponent.cpp \
 				   ../../Classes/Components/TouchComponent.cpp \
 				   ../../Classes/Components/VelocityComponent.cpp \
@@ -42,6 +43,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/Scenes/MainScene.cpp \
 				   ../../Classes/Scenes/StoreScene.cpp \
 				   ../../Classes/Systems/MovementSystem.cpp \
+				   ../../Classes/Systems/RenderSystem.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

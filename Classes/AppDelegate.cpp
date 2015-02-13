@@ -2,8 +2,6 @@
 
 #include "Scenes/LoadingScene.h"
 
-USING_NS_CC;
-
 AppDelegate::AppDelegate() {
 
 }

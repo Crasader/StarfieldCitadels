@@ -2,6 +2,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
+USING_NS_CC;
 
 /**
 @brief    The cocos2d Application.
@@ -13,6 +14,11 @@ class  AppDelegate : private cocos2d::Application
 public:
     AppDelegate();
     virtual ~AppDelegate();
+
+    /*
+	 * Initialize Game variables
+	 */
+	void initializeGame();
 
     virtual void initGLContextAttrs();
 
@@ -34,6 +40,8 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
+
+
 };
 
 #endif // _APP_DELEGATE_H_

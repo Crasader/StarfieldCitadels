@@ -1,6 +1,49 @@
 obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/LoadingScene.o: \
  jni/../../Classes/Scenes/LoadingScene.cpp \
+ C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream \
  jni/../../Classes/Scenes/LoadingScene.h \
+ jni/../../Classes/Evolve/evolve2d.h \
+ jni/../../Classes/Evolve/Component/Component.h \
+ jni/../../Classes/Evolve/Component/ComponentMapper.h \
+ jni/../../Classes/Evolve/Component/../Manager/EntityManager.h \
+ jni/../../Classes/Evolve/Component/../Manager/../Utils/ImmutableBag.h \
+ C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef \
+ jni/../../Classes/Evolve/Component/../Manager/../Component/Component.h \
+ jni/../../Classes/Evolve/Component/../Manager/../Manager/ComponentTypeManager.h \
+ C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map \
+ C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/typeinfo \
+ C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/assert.h \
+ C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/bitset \
+ jni/../../Classes/Evolve/Component/../Manager/../Manager/../Component/ComponentType.h \
+ jni/../../Classes/Evolve/Component/../Manager/../Manager/../Component/../Utils/BitSize.h \
+ jni/../../Classes/Evolve/Component/../World/World.h \
+ jni/../../Classes/Evolve/Component/../World/../Manager/GroupManager.h \
+ jni/../../Classes/Evolve/Component/../World/../Manager/../Utils/ImmutableBag.h \
+ jni/../../Classes/Evolve/Component/../World/../Manager/TagManager.h \
+ jni/../../Classes/Evolve/Component/../World/../Utils/ImmutableBag.h \
+ jni/../../Classes/Evolve/Component/ComponentType.h \
+ jni/../../Classes/Evolve/Entity/Entity.h \
+ jni/../../Classes/Evolve/Entity/../Manager/ComponentTypeManager.h \
+ jni/../../Classes/Evolve/Entity/../Manager/EntityManager.h \
+ jni/../../Classes/Evolve/Entity/../Utils/BitSize.h \
+ jni/../../Classes/Evolve/Entity/../Utils/ImmutableBag.h \
+ jni/../../Classes/Evolve/Entity/EntitySystem.h \
+ jni/../../Classes/Evolve/Entity/../Component/Component.h \
+ jni/../../Classes/Evolve/Entity/DelayedEntitySystem.h \
+ jni/../../Classes/Evolve/Entity/../Entity/EntitySystem.h \
+ jni/../../Classes/Evolve/Entity/EntityProcessingSystem.h \
+ jni/../../Classes/Evolve/Entity/DelayedEntityProcessingSystem.h \
+ jni/../../Classes/Evolve/Entity/../Entity/DelayedEntitySystem.h \
+ jni/../../Classes/Evolve/Manager/ComponentTypeManager.h \
+ jni/../../Classes/Evolve/Manager/EntityManager.h \
+ jni/../../Classes/Evolve/Manager/GroupManager.h \
+ jni/../../Classes/Evolve/Manager/SystemBitManager.h \
+ jni/../../Classes/Evolve/Manager/../Utils/BitSize.h \
+ jni/../../Classes/Evolve/Manager/SystemManager.h \
+ jni/../../Classes/Evolve/Manager/../Utils/ImmutableBag.h \
+ jni/../../Classes/Evolve/Manager/TagManager.h \
+ jni/../../Classes/Evolve/World/World.h \
+ jni/../../Classes/Evolve/Utils/BitSize.h \
  jni/../../cocos2d/cocos/3d/../cocos2d.h \
  jni/../../cocos2d/cocos/3d/../base/ccConfig.h \
  jni/../../cocos2d/cocos/3d/../platform/CCPlatformConfig.h \
@@ -15,41 +58,6 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/LoadingScene.o: \
  jni/../../cocos2d/cocos/3d/../base/ccMacros.h \
  jni/../../cocos2d/cocos/3d/../base/CCConsole.h \
  C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/select.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/cdefs.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/cdefs_elf.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/android/api-level.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/time.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/stdint.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/_types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/_types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/_wchar_limits.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/posix_types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/stddef.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/compiler.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/posix_types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/kernel.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/sysmacros.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/time.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/signal.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/limits.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/limits.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/limits.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/internal_types.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/limits.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/syslimits.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/page.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/string.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/malloc.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/signal.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm-generic/signal.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/sigcontext.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/siginfo.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm-generic/siginfo.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/ucontext.h \
- C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/user.h \
  C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/thread \
  C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/vector \
  C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/map \
@@ -67,7 +75,6 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/LoadingScene.o: \
  jni/../../cocos2d/cocos/3d/../base/CCVector.h \
  C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm \
  jni/../../cocos2d/cocos/3d/../base/CCMap.h \
- C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map \
  jni/../../cocos2d/cocos/3d/../base/CCAutoreleasePool.h \
  jni/../../cocos2d/cocos/3d/../base/CCNS.h \
  jni/../../cocos2d/cocos/3d/../math/CCGeometry.h \
@@ -347,9 +354,108 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Scenes/LoadingScene.o: \
  jni/../../cocos2d/cocos/3d/../deprecated/CCBool.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCString.h \
  jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h \
- jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h
+ jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h \
+ jni/../../Classes/Scenes/../Components/Components.h \
+ jni/../../Classes/Scenes/../Components/AnimationComponent.h \
+ jni/../../Classes/Scenes/../Components/../Evolve/evolve2d.h \
+ jni/../../Classes/Scenes/../Components/PositionComponent.h \
+ jni/../../Classes/Scenes/../Components/RenderComponent.h \
+ jni/../../Classes/Scenes/../Components/SpriteComponent.h \
+ jni/../../Classes/Scenes/../Components/TextureComponent.h \
+ jni/../../Classes/Scenes/../Components/TouchComponent.h \
+ jni/../../Classes/Scenes/../Components/VelocityComponent.h \
+ jni/../../Classes/Scenes/../Systems/MovementSystem.h \
+ jni/../../Classes/Scenes/../Systems/../Components/Components.h \
+ jni/../../Classes/Scenes/../Systems/../Evolve/evolve2d.h \
+ jni/../../Classes/Scenes/../Systems/RenderSystem.h
+
+C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream:
 
 jni/../../Classes/Scenes/LoadingScene.h:
+
+jni/../../Classes/Evolve/evolve2d.h:
+
+jni/../../Classes/Evolve/Component/Component.h:
+
+jni/../../Classes/Evolve/Component/ComponentMapper.h:
+
+jni/../../Classes/Evolve/Component/../Manager/EntityManager.h:
+
+jni/../../Classes/Evolve/Component/../Manager/../Utils/ImmutableBag.h:
+
+C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef:
+
+jni/../../Classes/Evolve/Component/../Manager/../Component/Component.h:
+
+jni/../../Classes/Evolve/Component/../Manager/../Manager/ComponentTypeManager.h:
+
+C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map:
+
+C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/typeinfo:
+
+C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/assert.h:
+
+C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/bitset:
+
+jni/../../Classes/Evolve/Component/../Manager/../Manager/../Component/ComponentType.h:
+
+jni/../../Classes/Evolve/Component/../Manager/../Manager/../Component/../Utils/BitSize.h:
+
+jni/../../Classes/Evolve/Component/../World/World.h:
+
+jni/../../Classes/Evolve/Component/../World/../Manager/GroupManager.h:
+
+jni/../../Classes/Evolve/Component/../World/../Manager/../Utils/ImmutableBag.h:
+
+jni/../../Classes/Evolve/Component/../World/../Manager/TagManager.h:
+
+jni/../../Classes/Evolve/Component/../World/../Utils/ImmutableBag.h:
+
+jni/../../Classes/Evolve/Component/ComponentType.h:
+
+jni/../../Classes/Evolve/Entity/Entity.h:
+
+jni/../../Classes/Evolve/Entity/../Manager/ComponentTypeManager.h:
+
+jni/../../Classes/Evolve/Entity/../Manager/EntityManager.h:
+
+jni/../../Classes/Evolve/Entity/../Utils/BitSize.h:
+
+jni/../../Classes/Evolve/Entity/../Utils/ImmutableBag.h:
+
+jni/../../Classes/Evolve/Entity/EntitySystem.h:
+
+jni/../../Classes/Evolve/Entity/../Component/Component.h:
+
+jni/../../Classes/Evolve/Entity/DelayedEntitySystem.h:
+
+jni/../../Classes/Evolve/Entity/../Entity/EntitySystem.h:
+
+jni/../../Classes/Evolve/Entity/EntityProcessingSystem.h:
+
+jni/../../Classes/Evolve/Entity/DelayedEntityProcessingSystem.h:
+
+jni/../../Classes/Evolve/Entity/../Entity/DelayedEntitySystem.h:
+
+jni/../../Classes/Evolve/Manager/ComponentTypeManager.h:
+
+jni/../../Classes/Evolve/Manager/EntityManager.h:
+
+jni/../../Classes/Evolve/Manager/GroupManager.h:
+
+jni/../../Classes/Evolve/Manager/SystemBitManager.h:
+
+jni/../../Classes/Evolve/Manager/../Utils/BitSize.h:
+
+jni/../../Classes/Evolve/Manager/SystemManager.h:
+
+jni/../../Classes/Evolve/Manager/../Utils/ImmutableBag.h:
+
+jni/../../Classes/Evolve/Manager/TagManager.h:
+
+jni/../../Classes/Evolve/World/World.h:
+
+jni/../../Classes/Evolve/Utils/BitSize.h:
 
 jni/../../cocos2d/cocos/3d/../cocos2d.h:
 
@@ -378,76 +484,6 @@ jni/../../cocos2d/cocos/3d/../base/ccMacros.h:
 jni/../../cocos2d/cocos/3d/../base/CCConsole.h:
 
 C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/select.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/cdefs.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/cdefs_elf.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/android/api-level.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/time.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/stdint.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/_types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/_types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/_wchar_limits.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/posix_types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/stddef.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/compiler.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/posix_types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/kernel.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/sysmacros.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/time.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/signal.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/limits.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/limits.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/linux/limits.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/internal_types.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/machine/limits.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/syslimits.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/page.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/string.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/malloc.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/signal.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm-generic/signal.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/sigcontext.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm/siginfo.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/asm-generic/siginfo.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/ucontext.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/platforms/android-19/arch-arm/usr/include/sys/user.h:
 
 C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/thread:
 
@@ -482,8 +518,6 @@ jni/../../cocos2d/cocos/3d/../base/CCVector.h:
 C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm:
 
 jni/../../cocos2d/cocos/3d/../base/CCMap.h:
-
-C:/Users/ihall1/Development/android-ndk-r10d/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map:
 
 jni/../../cocos2d/cocos/3d/../base/CCAutoreleasePool.h:
 
@@ -1044,3 +1078,29 @@ jni/../../cocos2d/cocos/3d/../deprecated/CCString.h:
 jni/../../cocos2d/cocos/3d/../deprecated/CCNotificationCenter.h:
 
 jni/../../cocos2d/cocos/3d/../deprecated/CCDeprecated.h:
+
+jni/../../Classes/Scenes/../Components/Components.h:
+
+jni/../../Classes/Scenes/../Components/AnimationComponent.h:
+
+jni/../../Classes/Scenes/../Components/../Evolve/evolve2d.h:
+
+jni/../../Classes/Scenes/../Components/PositionComponent.h:
+
+jni/../../Classes/Scenes/../Components/RenderComponent.h:
+
+jni/../../Classes/Scenes/../Components/SpriteComponent.h:
+
+jni/../../Classes/Scenes/../Components/TextureComponent.h:
+
+jni/../../Classes/Scenes/../Components/TouchComponent.h:
+
+jni/../../Classes/Scenes/../Components/VelocityComponent.h:
+
+jni/../../Classes/Scenes/../Systems/MovementSystem.h:
+
+jni/../../Classes/Scenes/../Systems/../Components/Components.h:
+
+jni/../../Classes/Scenes/../Systems/../Evolve/evolve2d.h:
+
+jni/../../Classes/Scenes/../Systems/RenderSystem.h:
