@@ -16,7 +16,7 @@ using namespace evolve2d;
 class RenderSystem: public evolve2d::EntityProcessingSystem {
 private:
 	ComponentMapper<RenderComponent> renderMapper;
-	ComponentMapper<SpriteComponent> spriteMapper;
+	ComponentMapper<GraphicsComponent> graphicsMapper;
     ComponentMapper<PositionComponent> positionMapper;
 public:
 	RenderSystem();

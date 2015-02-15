@@ -13,14 +13,14 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class SpriteComponent: public evolve2d::Component {
+class GraphicsComponent: public evolve2d::Component {
 private:
-	Sprite * sprite;
+	Node * graphics;
 public:
-	SpriteComponent(Sprite * sprite);
-	virtual ~SpriteComponent();
+	GraphicsComponent(Node * graphics);
+	virtual ~GraphicsComponent();
 
-	Sprite * getSprite();
+	Node * getGraphics();
 };
 
 #endif /* __SPRITE_COMPONENT_H__ */

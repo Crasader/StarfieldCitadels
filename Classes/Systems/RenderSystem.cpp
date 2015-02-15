@@ -8,7 +8,7 @@
 #include "RenderSystem.h"
 
 RenderSystem::RenderSystem() {
-	setComponentTypes<RenderComponent, PositionComponent, SpriteComponent>();
+	setComponentTypes<RenderComponent, PositionComponent, GraphicsComponent>();
 
 }
 
@@ -18,12 +18,12 @@ RenderSystem::~RenderSystem() {
 
 void RenderSystem::initialize() {
 	renderMapper.init(*world);
-	spriteMapper.init(*world);
+	graphicsMapper.init(*world);
     positionMapper.init(*world);
 }
 
 void RenderSystem::added(Entity &e) {
-    renderMapper.get(e)->getNode()->addChild(spriteMapper.get(e)->getSprite());
+    renderMapper.get(e)->getNode()->addChild(graphicsMapper.get(e)->getGraphics());
     
 }
 
@@ -40,6 +40,6 @@ void RenderSystem::end() {
 }
 
 void RenderSystem::processEntity(Entity &e) {
-    spriteMapper.get(e)->getSprite()->setPosition(Vec2(positionMapper.get(e)->posX, positionMapper.get(e)->posY));
+    graphicsMapper.get(e)->getGraphics()->setPosition(Vec2(positionMapper.get(e)->posX, positionMapper.get(e)->posY));
 }
 

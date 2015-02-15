@@ -2,10 +2,9 @@
 #define __COMPONENTS_H__
 
 #include "AnimationComponent.h"
+#include "GraphicsComponent.h"
 #include "PositionComponent.h"
 #include "RenderComponent.h"
-#include "SpriteComponent.h"
-#include "TextureComponent.h"
 #include "TouchComponent.h"
 #include "VelocityComponent.h"
 

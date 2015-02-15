@@ -54,9 +54,8 @@ bool LoadingScene::init()
 	Entity & player = em->create();
 	player.addComponent(new PositionComponent(0,0));
 	player.addComponent(new VelocityComponent(2,4));
-	player.addComponent(new SpriteComponent(Sprite::create("CloseNormal.png")));
+	player.addComponent(new GraphicsComponent(Sprite::create("CloseNormal.png")));
 	player.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
-    //this->getChildByName("bgLayer")->addChild(&player);
 	player.refresh();
 
 	comp = (PositionComponent*)player.getComponent<PositionComponent>();
@@ -74,7 +73,4 @@ void LoadingScene::update(float delta) {
 
 	CCLOG("X: %f", comp->posX);
 	CCLOG("Y: %f", comp->posY);
-
-	cout << "X:" << comp->posX << endl;
-	cout << "Y:" << comp->posY << endl;
 }
