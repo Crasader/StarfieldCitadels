@@ -14,11 +14,6 @@ Scene * LoadingScene::createScene()
 {
 	auto scene = LoadingScene::create();
 
-	// Generate Scene layers
-	bgLayer = LayerColor::create(Color4B(255,255,255,255));
-
-	scene->addChild(layer);
-
 	return scene;
 }
 
@@ -29,6 +24,21 @@ bool LoadingScene::init()
 	{
 		return false;
 	}
+    
+    // Generate Scene layers
+    auto baseLayer = BaseLayer::create();
+    baseLayer->setName("BaseLayer");
+    
+    auto animationLayer = AnimationLayer::create();
+    animationLayer->setName("AnimationLayer");
+    
+    auto hudLayer = HUDLayer::create();
+    hudLayer->setName("HUDLayer");
+    
+    auto uiLayer = UILayer::create();
+    uiLayer->setName("UILayer");
+    
+    this->addChild(baseLayer);
 
 	// Initialize managers
 	sm = world.getSystemManager();
@@ -45,7 +55,8 @@ bool LoadingScene::init()
 	player.addComponent(new PositionComponent(0,0));
 	player.addComponent(new VelocityComponent(2,4));
 	player.addComponent(new SpriteComponent(Sprite::create("CloseNormal.png")));
-	player.addComponent(new RenderComponent(bgLayer));
+	player.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
+    //this->getChildByName("bgLayer")->addChild(&player);
 	player.refresh();
 
 	comp = (PositionComponent*)player.getComponent<PositionComponent>();

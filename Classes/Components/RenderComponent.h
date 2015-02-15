@@ -14,11 +14,11 @@ USING_NS_CC;
 
 class RenderComponent : public evolve2d::Component {
 private:
-	Layer * layer;
+	Node * node;
 public:
-	RenderComponent(Layer * layer);
-	~RenderComponent();
-	Layer * getLayer();
+	RenderComponent(Node * node);
+	virtual ~RenderComponent();
+	Node * getNode();
 };
 
 #endif /* __RENDER_COMPONENT_H__ */

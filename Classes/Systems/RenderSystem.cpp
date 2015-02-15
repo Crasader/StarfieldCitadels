@@ -8,7 +8,7 @@
 #include "RenderSystem.h"
 
 RenderSystem::RenderSystem() {
-	setComponentTypes<RenderComponent, SpriteComponent>();
+	setComponentTypes<RenderComponent, PositionComponent, SpriteComponent>();
 
 }
 
@@ -19,9 +19,27 @@ RenderSystem::~RenderSystem() {
 void RenderSystem::initialize() {
 	renderMapper.init(*world);
 	spriteMapper.init(*world);
+    positionMapper.init(*world);
+}
+
+void RenderSystem::added(Entity &e) {
+    renderMapper.get(e)->getNode()->addChild(spriteMapper.get(e)->getSprite());
+    
+}
+
+void RenderSystem::removed(Entity &e) {
+    
+}
+
+void RenderSystem::begin() {
+    
+}
+
+void RenderSystem::end() {
+    
 }
 
 void RenderSystem::processEntity(Entity &e) {
-	renderMapper.get(e)->getLayer()->addChild(spriteMapper.get(e)->getSprite());
+    spriteMapper.get(e)->getSprite()->setPosition(Vec2(positionMapper.get(e)->posX, positionMapper.get(e)->posY));
 }
 

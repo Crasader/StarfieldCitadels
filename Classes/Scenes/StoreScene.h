@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class StoreScene : Scene {
+class StoreScene : public Scene {
 public:
 	static Scene * createScene();
 

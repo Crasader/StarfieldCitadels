@@ -9,7 +9,7 @@
 #define __LOADING_SCENE_H__
 #define COCOS2D_DEBUG 1
 
-#include "Evolve/evolve2d.h"
+#include "../Evolve/evolve2d.h"
 using namespace evolve2d;
 
 #include "cocos2d.h"
@@ -20,7 +20,7 @@ USING_NS_CC;
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
 
-class LoadingScene : Scene {
+class LoadingScene : public Scene {
 private:
 	World world;
 	SystemManager * sm;
@@ -34,9 +34,6 @@ private:
 
 	// Component declaration
 	PositionComponent * comp;
-
-	// Layer declaration
-	Layer * bgLayer;
 public:
 	static Scene * createScene();
 

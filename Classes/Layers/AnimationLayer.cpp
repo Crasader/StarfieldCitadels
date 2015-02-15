@@ -7,3 +7,10 @@
 
 #include "AnimationLayer.h"
 
+bool AnimationLayer::init() {
+    if (!Layer::init()) {
+        return false;
+    }
+    
+    return true;
+}

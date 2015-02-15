@@ -7,15 +7,15 @@
 
 #include "RenderComponent.h"
 
-RenderComponent::RenderComponent(Layer * layer) {
-	this->layer = layer;
+RenderComponent::RenderComponent(Node * node) {
+	this->node = node;
 }
 
 RenderComponent::~RenderComponent() {
 	// TODO Auto-generated destructor stub
 }
 
-Layer * RenderComponent::getLayer() {
-	return layer;
+Node * RenderComponent::getNode() {
+	return node;
 }
 

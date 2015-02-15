@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class BaseLayer : Layer {
+class BaseLayer : public Layer {
 public:
 	// Override Layer::init() with our own init method for BaseLayer
 	virtual bool init();

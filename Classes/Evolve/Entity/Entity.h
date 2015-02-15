@@ -17,7 +17,7 @@ namespace evolve2d {
 	class World;
 	//class EntityManager;
 	
-	class Entity {
+    class Entity {
 
 		private:
 			int id;
@@ -31,7 +31,7 @@ namespace evolve2d {
 			Entity& operator=(const Entity&) = delete;
 			
 		protected:
-
+        
 		public:
 			Entity(World * world, int id);
 			~Entity();

@@ -7,7 +7,7 @@
 #include <bitset>
 
 #include "../Component/ComponentType.h"
-#include "../Component/ComponentType.h"
+#include "../Component/Component.h"
 
 namespace evolve2d {
 	/**

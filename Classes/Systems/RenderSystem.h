@@ -9,6 +9,7 @@
 #define __RENDER_SYSTEM_H__
 
 #include "../Components/Components.h"
+#include "../Layers/Layers.h"
 #include "../Evolve/evolve2d.h"
 using namespace evolve2d;
 
@@ -16,10 +17,15 @@ class RenderSystem: public evolve2d::EntityProcessingSystem {
 private:
 	ComponentMapper<RenderComponent> renderMapper;
 	ComponentMapper<SpriteComponent> spriteMapper;
+    ComponentMapper<PositionComponent> positionMapper;
 public:
 	RenderSystem();
 	~RenderSystem();
 	void initialize();
+    void added(Entity &e);
+    void removed(Entity &e);
+    void begin();
+    void end();
 	void processEntity(Entity &e);
 };
 

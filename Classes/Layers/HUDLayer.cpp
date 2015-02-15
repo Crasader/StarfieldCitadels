@@ -7,3 +7,10 @@
 
 #include "HUDLayer.h"
 
+bool HUDLayer::init() {
+    if (!Layer::init()) {
+        return false;
+    }
+    
+    return true;
+}

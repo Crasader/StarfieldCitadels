@@ -18,7 +18,7 @@ private:
 	Sprite * sprite;
 public:
 	SpriteComponent(Sprite * sprite);
-	~SpriteComponent();
+	virtual ~SpriteComponent();
 
 	Sprite * getSprite();
 };

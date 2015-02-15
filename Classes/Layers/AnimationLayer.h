@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class AnimationLayer : Layer {
+class AnimationLayer : public Layer {
 public:
 	// Override Layer::init() with our own init method for AnimationLayer
 	virtual bool init();

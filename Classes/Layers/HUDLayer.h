@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class HUDLayer : Layer {
+class HUDLayer : public Layer {
 public:
 	// Override Layer::init() with our own init method for HUDLayer
 	virtual bool init();
