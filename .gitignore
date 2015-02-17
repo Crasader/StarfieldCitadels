@@ -1,0 +1,6 @@
+# exclude everything except the classes directory, the resources directory, and a few other misc files
+/*
+!/Classes
+!/Resources
+!README.md
+!.gitignore
