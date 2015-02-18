@@ -42,6 +42,8 @@ public:
 
 	virtual void update(float delta);
 
+	void checkForAssetUpdates();
+
 	// Create the create method for "LoadingScreen" and make the call to the init method using this macro
 	CREATE_FUNC(LoadingScene);
 };

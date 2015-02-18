@@ -28,19 +28,31 @@ bool LoadingScene::init()
 	{
 		return false;
 	}
-    
-	/*FileUtils::getInstance()->addSearchPath("./");
-	std::string fullPath = FileUtils::getInstance()->fullPathForFilename("manifest.json");
-	CCLOG("Test: %s",fullPath.c_str());*/
 
-	std::string manifestPath = "Manifests/project.manifest", storagePath = FileUtils::getInstance()->getWritablePath() + "AssetStorage/";
-    CCLOG("Storage path for this test : %s", storagePath.c_str());
-    
+	// Generate Scene layers
+	auto baseLayer = BaseLayer::create();
+	baseLayer->setName("BaseLayer");
+
+	auto animationLayer = AnimationLayer::create();
+	animationLayer->setName("AnimationLayer");
+
+	this->addChild(baseLayer);
+	this->addChild(animationLayer);
+
+	checkForAssetUpdates();
+
+    //this->scheduleUpdate();
+
+	return true;
+}
+
+void LoadingScene::checkForAssetUpdates() {
+	std::string manifestPath = "Manifests/project.manifest", storagePath = FileUtils::getInstance()->getWritablePath() + "Assets/";
+	CCLOG("Storage path for this test : %s", storagePath.c_str());
+
 	AssetsManagerEx * _am = AssetsManagerEx::create(manifestPath, storagePath);
 
 	_am->retain();
-	if(_am != nullptr)
-		CCLOG("Is not null.");
 
 	if (!_am->getLocalManifest()->isLoaded())
 	{
@@ -48,11 +60,19 @@ bool LoadingScene::init()
 	}
 	else
 	{
-		CCLOG("Made it 1");
 		EventListenerAssetsManagerEx * _amListener = EventListenerAssetsManagerEx::create(_am, [this](EventAssetsManagerEx* event){
-			CCLOG("Made it 2");
 			switch(event->getEventCode())
 			{
+				case EventAssetsManagerEx::EventCode::NEW_VERSION_FOUND:
+					{
+						CCLOG("New version found.");
+					}
+					break;
+				case EventAssetsManagerEx::EventCode::ASSET_UPDATED:
+					{
+						CCLOG("Asset Updated.");
+					}
+					break;
 				case EventAssetsManagerEx::EventCode::ERROR_NO_LOCAL_MANIFEST:
 					{
 						CCLOG("No local manifest file found, skip assets update.");
@@ -62,19 +82,6 @@ bool LoadingScene::init()
 					{
 						std::string assetId = event->getAssetId();
 						float percent = event->getPercent();
-
-						if(assetId == AssetsManagerEx::VERSION_ID)
-						{
-
-						}
-						else if(assetId == AssetsManagerEx::MANIFEST_ID)
-						{
-
-						}
-						else
-						{
-
-						}
 					}
 					break;
 				case EventAssetsManagerEx::EventCode::ERROR_DOWNLOAD_MANIFEST:
@@ -119,12 +126,10 @@ bool LoadingScene::init()
 					break;
 			}
 		});
-        Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_amListener, 1);
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_amListener, 1);
+
+		_am->update();
 	}
-
-    //this->scheduleUpdate();
-
-	return true;
 }
 
 void LoadingScene::update(float delta) {

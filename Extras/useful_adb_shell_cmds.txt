@@ -1,0 +1,5 @@
+run-as com.NullProductions.StarfieldCitadels
+
+run-as com.NullProductions.StarfieldCitadels ls -l /data/data/com.NullProductions.StarfieldCitadels/files/AssetStorage/
+
+rm -rf directoryname
