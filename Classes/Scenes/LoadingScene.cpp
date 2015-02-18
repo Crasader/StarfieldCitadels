@@ -33,7 +33,9 @@ bool LoadingScene::init()
 	std::string fullPath = FileUtils::getInstance()->fullPathForFilename("manifest.json");
 	CCLOG("Test: %s",fullPath.c_str());*/
 
-	std::string manifestPath = FileUtils::getInstance()->fullPathForFilename("manifest.json"), storagePath = "assets/";
+	std::string manifestPath = "Manifests/project.manifest", storagePath = FileUtils::getInstance()->getWritablePath() + "AssetStorage/";
+    CCLOG("Storage path for this test : %s", storagePath.c_str());
+    
 	AssetsManagerEx * _am = AssetsManagerEx::create(manifestPath, storagePath);
 
 	_am->retain();
@@ -46,7 +48,7 @@ bool LoadingScene::init()
 	}
 	else
 	{
-		CCLOG("Made it");
+		CCLOG("Made it 1");
 		EventListenerAssetsManagerEx * _amListener = EventListenerAssetsManagerEx::create(_am, [this](EventAssetsManagerEx* event){
 			CCLOG("Made it 2");
 			switch(event->getEventCode())
@@ -117,6 +119,7 @@ bool LoadingScene::init()
 					break;
 			}
 		});
+        Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_amListener, 1);
 	}
 
     //this->scheduleUpdate();
