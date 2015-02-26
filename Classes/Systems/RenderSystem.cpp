@@ -8,7 +8,7 @@
 #include "RenderSystem.h"
 
 RenderSystem::RenderSystem() {
-	setComponentTypes<RenderComponent, PositionComponent, GraphicsComponent>();
+	setComponentTypes<RenderComponent, PositionComponent, GraphicsComponent, AnchorPointComponent>();
 
 }
 
@@ -17,13 +17,14 @@ RenderSystem::~RenderSystem() {
 }
 
 void RenderSystem::initialize() {
-	renderMapper.init(*world);
-	graphicsMapper.init(*world);
-    positionMapper.init(*world);
+	_renderMapper.init(*world);
+	_graphicsMapper.init(*world);
+    _positionMapper.init(*world);
+    _anchorPointMapper.init(*world);
 }
 
 void RenderSystem::added(Entity &e) {
-    renderMapper.get(e)->getNode()->addChild(graphicsMapper.get(e)->getGraphics());
+    _renderMapper.get(e)->getNode()->addChild(_graphicsMapper.get(e)->getGraphics());
     
 }
 
@@ -40,6 +41,7 @@ void RenderSystem::end() {
 }
 
 void RenderSystem::processEntity(Entity &e) {
-    graphicsMapper.get(e)->getGraphics()->setPosition(Vec2(positionMapper.get(e)->posX, positionMapper.get(e)->posY));
+    _graphicsMapper.get(e)->getGraphics()->setPosition(Vec2(_positionMapper.get(e)->posX, _positionMapper.get(e)->posY));
+    _graphicsMapper.get(e)->getGraphics()->setAnchorPoint(Vec2(_anchorPointMapper.get(e)->getAnchorPointX(),_anchorPointMapper.get(e)->getAnchorPointY()));
 }
 

@@ -27,7 +27,6 @@ private:
 	EntityManager * em;
 
 	// System declaration
-	MovementSystem * movementSys;
 	RenderSystem * renderSys;
 
 	// Entity declaration

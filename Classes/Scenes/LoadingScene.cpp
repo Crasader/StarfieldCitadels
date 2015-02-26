@@ -6,6 +6,8 @@
  */
 
 #include "LoadingScene.h"
+#include "../Constants.h"
+#include "../GameManager.h"
 
 #include "assets-manager/AssetsManagerEx.h"
 #include "assets-manager/CCEventAssetsManagerEx.h"
@@ -29,6 +31,16 @@ bool LoadingScene::init()
 		return false;
 	}
 
+	char FileName[32];
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	GameManager::Instance()->SetUpScaleFactors();
+
+	CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
+	CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
+
 	// Generate Scene layers
 	auto baseLayer = BaseLayer::create();
 	baseLayer->setName("BaseLayer");
@@ -39,9 +51,36 @@ bool LoadingScene::init()
 	this->addChild(baseLayer);
 	this->addChild(animationLayer);
 
-	checkForAssetUpdates();
+	sm = world.getSystemManager();
+	em = world.getEntityManager();
 
-    //this->scheduleUpdate();
+	renderSys = new RenderSystem();
+	sm->setSystem(renderSys);
+	sm->initializeAll(); // Calls the initialize method in each system
+
+	Entity &background = em->create();
+	background.addComponent(new PositionComponent(visibleSize.width/2, visibleSize.height/2));
+	background.addComponent(new GraphicsComponent("BG.png"));
+	background.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
+	background.addComponent(new AnchorPointComponent(0.5, 0.5));
+	background.refresh();
+
+	/*GETFILENAME(FileName, 32, "BG.png");
+	auto bgSprite = Sprite::create(FileName);
+	SCALENODE_XY(bgSprite);
+	bgSprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+	bgSprite->setAnchorPoint(Vec2(0.5,0.5));
+	baseLayer->addChild(bgSprite, kZindexBG);*/
+
+	/*GETFILENAME(FileName, 32, "Floor.png");
+	auto floorSprite = Sprite::create(FileName);
+	SCALENODE_XY(floorSprite);
+	floorSprite->setPosition(Vec2(visibleSize.width/2, 0.0));
+	floorSprite->setAnchorPoint(Vec2(0.5, 0.0));
+	baseLayer->addChild(floorSprite, kZindexFloor);*/
+
+	//checkForAssetUpdates();
+    this->scheduleUpdate();
 
 	return true;
 }
@@ -135,6 +174,7 @@ void LoadingScene::checkForAssetUpdates() {
 void LoadingScene::update(float delta) {
 	world.loopStart();
 	world.setDelta(delta);
+	renderSys->process();
 
 	//CCLOG("X: %f", comp->posX);
 	//CCLOG("Y: %f", comp->posY);

@@ -1,6 +1,7 @@
 #ifndef __COMPONENTS_H__
 #define __COMPONENTS_H__
 
+#include "AnchorPointComponent.h"
 #include "AnimationComponent.h"
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"

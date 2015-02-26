@@ -7,8 +7,12 @@
 
 #include "GraphicsComponent.h"
 
-GraphicsComponent::GraphicsComponent(Node * graphics) {
+/*GraphicsComponent::GraphicsComponent(Node * graphics) {
 	this->graphics = graphics;
+}*/
+
+GraphicsComponent::GraphicsComponent(std::string nameString) {
+	GETFILENAME(_fileName, 32, nameString.c_str());
 }
 
 GraphicsComponent::~GraphicsComponent() {
@@ -16,6 +20,6 @@ GraphicsComponent::~GraphicsComponent() {
 }
 
 Node * GraphicsComponent::getGraphics() {
-	return graphics;
+	return Sprite::create(_fileName);
 }
 

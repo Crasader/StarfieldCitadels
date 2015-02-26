@@ -15,9 +15,10 @@ using namespace evolve2d;
 
 class RenderSystem: public evolve2d::EntityProcessingSystem {
 private:
-	ComponentMapper<RenderComponent> renderMapper;
-	ComponentMapper<GraphicsComponent> graphicsMapper;
-    ComponentMapper<PositionComponent> positionMapper;
+	ComponentMapper<RenderComponent> _renderMapper;
+	ComponentMapper<GraphicsComponent> _graphicsMapper;
+    ComponentMapper<PositionComponent> _positionMapper;
+    ComponentMapper<AnchorPointComponent> _anchorPointMapper;
 public:
 	RenderSystem();
 	~RenderSystem();

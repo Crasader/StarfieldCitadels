@@ -54,7 +54,7 @@ bool MainScene::init()
     Entity & player = em->create();
     player.addComponent(new PositionComponent(0,0));
     player.addComponent(new VelocityComponent(2,4));
-    player.addComponent(new GraphicsComponent(Sprite::create("CloseNormal.png")));
+    player.addComponent(new GraphicsComponent("CloseNormal.png"));
     player.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
     player.refresh();
     
