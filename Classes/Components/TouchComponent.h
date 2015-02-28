@@ -1,5 +1,5 @@
 /*
- * Touch.h
+ * TouchComponent.h
  *
  *  Created on: Feb 10, 2015
  *      Author: ihall1

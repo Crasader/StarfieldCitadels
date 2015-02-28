@@ -31,8 +31,6 @@ bool LoadingScene::init()
 		return false;
 	}
 
-	char FileName[32];
-
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -48,22 +46,30 @@ bool LoadingScene::init()
 	auto animationLayer = AnimationLayer::create();
 	animationLayer->setName("AnimationLayer");
 
-	this->addChild(baseLayer);
-	this->addChild(animationLayer);
+	this->addChild(baseLayer, 0);
+	this->addChild(animationLayer, 1);
 
 	sm = world.getSystemManager();
 	em = world.getEntityManager();
-
+    
 	renderSys = new RenderSystem();
 	sm->setSystem(renderSys);
 	sm->initializeAll(); // Calls the initialize method in each system
 
 	Entity &background = em->create();
 	background.addComponent(new PositionComponent(visibleSize.width/2, visibleSize.height/2));
-	background.addComponent(new GraphicsComponent("BG.png"));
+	background.addComponent(new GraphicsComponent("BG.png", kZindexBG));
 	background.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
 	background.addComponent(new AnchorPointComponent(0.5, 0.5));
 	background.refresh();
+    
+    Entity &floor = em->create();
+    floor.addComponent(new PositionComponent(visibleSize.width/2, 0.0));
+    floor.addComponent(new GraphicsComponent("Floor.png", kZindexFloor));
+    floor.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
+    floor.addComponent(new VelocityComponent(2,4));
+    floor.addComponent(new AnchorPointComponent(0.5, 0.0));
+    floor.refresh();
 
 	/*GETFILENAME(FileName, 32, "BG.png");
 	auto bgSprite = Sprite::create(FileName);
@@ -78,7 +84,7 @@ bool LoadingScene::init()
 	floorSprite->setPosition(Vec2(visibleSize.width/2, 0.0));
 	floorSprite->setAnchorPoint(Vec2(0.5, 0.0));
 	baseLayer->addChild(floorSprite, kZindexFloor);*/
-
+    
 	//checkForAssetUpdates();
     this->scheduleUpdate();
 
@@ -174,7 +180,7 @@ void LoadingScene::checkForAssetUpdates() {
 void LoadingScene::update(float delta) {
 	world.loopStart();
 	world.setDelta(delta);
-	renderSys->process();
+    renderSys->process();
 
 	//CCLOG("X: %f", comp->posX);
 	//CCLOG("Y: %f", comp->posY);

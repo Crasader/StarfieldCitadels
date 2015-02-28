@@ -1,5 +1,5 @@
 /*
- * Animation.cpp
+ * AnimationComponent.cpp
  *
  *  Created on: Feb 10, 2015
  *      Author: ihall1

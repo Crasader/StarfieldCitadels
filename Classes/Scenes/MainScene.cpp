@@ -35,10 +35,10 @@ bool MainScene::init()
     auto uiLayer = UILayer::create();
     uiLayer->setName("UILayer");
     
-    this->addChild(baseLayer);
-    this->addChild(animationLayer);
-    this->addChild(hudLayer);
-    this->addChild(uiLayer);
+    this->addChild(baseLayer, 0);
+    this->addChild(animationLayer, 1);
+    this->addChild(hudLayer, 2);
+    this->addChild(uiLayer, 3);
     
     // Initialize managers
     sm = world.getSystemManager();
@@ -54,7 +54,7 @@ bool MainScene::init()
     Entity & player = em->create();
     player.addComponent(new PositionComponent(0,0));
     player.addComponent(new VelocityComponent(2,4));
-    player.addComponent(new GraphicsComponent("CloseNormal.png"));
+    player.addComponent(new GraphicsComponent("CloseNormal.png", 0));
     player.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
     player.refresh();
     

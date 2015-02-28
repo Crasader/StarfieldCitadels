@@ -7,6 +7,7 @@
 
 #ifndef __RENDER_SYSTEM_H__
 #define __RENDER_SYSTEM_H__
+#define COCOS2D_DEBUG 1
 
 #include "../Components/Components.h"
 #include "../Layers/Layers.h"

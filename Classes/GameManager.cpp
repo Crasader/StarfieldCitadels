@@ -36,9 +36,9 @@ float GameManager::GetScaleFactor() {
 
 void GameManager::SetUpScaleFactors() {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-
+    
+    _scaleFactor = 1.0;
 	_dir  = (char*)kDIRHD;
-	_scaleFactor = 1.0;
 
 	if(visibleSize.width * visibleSize.height > 960 * 640) {
 		_scaleFactor = 2.0;

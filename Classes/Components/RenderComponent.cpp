@@ -8,7 +8,7 @@
 #include "RenderComponent.h"
 
 RenderComponent::RenderComponent(Node * node) {
-	this->node = node;
+	this->_node = node;
 }
 
 RenderComponent::~RenderComponent() {
@@ -16,6 +16,8 @@ RenderComponent::~RenderComponent() {
 }
 
 Node * RenderComponent::getNode() {
-	return node;
+	return _node;
 }
+
+
 

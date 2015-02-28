@@ -14,7 +14,7 @@ USING_NS_CC;
 
 class RenderComponent : public evolve2d::Component {
 private:
-	Node * node;
+	Node * _node;
 public:
 	RenderComponent(Node * node);
 	virtual ~RenderComponent();

@@ -13,7 +13,7 @@ RenderSystem::RenderSystem() {
 }
 
 RenderSystem::~RenderSystem() {
-	// TODO Auto-generated destructor stub
+    
 }
 
 void RenderSystem::initialize() {
@@ -24,7 +24,7 @@ void RenderSystem::initialize() {
 }
 
 void RenderSystem::added(Entity &e) {
-    _renderMapper.get(e)->getNode()->addChild(_graphicsMapper.get(e)->getGraphics());
+    _renderMapper.get(e)->getNode()->addChild(_graphicsMapper.get(e)->getGraphics(), _graphicsMapper.get(e)->getOrder());
     
 }
 
@@ -41,7 +41,8 @@ void RenderSystem::end() {
 }
 
 void RenderSystem::processEntity(Entity &e) {
-    _graphicsMapper.get(e)->getGraphics()->setPosition(Vec2(_positionMapper.get(e)->posX, _positionMapper.get(e)->posY));
     _graphicsMapper.get(e)->getGraphics()->setAnchorPoint(Vec2(_anchorPointMapper.get(e)->getAnchorPointX(),_anchorPointMapper.get(e)->getAnchorPointY()));
+    _graphicsMapper.get(e)->getGraphics()->setPosition(Vec2(_positionMapper.get(e)->posX, _positionMapper.get(e)->posY));
+    
 }
 

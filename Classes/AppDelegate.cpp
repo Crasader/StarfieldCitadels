@@ -26,7 +26,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("Starfield Citadels");
+        glview = GLViewImpl::createWithRect("Starfield Citadels", Rect(200, 200, 960, 640));
+        //glview = GLViewImpl::create("Starfield Citadels");
         director->setOpenGLView(glview);
     }
 
