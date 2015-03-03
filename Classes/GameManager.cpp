@@ -16,7 +16,7 @@ USING_NS_CC;
 
 GameManager *GameManager::_pInstance = NULL;
 
-GameManager *GameManager::Instance() {
+GameManager *GameManager::getInstance() {
 	if(!_pInstance)
 		_pInstance = new GameManager;
 	return _pInstance;
@@ -36,26 +36,29 @@ float GameManager::GetScaleFactor() {
 
 void GameManager::SetUpScaleFactors() {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-    
-    _scaleFactor = 1.0;
-	_dir  = (char*)kDIRHD;
+
+	std::vector<std::string> resDirOrders;
 
 	if(visibleSize.width * visibleSize.height > 960 * 640) {
 		_scaleFactor = 2.0;
-		_dir = (char*)kDIRUHD;
+		resDirOrders.push_back(kDIRUHD);
+
 	}
 	else if(visibleSize.width * visibleSize.height <= 480 * 320) {
 		_scaleFactor = 0.5;
-		_dir = (char*)kDIRND;
+		resDirOrders.push_back(kDIRND);
 	}
+	else
+	{
+		_scaleFactor = 1.0;
+		resDirOrders.push_back(kDIRHD);
+	}
+
+	// Set search resolutions order for application
+	FileUtils::getInstance()->setSearchResolutionsOrder(resDirOrders);
 
 	_scaleX = visibleSize.width / (960 * _scaleFactor);
 	_scaleY = visibleSize.height / (640 * _scaleFactor);
 
 	CCLOG("_scaleFactor:%.2f _scaleX:%.2f _scaleY:%.2f", _scaleFactor, _scaleX, _scaleY);
-}
-
-void GameManager::GetFileName(char *array, const int len, const char *name) {
-	memset(array, 0, sizeof(char) * len);
-	sprintf(array, "%s%s", _dir, name);
 }

@@ -34,7 +34,7 @@ bool LoadingScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	GameManager::Instance()->SetUpScaleFactors();
+	GameManager::getInstance()->SetUpScaleFactors();
 
 	CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
 	CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
@@ -67,23 +67,8 @@ bool LoadingScene::init()
     floor.addComponent(new PositionComponent(visibleSize.width/2, 0.0));
     floor.addComponent(new GraphicsComponent("Floor.png", kZindexFloor));
     floor.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
-    floor.addComponent(new VelocityComponent(2,4));
     floor.addComponent(new AnchorPointComponent(0.5, 0.0));
     floor.refresh();
-
-	/*GETFILENAME(FileName, 32, "BG.png");
-	auto bgSprite = Sprite::create(FileName);
-	SCALENODE_XY(bgSprite);
-	bgSprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
-	bgSprite->setAnchorPoint(Vec2(0.5,0.5));
-	baseLayer->addChild(bgSprite, kZindexBG);*/
-
-	/*GETFILENAME(FileName, 32, "Floor.png");
-	auto floorSprite = Sprite::create(FileName);
-	SCALENODE_XY(floorSprite);
-	floorSprite->setPosition(Vec2(visibleSize.width/2, 0.0));
-	floorSprite->setAnchorPoint(Vec2(0.5, 0.0));
-	baseLayer->addChild(floorSprite, kZindexFloor);*/
     
 	//checkForAssetUpdates();
     this->scheduleUpdate();

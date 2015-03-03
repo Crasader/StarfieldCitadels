@@ -16,16 +16,15 @@ GraphicsComponent::GraphicsComponent(Node * graphics, int zOrder) {
     this->_zOrder = zOrder;
 }
 
-GraphicsComponent::GraphicsComponent(std::string nameString, int zOrder) {
-	GETFILENAME(_fileName, 32, nameString.c_str());
-    _graphics = Sprite::create(_fileName);
+GraphicsComponent::GraphicsComponent(std::string fileName, int zOrder) {
+    _graphics = Sprite::create(fileName);
     SCALENODE_XY(_graphics);
     _graphics->retain();
     this->_zOrder = zOrder;
 }
 
 GraphicsComponent::~GraphicsComponent() {
-	// TODO Auto-generated destructor stub
+	_graphics->release();
 }
 
 Node * GraphicsComponent::getGraphics() {

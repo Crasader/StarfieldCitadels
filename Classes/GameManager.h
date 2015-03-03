@@ -21,9 +21,8 @@ private:
 	float _scaleX;
 	float _scaleY;
 	float _scaleFactor;
-	char *_dir;
 public:
-	static GameManager* Instance();
+	static GameManager* getInstance();
 	void LateInit();
 
 	float GetScaleX();
@@ -32,13 +31,11 @@ public:
 
 	void SetUpScaleFactors();
 
-	void GetFileName(char *array, const int len, const char *name);
-
 };
 
-#define GETSCALEX ( GameManager::Instance()->GetScaleX() )
-#define GETSCALEY ( GameManager::Instance()->GetScaleY() )
-#define GETSCALEFAC ( GameManager::Instance()->GetScaleFactor() )
+#define GETSCALEX ( GameManager::getInstance()->GetScaleX() )
+#define GETSCALEY ( GameManager::getInstance()->GetScaleY() )
+#define GETSCALEFAC ( GameManager::getInstance()->GetScaleFactor() )
 
 #define SCALEX(p) ( (p) * GETSCALEX)
 #define SCALEY(p) ( (p) * GETSCALEY)
@@ -46,9 +43,6 @@ public:
 #define SCALEPOS(x,y) ( Vec2(  GETSCALEX * (x) * GETSCALEFAC, GETSCALEY * (y) * GETSCALEFAC ) )
 
 #define SCALEFONT(p) ( (p) * SCALEY * GETSCALEFAC )
-
-#define GETFILENAME(a,l,n) \
-	(GameManager::Instance()->GetFileName(a,l,n))
 
 #define SCALENODE_XY(n) \
 	n->setScaleX(GETSCALEX); \

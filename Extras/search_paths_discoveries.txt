@@ -1,0 +1,26 @@
+std::vector<std::string> resDirOrders = FileUtils::getInstance()->getSearchResolutionsOrder();
+
+	/*if(visibleSize.width < 1024) {
+		resDirOrders.push_back("HD");
+	}
+	else {
+		resDirOrders.push_back("ND");
+	}*/
+
+	CCLOG("# of resDirOrders: %d", resDirOrders.size());
+	for(std::string path : resDirOrders)
+	{
+		CCLOG("Path: %s", path.c_str());
+	}
+
+	//FileUtils::getInstance()->setSearchResolutionsOrder(resDirOrders);
+
+	std::vector<std::string> searchPaths = FileUtils::getInstance()->getSearchPaths();
+	CCLOG("# of searchPaths: %d", searchPaths.size());
+	for(std::string path : searchPaths)
+	{
+		CCLOG("Path: %s", path.c_str());
+	}
+
+	std::string temp = FileUtils::getInstance()->fullPathForFilename("BG.png");
+	CCLOG("FilePath: %s", temp.c_str());

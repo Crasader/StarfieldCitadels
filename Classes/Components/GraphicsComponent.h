@@ -19,11 +19,10 @@ USING_NS_CC;
 class GraphicsComponent: public evolve2d::Component {
 private:
     Node * _graphics;
-	char _fileName[32];
     int _zOrder;
 public:
 	GraphicsComponent(Node * graphics, int zOrder);
-	GraphicsComponent(std::string nameString, int zOrder);
+	GraphicsComponent(std::string fileName, int zOrder);
 	virtual ~GraphicsComponent();
 
 	Node * getGraphics();
