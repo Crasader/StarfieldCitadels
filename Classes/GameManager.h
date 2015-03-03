@@ -21,6 +21,7 @@ private:
 	float _scaleX;
 	float _scaleY;
 	float _scaleFactor;
+	char *_dir;
 public:
 	static GameManager* getInstance();
 	void LateInit();
@@ -30,6 +31,8 @@ public:
 	float GetScaleFactor();
 
 	void SetUpScaleFactors();
+
+	char * getResDirectory();
 
 };
 

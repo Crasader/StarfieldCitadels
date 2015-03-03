@@ -19,20 +19,24 @@ USING_NS_CC;
 #include "../Components/Components.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
+#include "../ResourceLoader.h"
 
 class LoadingScene : public Scene {
 private:
-	World world;
-	SystemManager * sm;
-	EntityManager * em;
+	World _world;
+	SystemManager *_sm;
+	EntityManager *_em;
 
 	// System declaration
-	RenderSystem * renderSys;
+	RenderSystem *_renderSys;
 
 	// Entity declaration
 
 	// Component declaration
-	PositionComponent * comp;
+	PositionComponent *_comp;
+
+	// Resource Loader declaration for preloading assets
+	ResourceLoader _resLoader;
 public:
 	static Scene * createScene();
 

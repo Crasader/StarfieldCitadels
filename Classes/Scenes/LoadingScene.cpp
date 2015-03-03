@@ -7,7 +7,6 @@
 
 #include "LoadingScene.h"
 #include "../Constants.h"
-#include "../GameManager.h"
 
 #include "assets-manager/AssetsManagerEx.h"
 #include "assets-manager/CCEventAssetsManagerEx.h"
@@ -34,7 +33,9 @@ bool LoadingScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	GameManager::getInstance()->SetUpScaleFactors();
+	//GameManager::getInstance()->SetUpScaleFactors();
+
+	_resLoader.startResourceLoad();
 
 	CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
 	CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
@@ -49,21 +50,21 @@ bool LoadingScene::init()
 	this->addChild(baseLayer, 0);
 	this->addChild(animationLayer, 1);
 
-	sm = world.getSystemManager();
-	em = world.getEntityManager();
+	_sm = _world.getSystemManager();
+	_em = _world.getEntityManager();
     
-	renderSys = new RenderSystem();
-	sm->setSystem(renderSys);
-	sm->initializeAll(); // Calls the initialize method in each system
+	_renderSys = new RenderSystem();
+	_sm->setSystem(_renderSys);
+	_sm->initializeAll(); // Calls the initialize method in each system
 
-	Entity &background = em->create();
+	Entity &background = _em->create();
 	background.addComponent(new PositionComponent(visibleSize.width/2, visibleSize.height/2));
 	background.addComponent(new GraphicsComponent("BG.png", kZindexBG));
 	background.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
 	background.addComponent(new AnchorPointComponent(0.5, 0.5));
 	background.refresh();
     
-    Entity &floor = em->create();
+    Entity &floor = _em->create();
     floor.addComponent(new PositionComponent(visibleSize.width/2, 0.0));
     floor.addComponent(new GraphicsComponent("Floor.png", kZindexFloor));
     floor.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
@@ -163,9 +164,9 @@ void LoadingScene::checkForAssetUpdates() {
 }
 
 void LoadingScene::update(float delta) {
-	world.loopStart();
-	world.setDelta(delta);
-    renderSys->process();
+	_world.loopStart();
+	_world.setDelta(delta);
+    _renderSys->process();
 
 	//CCLOG("X: %f", comp->posX);
 	//CCLOG("Y: %f", comp->posY);

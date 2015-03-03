@@ -41,16 +41,19 @@ void GameManager::SetUpScaleFactors() {
 
 	if(visibleSize.width * visibleSize.height > 960 * 640) {
 		_scaleFactor = 2.0;
+		_dir = (char *)kDIRUHD;
 		resDirOrders.push_back(kDIRUHD);
 
 	}
 	else if(visibleSize.width * visibleSize.height <= 480 * 320) {
 		_scaleFactor = 0.5;
+		_dir = (char *)kDIRND;
 		resDirOrders.push_back(kDIRND);
 	}
 	else
 	{
 		_scaleFactor = 1.0;
+		_dir = (char *)kDIRHD;
 		resDirOrders.push_back(kDIRHD);
 	}
 
@@ -61,4 +64,8 @@ void GameManager::SetUpScaleFactors() {
 	_scaleY = visibleSize.height / (640 * _scaleFactor);
 
 	CCLOG("_scaleFactor:%.2f _scaleX:%.2f _scaleY:%.2f", _scaleFactor, _scaleX, _scaleY);
+}
+
+char * GameManager::getResDirectory() {
+	return _dir;
 }
