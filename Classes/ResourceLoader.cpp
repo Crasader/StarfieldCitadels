@@ -6,11 +6,10 @@
  */
 
 #include "ResourceLoader.h"
-#include "dirent.h"
 
 ResourceLoader::ResourceLoader()
 : _numberOfSprites(2),
-  _numberOfLoadedSprites(0) {
+  _numberOfLoadedSprites(0){
 
 }
 

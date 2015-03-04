@@ -37,6 +37,9 @@ private:
 
 	// Resource Loader declaration for preloading assets
 	ResourceLoader _resLoader;
+
+	// Global entity declaration
+	Label *_lbl_percent;
 public:
 	static Scene * createScene();
 

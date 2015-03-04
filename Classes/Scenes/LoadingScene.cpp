@@ -18,7 +18,6 @@ using cocos2d::extension::EventAssetsManagerEx;
 Scene * LoadingScene::createScene()
 {
 	auto scene = LoadingScene::create();
-
 	return scene;
 }
 
@@ -71,6 +70,22 @@ bool LoadingScene::init()
     floor.addComponent(new AnchorPointComponent(0.5, 0.0));
     floor.refresh();
     
+    auto sp_PreloadProgressBorder = Sprite::create("progressbar_border.png");
+    sp_PreloadProgressBorder->setPosition(Vec2(visibleSize.width/2, visibleSize.height/4));
+	animationLayer->addChild(sp_PreloadProgressBorder);
+
+	auto pt_PreloadProgress = ProgressTimer::create(Sprite::create("progressbar.png"));
+	pt_PreloadProgress->setType(ProgressTimerType::BAR);
+	pt_PreloadProgress->setAnchorPoint(Vec2(0,0));
+	pt_PreloadProgress->setBarChangeRate(Vec2(1,0));
+	pt_PreloadProgress->setMidpoint(Vec2(0,0));
+	sp_PreloadProgressBorder->addChild(pt_PreloadProgress, 50);
+
+	_lbl_percent = Label::createWithTTF("0%", "fonts/arial.ttf", 15);
+	sp_PreloadProgressBorder->addChild(_lbl_percent);
+
+	pt_PreloadProgress->setPercentage(60);
+
 	//checkForAssetUpdates();
     this->scheduleUpdate();
 
@@ -162,6 +177,7 @@ void LoadingScene::checkForAssetUpdates() {
 		_am->update();
 	}
 }
+
 
 void LoadingScene::update(float delta) {
 	_world.loopStart();
