@@ -23,14 +23,14 @@ void ResourceLoader::startResourceLoad() {
 
 	std::vector<std::string> resDirOrders = FileUtils::getInstance()->getSearchResolutionsOrder();
 
-	CCLOG("# of resDirOrders: %d", resDirOrders.size());
+	CCLOG("# of resDirOrders: %lu", resDirOrders.size());
 	for(std::string path : resDirOrders)
 	{
 		CCLOG("Path: %s", path.c_str());
 	}
 
 	std::vector<std::string> searchPaths = FileUtils::getInstance()->getSearchPaths();
-	CCLOG("# of searchPaths: %d", searchPaths.size());
+	CCLOG("# of searchPaths: %lu", searchPaths.size());
 	for(std::string path : searchPaths)
 	{
 		CCLOG("Path: %s", path.c_str());
