@@ -15,6 +15,9 @@ using cocos2d::extension::AssetsManagerEx;
 using cocos2d::extension::EventListenerAssetsManagerEx;
 using cocos2d::extension::EventAssetsManagerEx;
 
+#include "../EventResourceLoader.h"
+#include "../EventListenerResourceLoader.h"
+
 Scene * LoadingScene::createScene()
 {
 	auto scene = LoadingScene::create();
@@ -34,7 +37,9 @@ bool LoadingScene::init()
 
 	//GameManager::getInstance()->SetUpScaleFactors();
 
-	_resLoader.startResourceLoad();
+	ResourceLoader *resLoader = ResourceLoader::create();
+	resLoader->retain();
+
 
 	CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
 	CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
@@ -81,10 +86,43 @@ bool LoadingScene::init()
 	pt_PreloadProgress->setMidpoint(Vec2(0,0));
 	sp_PreloadProgressBorder->addChild(pt_PreloadProgress, 50);
 
-	_lbl_percent = Label::createWithTTF("0%", "fonts/arial.ttf", 15);
-	sp_PreloadProgressBorder->addChild(_lbl_percent);
+	//_lbl_percent = Label::createWithTTF("0%", "fonts/arial.ttf", 15);
+	//sp_PreloadProgressBorder->addChild(_lbl_percent);
 
 	pt_PreloadProgress->setPercentage(60);
+
+	resLoader->startResourceLoad();
+
+	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(resLoader, [this](EventResourceLoader *event) {
+		switch(event->getEventCode()) {
+		case EventResourceLoader::EventCode::RESOURCE_LOADED:
+			{
+
+			}
+			break;
+		case EventResourceLoader::EventCode::LOAD_PROGRESSION:
+			{
+				CCLOG("Percent: %f", event->getPercent());
+			}
+			break;
+		case EventResourceLoader::EventCode::LOAD_FAILED:
+			{
+
+			}
+			break;
+		case EventResourceLoader::EventCode::LOAD_FINISHED:
+			{
+				CCLOG("Percent: %f", event->getPercent());
+			}
+			break;
+		default:
+			{
+				CCLOG("Hit Default.");
+			}
+			break;
+		}
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(resLoaderListener, 1);
 
 	//checkForAssetUpdates();
     this->scheduleUpdate();
