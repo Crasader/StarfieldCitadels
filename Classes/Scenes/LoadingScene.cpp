@@ -40,6 +40,7 @@ bool LoadingScene::init()
 	ResourceLoader *resLoader = ResourceLoader::create();
 	resLoader->retain();
 
+	resLoader->startResourceLoad();
 
 	CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
 	CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
@@ -89,11 +90,7 @@ bool LoadingScene::init()
 	//_lbl_percent = Label::createWithTTF("0%", "fonts/arial.ttf", 15);
 	//sp_PreloadProgressBorder->addChild(_lbl_percent);
 
-	pt_PreloadProgress->setPercentage(60);
-
-	resLoader->startResourceLoad();
-
-	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(resLoader, [this](EventResourceLoader *event) {
+	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(resLoader, [pt_PreloadProgress,this](EventResourceLoader *event) {
 		switch(event->getEventCode()) {
 		case EventResourceLoader::EventCode::RESOURCE_LOADED:
 			{
@@ -103,6 +100,7 @@ bool LoadingScene::init()
 		case EventResourceLoader::EventCode::LOAD_PROGRESSION:
 			{
 				CCLOG("Percent: %f", event->getPercent());
+				pt_PreloadProgress->setPercentage(event->getPercent());
 			}
 			break;
 		case EventResourceLoader::EventCode::LOAD_FAILED:
@@ -112,7 +110,8 @@ bool LoadingScene::init()
 			break;
 		case EventResourceLoader::EventCode::LOAD_FINISHED:
 			{
-				CCLOG("Percent: %f", event->getPercent());
+				/*CCLOG("Percent: %f", event->getPercent());
+				pt_PreloadProgress->setPercentage(event->getPercent());*/
 			}
 			break;
 		default:

@@ -15,6 +15,14 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+struct Order
+{
+	bool operator()(std::string const& a, std::string const& b)
+	{
+		return FileUtils::getInstance()->getFileSize(a) < FileUtils::getInstance()->getFileSize(b);
+	}
+};
+
 class ResourceLoader : public Ref {
 private:
 	int _numberOfSprites;
@@ -47,36 +55,11 @@ public:
 	State getState() const;
 
 protected:
-	void dispatchUpdateEvent(EventResourceLoader::EventCode code, const std::string &message = "", const std::string &assetId = "");
-
-	/*void startUpdate();
-	void updateSucceed();
-
-	* @brief  Call back function for recording downloading percent of the current asset,
-	 the progression will then be reported to user's listener registed in addUpdateProgressEventListener
-	 @param total       Total size to download for this asset
-	 @param downloaded  Total size already downloaded for this asset
-	 @param url         The url of this asset
-	 @param customId    The key of this asset
-	 @warning AssetsManagerEx internal use only
-	 * @js NA
-	 * @lua NA
-
-	virtual void onProgress(double total, double downloaded, const std::string &url, const std::string &customId);
-
-	* @brief  Call back function for success of the current asset
-	 the success event will then be send to user's listener registed in addUpdateEventListener
-	 @param srcUrl      The url of this asset
-	 @param customId    The key of this asset
-	 @warning AssetsManagerEx internal use only
-	 * @js NA
-	 * @lua NA
-
-	virtual void onSuccess(const std::string &srcUrl, const std::string &storagePath, const std::string &customId);*/
+	void dispatchLoadEvent(EventResourceLoader::EventCode code, const std::string &message = "", const std::string &assetId = "");
 
 private:
 
-	//! The event of the current AssetsManagerEx in event dispatcher
+	//! The event of the current Resource Loader in event dispatcher
 	std::string _eventName;
 
 	//! Reference to the global event dispatcher
@@ -85,8 +68,17 @@ private:
 	//! State of update
 	State _updateState;
 
-	//! Download percent
+	//! Preload percent
 	float _percent;
+
+	//! Preload percent by file
+	float _percentByFile;
+
+	//! Total size of files needed to be preloaded
+	float _totalSize;
+
+	//! Total size of files already preloaded
+	float _preloadedSize;
 };
 
 #endif /* __RESOURCE_LOADER_H__ */
