@@ -40,28 +40,6 @@ bool MainScene::init()
     this->addChild(hudLayer, 2);
     this->addChild(uiLayer, 3);
     
-    // Initialize managers
-    sm = world.getSystemManager();
-    em = world.getEntityManager();
-    
-    // Create and initialize all systems
-    movementSys = new MovementSystem();
-    sm->setSystem(movementSys);
-    renderSys = new RenderSystem();
-    sm->setSystem(renderSys);
-    sm->initializeAll(); // Calls the initialize method in each system
-    
-    Entity & player = em->create();
-    player.addComponent(new PositionComponent(0,0));
-    player.addComponent(new VelocityComponent(2,4));
-    player.addComponent(new GraphicsComponent("CloseNormal.png", 0));
-    player.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
-    player.refresh();
-    
-    comp = (PositionComponent*)player.getComponent<PositionComponent>();
-    
-    this->scheduleUpdate();
-    
     return true;
 }
 

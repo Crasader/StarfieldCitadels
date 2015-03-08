@@ -34,26 +34,8 @@ void ResourceLoader::dispatchLoadEvent(EventResourceLoader::EventCode code, cons
 }
 
 void ResourceLoader::startResourceLoad() {
-    // Add all images we want to preload textures for
-    addImageToBePreloaded("BG.png");
-    addImageToBePreloaded("Floor.png");
-    addImageToBePreloaded("grossini_dance_01.png");
-    addImageToBePreloaded("grossini_dance_02.png");
-    addImageToBePreloaded("grossini_dance_03.png");
-    addImageToBePreloaded("grossini_dance_04.png");
-    addImageToBePreloaded("grossini_dance_05.png");
-    addImageToBePreloaded("grossini_dance_06.png");
-    addImageToBePreloaded("grossini_dance_07.png");
-    addImageToBePreloaded("grossini_dance_08.png");
-    addImageToBePreloaded("grossini_dance_09.png");
-    addImageToBePreloaded("grossini_dance_10.png");
-    addImageToBePreloaded("grossini_dance_11.png");
-    addImageToBePreloaded("grossini_dance_12.png");
-    addImageToBePreloaded("grossini_dance_13.png");
-    addImageToBePreloaded("grossini_dance_14.png");
-    addImageToBePreloaded("background1.png");
-    addImageToBePreloaded("background2.png");
-    addImageToBePreloaded("background3.png");
+    // Construct ordered list of all images to be preloaded
+    buildPreloadingList();
     
     while(!_orderedFileList.empty()) {
         // Current file stats from largest file to smallest file
@@ -95,6 +77,29 @@ ResourceLoader* ResourceLoader::create() {
         CC_SAFE_DELETE(ret);
     }
     return ret;
+}
+
+void ResourceLoader::buildPreloadingList() {
+    // Add all images we want to preload textures for. Add new images here.
+    addImageToBePreloaded("BG.png");
+    addImageToBePreloaded("Floor.png");
+    addImageToBePreloaded("grossini_dance_01.png");
+    addImageToBePreloaded("grossini_dance_02.png");
+    addImageToBePreloaded("grossini_dance_03.png");
+    addImageToBePreloaded("grossini_dance_04.png");
+    addImageToBePreloaded("grossini_dance_05.png");
+    addImageToBePreloaded("grossini_dance_06.png");
+    addImageToBePreloaded("grossini_dance_07.png");
+    addImageToBePreloaded("grossini_dance_08.png");
+    addImageToBePreloaded("grossini_dance_09.png");
+    addImageToBePreloaded("grossini_dance_10.png");
+    addImageToBePreloaded("grossini_dance_11.png");
+    addImageToBePreloaded("grossini_dance_12.png");
+    addImageToBePreloaded("grossini_dance_13.png");
+    addImageToBePreloaded("grossini_dance_14.png");
+    addImageToBePreloaded("background1.png");
+    addImageToBePreloaded("background2.png");
+    addImageToBePreloaded("background3.png");
 }
 
 void ResourceLoader::addImageToBePreloaded(std::string fileName) {

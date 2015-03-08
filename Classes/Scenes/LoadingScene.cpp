@@ -6,6 +6,7 @@
  */
 
 #include "LoadingScene.h"
+#include "MainScene.h"
 #include "../Constants.h"
 
 #include "assets-manager/AssetsManagerEx.h"
@@ -17,6 +18,11 @@ using cocos2d::extension::EventAssetsManagerEx;
 
 #include "../EventResourceLoader.h"
 #include "../EventListenerResourceLoader.h"
+
+LoadingScene::~LoadingScene() {
+    // Release the resource loader that was used in this scene
+    _resLoader->release();
+}
 
 Scene * LoadingScene::createScene()
 {
@@ -34,16 +40,14 @@ bool LoadingScene::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
+    CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
 
-	//GameManager::getInstance()->SetUpScaleFactors();
+	_resLoader = ResourceLoader::create();
+	_resLoader->retain();
 
-	ResourceLoader *resLoader = ResourceLoader::create();
-	resLoader->retain();
-
-	resLoader->startResourceLoad();
-
-	CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
-	CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
+	_resLoader->startResourceLoad();
 
 	// Generate Scene layers
 	auto baseLayer = BaseLayer::create();
@@ -54,27 +58,11 @@ bool LoadingScene::init()
 
 	this->addChild(baseLayer, 0);
 	this->addChild(animationLayer, 1);
-
-	/*_sm = _world.getSystemManager();
-	_em = _world.getEntityManager();
     
-	_renderSys = new RenderSystem();
-	_sm->setSystem(_renderSys);
-	_sm->initializeAll(); // Calls the initialize method in each system
-
-	Entity &background = _em->create();
-	background.addComponent(new PositionComponent(visibleSize.width/2, visibleSize.height/2));
-	background.addComponent(new GraphicsComponent("BG.png", kZindexBG));
-	background.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
-	background.addComponent(new AnchorPointComponent(0.5, 0.5));
-	background.refresh();
-    
-    Entity &floor = _em->create();
-    floor.addComponent(new PositionComponent(visibleSize.width/2, 0.0));
-    floor.addComponent(new GraphicsComponent("Floor.png", kZindexFloor));
-    floor.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
-    floor.addComponent(new AnchorPointComponent(0.5, 0.0));
-    floor.refresh();*/
+    auto background = Sprite::create("BG.png");
+    background->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    background->setAnchorPoint(Vec2(0.5, 0.5));
+    baseLayer->addChild(background);
     
     auto sp_PreloadProgressBorder = Sprite::create("progressbar_border.png");
     sp_PreloadProgressBorder->setPosition(Vec2(visibleSize.width/2, visibleSize.height/4));
@@ -85,13 +73,13 @@ bool LoadingScene::init()
 	pt_PreloadProgress->setAnchorPoint(Vec2(0,0));
 	pt_PreloadProgress->setBarChangeRate(Vec2(1,0));
 	pt_PreloadProgress->setMidpoint(Vec2(0,0));
-	sp_PreloadProgressBorder->addChild(pt_PreloadProgress, 50);
+	sp_PreloadProgressBorder->addChild(pt_PreloadProgress, 1);
     
 	auto lbl_percent = Label::createWithTTF("0", "fonts/arial.ttf", 15);
     lbl_percent->setPosition(Vec2(4*sp_PreloadProgressBorder->getContentSize().width/5, sp_PreloadProgressBorder->getContentSize().height/4));
-	sp_PreloadProgressBorder->addChild(lbl_percent, 60);
+	sp_PreloadProgressBorder->addChild(lbl_percent, 2);
 
-	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(resLoader, [pt_PreloadProgress, lbl_percent, this](EventResourceLoader *event) {
+	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(_resLoader, [pt_PreloadProgress, lbl_percent, this](EventResourceLoader *event) {
 		switch(event->getEventCode()) {
 		case EventResourceLoader::EventCode::RESOURCE_LOADED:
 			{
@@ -114,8 +102,8 @@ bool LoadingScene::init()
 			break;
 		case EventResourceLoader::EventCode::LOAD_FINISHED:
 			{
-				/*CCLOG("Percent: %f", event->getPercent());
-				pt_PreloadProgress->setPercentage(event->getPercent());*/
+                auto nextScene = MainScene::create();
+                Director::getInstance()->replaceScene(nextScene);
 			}
 			break;
 		default:
@@ -126,9 +114,6 @@ bool LoadingScene::init()
 		}
 	});
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(resLoaderListener, 1);
-
-	//checkForAssetUpdates();
-    //this->scheduleUpdate();
 
 	return true;
 }
@@ -217,14 +202,4 @@ void LoadingScene::checkForAssetUpdates() {
 
 		_am->update();
 	}
-}
-
-
-void LoadingScene::update(float delta) {
-	_world.loopStart();
-	_world.setDelta(delta);
-    _renderSys->process();
-
-	//CCLOG("X: %f", comp->posX);
-	//CCLOG("Y: %f", comp->posY);
 }

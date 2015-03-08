@@ -35,6 +35,7 @@ public:
 
 	static ResourceLoader* create();
     
+    void buildPreloadingList();
     void addImageToBePreloaded(std::string fileName);
 private:
     int _numberOfSprites;

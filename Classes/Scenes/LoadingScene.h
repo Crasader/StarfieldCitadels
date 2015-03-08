@@ -22,30 +22,20 @@ USING_NS_CC;
 #include "../ResourceLoader.h"
 
 class LoadingScene : public Scene {
-private:
-	World _world;
-	SystemManager *_sm;
-	EntityManager *_em;
-
-	// System declaration
-	RenderSystem *_renderSys;
-
-	// Entity declaration
-
-	// Component declaration
-	PositionComponent *_comp;
 public:
 	static Scene * createScene();
 
 	// Override Scene::init() with our own init method for oour loading scene
 	virtual bool init();
 
-	virtual void update(float delta);
-
 	void checkForAssetUpdates();
 
 	// Create the create method for "LoadingScreen" and make the call to the init method using this macro
 	CREATE_FUNC(LoadingScene);
+private:
+    ResourceLoader *_resLoader;
+    
+    ~LoadingScene();
 };
 
 #endif /* __LOADING_SCENE_H__ */
