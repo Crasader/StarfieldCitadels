@@ -34,9 +34,6 @@ private:
 
 	// Component declaration
 	PositionComponent *_comp;
-
-	// Global entity declaration
-	Label *_lbl_percent;
 public:
 	static Scene * createScene();
 

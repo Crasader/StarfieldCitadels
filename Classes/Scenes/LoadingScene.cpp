@@ -55,7 +55,7 @@ bool LoadingScene::init()
 	this->addChild(baseLayer, 0);
 	this->addChild(animationLayer, 1);
 
-	_sm = _world.getSystemManager();
+	/*_sm = _world.getSystemManager();
 	_em = _world.getEntityManager();
     
 	_renderSys = new RenderSystem();
@@ -74,7 +74,7 @@ bool LoadingScene::init()
     floor.addComponent(new GraphicsComponent("Floor.png", kZindexFloor));
     floor.addComponent(new RenderComponent(this->getChildByName("BaseLayer")));
     floor.addComponent(new AnchorPointComponent(0.5, 0.0));
-    floor.refresh();
+    floor.refresh();*/
     
     auto sp_PreloadProgressBorder = Sprite::create("progressbar_border.png");
     sp_PreloadProgressBorder->setPosition(Vec2(visibleSize.width/2, visibleSize.height/4));
@@ -86,20 +86,24 @@ bool LoadingScene::init()
 	pt_PreloadProgress->setBarChangeRate(Vec2(1,0));
 	pt_PreloadProgress->setMidpoint(Vec2(0,0));
 	sp_PreloadProgressBorder->addChild(pt_PreloadProgress, 50);
+    
+	auto lbl_percent = Label::createWithTTF("0", "fonts/arial.ttf", 15);
+    lbl_percent->setPosition(Vec2(4*sp_PreloadProgressBorder->getContentSize().width/5, sp_PreloadProgressBorder->getContentSize().height/4));
+	sp_PreloadProgressBorder->addChild(lbl_percent, 60);
 
-	//_lbl_percent = Label::createWithTTF("0%", "fonts/arial.ttf", 15);
-	//sp_PreloadProgressBorder->addChild(_lbl_percent);
-
-	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(resLoader, [pt_PreloadProgress,this](EventResourceLoader *event) {
+	EventListenerResourceLoader *resLoaderListener = EventListenerResourceLoader::create(resLoader, [pt_PreloadProgress, lbl_percent, this](EventResourceLoader *event) {
 		switch(event->getEventCode()) {
 		case EventResourceLoader::EventCode::RESOURCE_LOADED:
 			{
-
+                CCLOG("Resource loaded: %s", event->getAssetId().c_str());
 			}
 			break;
 		case EventResourceLoader::EventCode::LOAD_PROGRESSION:
 			{
-				CCLOG("Percent: %f", event->getPercent());
+                //CCLOG("Percent: %f", event->getPercent());
+                char tmp[10];
+                sprintf(tmp,"%d%%", (int)event->getPercent());
+                lbl_percent->setString(tmp);
 				pt_PreloadProgress->setPercentage(event->getPercent());
 			}
 			break;
@@ -124,7 +128,7 @@ bool LoadingScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(resLoaderListener, 1);
 
 	//checkForAssetUpdates();
-    this->scheduleUpdate();
+    //this->scheduleUpdate();
 
 	return true;
 }
