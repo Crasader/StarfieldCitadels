@@ -83,7 +83,7 @@ bool LoadingScene::init()
 		switch(event->getEventCode()) {
 		case EventResourceLoader::EventCode::RESOURCE_LOADED:
 			{
-                CCLOG("Resource loaded: %s", event->getAssetId().c_str());
+                //CCLOG("Resource loaded: %s", event->getAssetId().c_str());
 			}
 			break;
 		case EventResourceLoader::EventCode::LOAD_PROGRESSION:

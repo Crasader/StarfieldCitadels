@@ -34,6 +34,10 @@ private:
     
     // Component declaration
     PositionComponent * comp;
+
+    // pinch global variable
+    float _lastDistance;
+    float _kPinchThreshold = 2.0;
 public:
 	static Scene * createScene();
 

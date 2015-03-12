@@ -48,7 +48,7 @@ void ResourceLoader::startResourceLoad() {
             _preloadedSize += fileSize;
             dispatchLoadEvent(EventResourceLoader::EventCode::RESOURCE_LOADED, fileName);
             _percent = ((float)_preloadedSize / _totalSize) * 100;
-            
+
             if(_preloadedSize == _totalSize)
             {
                 // Dispatch one event for load progression to signal the final graphics completion
