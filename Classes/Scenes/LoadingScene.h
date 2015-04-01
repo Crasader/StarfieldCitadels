@@ -14,7 +14,11 @@ using namespace evolve2d;
 
 #include "cocos2d.h"
 // Using namespace cocos2d macro
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+
 USING_NS_CC;
+USING_NS_CC_EXT;
 
 #include "../Components/Components.h"
 #include "../Systems/MovementSystem.h"

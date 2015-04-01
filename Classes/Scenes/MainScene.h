@@ -12,13 +12,30 @@
 #include "../Evolve/evolve2d.h"
 using namespace evolve2d;
 
-#include "cocos2d.h"
-// Using namespace cocos2d macro
-USING_NS_CC;
-
 #include "../Components/Components.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
+
+#include "StoreScene.h"
+#include "CombatScene.h"
+#include "HeroScene.h"
+#include "UpgradeScene.h"
+#include "cocos2d.h"
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+#include <string>
+#include <iostream>
+#include <utility>
+#include <list>
+#include <vector>
+using namespace std;
+
+USING_NS_CC;
+USING_NS_CC_EXT;
+
+class StoreScene;
+class HeroScene;
+class UpgradeScene;
 
 class MainScene : public Scene {
 private:
@@ -34,14 +51,125 @@ private:
     
     // Component declaration
     PositionComponent * comp;
+    StoreScene* buildScene;
+
+    bool boughtHoriWall;
+	bool boughtVerWall;
+	bool boughtHoriPlasma;
+	bool boughtVerPlasma;
+	bool boughtStarDustTree;
+	bool boughtGalacticStone;
+
+    vector<int> builtItemNumbers;
+	vector<Vec2> builtItemLocations;
+
+	bool boughtHeroOne;
+	bool boughtHeroTwo;
+	bool boughtHeroThree;
+	bool boughtHeroFour;
+	bool boughtHeroFive;
+	bool boughtHeroSix;
+
+	int warriorRank;
+	string warriorHealth;
+	string warriorAttack;
+	int spaceRangerRank;
+	string spaceRangerHealth;
+	string spaceRangerAttack;
+	int scoutRank;
+	string scoutHealth;
+	string scoutAttack;
+	int clericRank;
+	string clericHealth;
+	string clericAttack;
+	int assassinRank;
+	string assassinHealth;
+	string assassinAttack;
+	int mageRank;
+	string mageHealth;
+	string mageAttack;
+
+	int horiWallRank;
+	string horiWallHealth;
+	int verWallRank;
+	string verWallHealth;
+	int horiPlasmaRank;
+	string horiPlasmaHealth;
+	int verPlasmaRank;
+	string verPlasmaHealth;
+	int starDustTreeRank;
+	string starDustTreeHealth;
+	int galacticStoneRank;
+	string galacticStoneHealth;
+
 public:
 	static Scene * createScene();
 
 	// Override Scene::init() with our own init method for our main scene
 	virtual bool init();
-    
+	virtual ~MainScene();
+
     virtual void update(float delta);
 
+    void toBuildMenu(cocos2d::Ref* pSender);
+	void toFightMenu(cocos2d::Ref* pSender);
+	void toRecruitMenu(cocos2d::Ref* pSender);
+	void toUpgradeMenu(cocos2d::Ref* pSender);
+
+	vector<Vec2> getLocations();
+	vector<int> getItemNumbers();
+	void setLocations(vector<Vec2> locations);
+	void setItemNumbers(vector<int> itemNums);
+	void buildTheItems();
+
+	void setBoughtItemOne (bool item);
+	void setBoughtItemTwo (bool item);
+	void setBoughtItemThree (bool item);
+	void setBoughtItemFour (bool item);
+	void setBoughtItemFive (bool item);
+	void setBoughtItemSix (bool item);
+
+	void setBoughtHeroOne (bool hero);
+	void setBoughtHeroTwo (bool hero);
+	void setBoughtHeroThree (bool hero);
+	void setBoughtHeroFour (bool hero);
+	void setBoughtHeroFive (bool hero);
+	void setBoughtHeroSix (bool hero);
+
+	void setHeroOneRank(int rank);
+	void setHeroTwoRank(int rank);
+	void setHeroThreeRank(int rank);
+	void setHeroFourRank(int rank);
+	void setHeroFiveRank(int rank);
+	void setHeroSixRank(int rank);
+
+	void setHeroOneAttack(string attack);
+	void setHeroTwoAttack(string attack);
+	void setHeroThreeAttack(string attack);
+	void setHeroFourAttack(string attack);
+	void setHeroFiveAttack(string attack);
+	void setHeroSixAttack(string attack);
+
+	void setHeroOneHealth(string health);
+	void setHeroTwoHealth(string health);
+	void setHeroThreeHealth(string health);
+	void setHeroFourHealth(string health);
+	void setHeroFiveHealth(string health);
+	void setHeroSixHealth(string health);
+
+	void setItemOneRank(int rank);
+	void setItemTwoRank(int rank);
+	void setItemThreeRank(int rank);
+	void setItemFourRank(int rank);
+	void setItemFiveRank(int rank);
+	void setItemSixRank(int rank);
+
+	void setItemOneHealth(string health);
+	void setItemTwoHealth(string health);
+	void setItemThreeHealth(string health);
+	void setItemFourHealth(string health);
+	void setItemFiveHealth(string health);
+	void setItemSixHealth(string health);
 	// Create the create method for "MainScene" and make the call to the init method using this macro
 	CREATE_FUNC(MainScene);
 };

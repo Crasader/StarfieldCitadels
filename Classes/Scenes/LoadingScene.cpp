@@ -18,6 +18,11 @@ using cocos2d::extension::EventAssetsManagerEx;
 
 #include "../EventResourceLoader.h"
 #include "../EventListenerResourceLoader.h"
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
+
+USING_NS_CC_EXT;
+USING_NS_CC;
 
 LoadingScene::~LoadingScene() {
     // Release the resource loader that was used in this scene
