@@ -28,6 +28,7 @@ using namespace evolve2d;
 #include <utility>
 #include <list>
 #include <vector>
+#include <stdio.h>
 using namespace std;
 
 USING_NS_CC;
@@ -52,6 +53,15 @@ private:
     // Component declaration
     PositionComponent * comp;
     StoreScene* buildScene;
+
+    // Layers
+    BaseLayer* baseLayer;
+	AnimationLayer* animationLayer;
+	HUDLayer* hudLayer;
+	UILayer* uiLayer;
+
+
+    int moneyTotal;
 
     bool boughtHoriWall;
 	bool boughtVerWall;
@@ -121,6 +131,9 @@ public:
 	void setLocations(vector<Vec2> locations);
 	void setItemNumbers(vector<int> itemNums);
 	void buildTheItems();
+
+	void setMoneyTotal(int money);
+	void repostMoneyTotal();
 
 	void setBoughtItemOne (bool item);
 	void setBoughtItemTwo (bool item);

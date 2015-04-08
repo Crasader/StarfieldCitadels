@@ -157,6 +157,11 @@ bool HeroScene::init()
 	return true;
 }
 
+void HeroScene::setMoneyTotal(int money)
+{
+	moneyTotal = money;
+}
+
 void HeroScene::setBoughtHeroOne(bool hero)
 {
 	boughtWarrior = hero;
@@ -273,7 +278,17 @@ void HeroScene::doNothing(Ref* pSender)
 
 void HeroScene::loadMainView(Ref* pSender)
 {
+	mainScene->setMoneyTotal(moneyTotal);
+	mainScene->repostMoneyTotal();
 	this->removeAllChildren();
+}
+
+void HeroScene::cancelFromPurchase(Ref* pSender)
+{
+	uiLayer->removeChildByTag(36,1);
+	uiLayer->removeChildByTag(37,1);
+	uiLayer->removeChildByTag(38,1);
+	uiLayer->removeChildByTag(39,1);
 }
 
 void HeroScene::buyFirstSoldier(Ref* pSender)
@@ -318,6 +333,19 @@ void HeroScene::buyFirstSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int heroOneCost = 2000;
+	sprintf(money,"%d", heroOneCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void HeroScene::buySecondSoldier(Ref* pSender)
@@ -362,6 +390,19 @@ void HeroScene::buySecondSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int heroOneCost = 4000;
+	sprintf(money,"%d", heroOneCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void HeroScene::buyThirdSoldier(Ref* pSender)
@@ -406,6 +447,19 @@ void HeroScene::buyThirdSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int heroOneCost = 2500;
+	sprintf(money,"%d", heroOneCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void HeroScene::buyFourthSoldier(Ref* pSender)
@@ -450,6 +504,19 @@ void HeroScene::buyFourthSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int heroOneCost = 3100;
+	sprintf(money,"%d", heroOneCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void HeroScene::buyFifthSoldier(Ref* pSender)
@@ -494,6 +561,19 @@ void HeroScene::buyFifthSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int heroOneCost = 6700;
+	sprintf(money,"%d", heroOneCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void HeroScene::buySixthSoldier(Ref* pSender)
@@ -537,6 +617,19 @@ void HeroScene::buySixthSoldier(Ref* pSender)
 	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(33);
 	uiLayer->addChild(label);
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int heroOneCost = 1800;
+	sprintf(money,"%d", heroOneCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void HeroScene::exitPopup(Ref* pSender)
@@ -546,126 +639,351 @@ void HeroScene::exitPopup(Ref* pSender)
 	uiLayer->removeChildByTag(31,1);
 	uiLayer->removeChildByTag(32,1);
 	uiLayer->removeChildByTag(33,1);
+	uiLayer->removeChildByTag(34,1);
+	uiLayer->removeChildByTag(35,1);
 }
 
 void HeroScene::exitFirstPurchase(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	if (moneyTotal >= 2000)
+	{
+		moneyTotal = moneyTotal - 2000;
 
-	uiLayer->removeChildByTag(29,1);
-	uiLayer->removeChildByTag(30,1);
-	uiLayer->removeChildByTag(31,1);
-	uiLayer->removeChildByTag(32,1);
-	uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	boughtWarrior = true;
-	mainScene->setBoughtHeroOne(boughtWarrior);
+		boughtWarrior = true;
+		mainScene->setBoughtHeroOne(boughtWarrior);
 
-	uiLayer->removeChildByTag(1, 1);
-	auto purchasedFirstSoldier = Sprite::create("bought_soldier.jpg");
-	purchasedFirstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
-	purchasedFirstSoldier->setTag(1);
-	hudLayer->addChild(purchasedFirstSoldier);
+		uiLayer->removeChildByTag(1, 1);
+		auto purchasedFirstSoldier = Sprite::create("bought_soldier.jpg");
+		purchasedFirstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
+		purchasedFirstSoldier->setTag(1);
+		hudLayer->addChild(purchasedFirstSoldier);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(HeroScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void HeroScene::exitSecondPurchase(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	if (moneyTotal >= 4000)
+	{
+		moneyTotal = moneyTotal - 4000;
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(29,1);
-	uiLayer->removeChildByTag(30,1);
-	uiLayer->removeChildByTag(31,1);
-	uiLayer->removeChildByTag(32,1);
-	uiLayer->removeChildByTag(33,1);
+		boughtSpaceRanger = true;
+		mainScene->setBoughtHeroTwo(boughtSpaceRanger);
 
-	boughtSpaceRanger = true;
-	mainScene->setBoughtHeroTwo(boughtSpaceRanger);
+		uiLayer->removeChildByTag(2, 1);
+		auto purchasedSecondSoldier = Sprite::create("bought_soldier.jpg");
+		purchasedSecondSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
+		purchasedSecondSoldier->setTag(2);
+		hudLayer->addChild(purchasedSecondSoldier);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
-	uiLayer->removeChildByTag(2, 1);
-	auto purchasedSecondSoldier = Sprite::create("bought_soldier.jpg");
-	purchasedSecondSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
-	purchasedSecondSoldier->setTag(2);
-	hudLayer->addChild(purchasedSecondSoldier);
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void HeroScene::exitThirdPurchase(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	if (moneyTotal >= 2500)
+	{
+		moneyTotal = moneyTotal - 2500;
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(29,1);
-	uiLayer->removeChildByTag(30,1);
-	uiLayer->removeChildByTag(31,1);
-	uiLayer->removeChildByTag(32,1);
-	uiLayer->removeChildByTag(33,1);
+		boughtScout = true;
+		mainScene->setBoughtHeroThree(boughtScout);
 
-	boughtScout = true;
-	mainScene->setBoughtHeroThree(boughtScout);
+		uiLayer->removeChildByTag(3, 1);
+		auto purchasedThirdSoldier = Sprite::create("bought_soldier.jpg");
+		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
+		purchasedThirdSoldier->setTag(3);
+		hudLayer->addChild(purchasedThirdSoldier);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
-	uiLayer->removeChildByTag(3, 1);
-	auto purchasedThirdSoldier = Sprite::create("bought_soldier.jpg");
-	purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
-	purchasedThirdSoldier->setTag(3);
-	hudLayer->addChild(purchasedThirdSoldier);
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void HeroScene::exitFourthPurchase(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	if (moneyTotal >= 3100)
+	{
+		moneyTotal = moneyTotal - 3100;
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(29,1);
-	uiLayer->removeChildByTag(30,1);
-	uiLayer->removeChildByTag(31,1);
-	uiLayer->removeChildByTag(32,1);
-	uiLayer->removeChildByTag(33,1);
+		boughtCleric = true;
+		mainScene->setBoughtHeroFour(boughtCleric);
 
-	boughtCleric = true;
-	mainScene->setBoughtHeroFour(boughtCleric);
+		uiLayer->removeChildByTag(4, 1);
+		auto purchasedFourthSoldier = Sprite::create("bought_soldier.jpg");
+		purchasedFourthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
+		purchasedFourthSoldier->setTag(4);
+		hudLayer->addChild(purchasedFourthSoldier);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
-	uiLayer->removeChildByTag(4, 1);
-	auto purchasedFourthSoldier = Sprite::create("bought_soldier.jpg");
-	purchasedFourthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
-	purchasedFourthSoldier->setTag(4);
-	hudLayer->addChild(purchasedFourthSoldier);
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void HeroScene::exitFifthPurchase(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	if (moneyTotal >= 6700)
+	{
+		moneyTotal = moneyTotal - 6700;
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(29,1);
-	uiLayer->removeChildByTag(30,1);
-	uiLayer->removeChildByTag(31,1);
-	uiLayer->removeChildByTag(32,1);
-	uiLayer->removeChildByTag(33,1);
+		boughtAssassin = true;
+		mainScene->setBoughtHeroFive(boughtAssassin);
 
-	boughtAssassin = true;
-	mainScene->setBoughtHeroFive(boughtAssassin);
+		uiLayer->removeChildByTag(5, 1);
+		auto purchasedFifthSoldier = Sprite::create("bought_soldier.jpg");
+		purchasedFifthSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
+		purchasedFifthSoldier->setTag(5);
+		hudLayer->addChild(purchasedFifthSoldier);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
-	uiLayer->removeChildByTag(5, 1);
-	auto purchasedFifthSoldier = Sprite::create("bought_soldier.jpg");
-	purchasedFifthSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
-	purchasedFifthSoldier->setTag(5);
-	hudLayer->addChild(purchasedFifthSoldier);
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void HeroScene::exitSixthPurchase(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	if (moneyTotal >= 1800)
+	{
+		moneyTotal = moneyTotal - 1800;
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(29,1);
-	uiLayer->removeChildByTag(30,1);
-	uiLayer->removeChildByTag(31,1);
-	uiLayer->removeChildByTag(32,1);
-	uiLayer->removeChildByTag(33,1);
+		boughtMage = true;
+		mainScene->setBoughtHeroSix(boughtMage);
 
-	boughtMage = true;
-	mainScene->setBoughtHeroSix(boughtMage);
+		uiLayer->removeChildByTag(6, 1);
+		auto purchasedSixthSoldier = Sprite::create("bought_soldier.jpg");
+		purchasedSixthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
+		purchasedSixthSoldier->setTag(6);
+		hudLayer->addChild(purchasedSixthSoldier);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
-	uiLayer->removeChildByTag(6, 1);
-	auto purchasedSixthSoldier = Sprite::create("bought_soldier.jpg");
-	purchasedSixthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
-	purchasedSixthSoldier->setTag(6);
-	hudLayer->addChild(purchasedSixthSoldier);
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void HeroScene::firstBatchOfSoldiers(Ref* pSender)

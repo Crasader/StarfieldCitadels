@@ -38,6 +38,7 @@ bool MainScene::init()
         return false;
     }
     
+    moneyTotal = 4000;
 
     // The first six items in the shop
     boughtHoriWall = false;
@@ -90,16 +91,16 @@ bool MainScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // Generate Scene layers
-    auto baseLayer = BaseLayer::create();
+    baseLayer = BaseLayer::create();
     baseLayer->setName("BaseLayer");
     
-    auto animationLayer = AnimationLayer::create();
+    animationLayer = AnimationLayer::create();
     animationLayer->setName("AnimationLayer");
     
-    auto hudLayer = HUDLayer::create();
+    hudLayer = HUDLayer::create();
     hudLayer->setName("HUDLayer");
     
-    auto uiLayer = UILayer::create();
+    uiLayer = UILayer::create();
     uiLayer->setName("UILayer");
     
 
@@ -109,12 +110,12 @@ bool MainScene::init()
 	recruitButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height - (visibleSize.height/10))));
 	auto recruitMenu = Menu::create(recruitButton, NULL);
 	recruitMenu->setPosition(Vec2::ZERO);
-	uiLayer->addChild(recruitMenu, 1);
+	uiLayer->addChild(recruitMenu);
 
 
 	auto sprite = Sprite::create("space.jpg");
 	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-	baseLayer->addChild(sprite, 0);
+	baseLayer->addChild(sprite);
 
 	auto buildButton = MenuItemImage::create("build_button.png",
 										   "build_button.png",
@@ -122,7 +123,7 @@ bool MainScene::init()
 	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height - (visibleSize.height/3.5))));
 	auto buildMenu = Menu::create(buildButton, NULL);
 	buildMenu->setPosition(Vec2::ZERO);
-	uiLayer->addChild(buildMenu, 1);
+	uiLayer->addChild(buildMenu);
 
 	auto upgradeButton = MenuItemImage::create("upgrade_button.jpg",
 											   "upgrade_button.jpg",
@@ -130,7 +131,7 @@ bool MainScene::init()
 	upgradeButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height/8.5)));
 	auto upgradeMenu = Menu::create(upgradeButton, NULL);
 	upgradeMenu->setPosition(Vec2::ZERO);
-	uiLayer->addChild(upgradeMenu, 1);
+	uiLayer->addChild(upgradeMenu);
 
 	auto fightButton = MenuItemImage::create("fight_button.jpg",
 											   "fight_button.jpg",
@@ -138,7 +139,19 @@ bool MainScene::init()
 	fightButton->setPosition((Point(visibleSize.width / 10 , visibleSize.height / 9)));
 	auto fightMenu = Menu::create(fightButton, NULL);
 	fightMenu->setPosition(Vec2::ZERO);
-	uiLayer->addChild(fightMenu, 1);
+	uiLayer->addChild(fightMenu);
+
+	auto moneyHolder = Sprite::create("moneyTotal.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 6.5 , visibleSize.height - (visibleSize.height/10))));
+	uiLayer->addChild(moneyHolder);
+
+	char theTesttext[256];
+	sprintf(theTesttext,"%d", moneyTotal);
+
+	auto overallMoney = Label::createWithTTF(theTesttext, "fonts/Marker Felt.ttf", 16);
+	overallMoney->setPosition((Point(visibleSize.width / 5.5 , visibleSize.height - (visibleSize.height/10))));
+	overallMoney->setTag(100);
+	uiLayer->addChild(overallMoney);
 
 	this->addChild(baseLayer, 0);
 	this->addChild(animationLayer, 1);
@@ -179,6 +192,7 @@ void MainScene::toRecruitMenu(Ref* pSender)
 {
 	auto recruitScene = HeroScene::create();
 	recruitScene->setMainScene(this);
+	recruitScene->setMoneyTotal(moneyTotal);
 	recruitScene->setBoughtHeroOne(boughtHeroOne);
 	recruitScene->setBoughtHeroTwo(boughtHeroTwo);
 	recruitScene->setBoughtHeroThree(boughtHeroThree);
@@ -253,6 +267,11 @@ vector<int> MainScene::getItemNumbers()
 vector<Vec2> MainScene::getLocations()
 {
 	return builtItemLocations;
+}
+
+void MainScene::setMoneyTotal(int money)
+{
+	moneyTotal = money;
 }
 
 void MainScene::setItemNumbers(vector<int> itemNums)
@@ -450,6 +469,20 @@ void MainScene::setItemSixHealth(string health)
 	galacticStoneHealth = health;
 }
 
+void MainScene::repostMoneyTotal()
+{
+	uiLayer->removeChildByTag(100, 1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	char theTesttext[256];
+	sprintf(theTesttext,"%d", moneyTotal);
+
+	auto overallMoney = Label::createWithTTF(theTesttext, "fonts/Marker Felt.ttf", 16);
+	overallMoney->setPosition((Point(visibleSize.width / 5.5 , visibleSize.height - (visibleSize.height/10))));
+	overallMoney->setTag(100);
+	uiLayer->addChild(overallMoney);
+}
+
 void MainScene::buildTheItems()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -462,37 +495,37 @@ void MainScene::buildTheItems()
 		{
 			auto firstItem = Sprite::create("star.png");
 			firstItem->setPosition(builtItemLocations.at(i));
-			this->addChild(firstItem, 1);
+			hudLayer->addChild(firstItem, 1);
 		}
 		else if(builtItemNumbers.at(i) == 2)
 		{
 			auto secondItem = Sprite::create("star.png");
 			secondItem->setPosition(builtItemLocations.at(i));
-			this->addChild(secondItem, 1);
+			hudLayer->addChild(secondItem, 1);
 		}
 		else if(builtItemNumbers.at(i) == 3)
 		{
 			auto thirdItem = Sprite::create("star.png");
 			thirdItem->setPosition(builtItemLocations.at(i));
-			this->addChild(thirdItem, 1);
+			hudLayer->addChild(thirdItem, 1);
 		}
 		else if(builtItemNumbers.at(i) == 4)
 		{
 			auto fourthItem = Sprite::create("star.png");
 			fourthItem->setPosition(builtItemLocations.at(i));
-			this->addChild(fourthItem, 1);
+			hudLayer->addChild(fourthItem, 1);
 		}
 		else if(builtItemNumbers.at(i) == 5)
 		{
 			auto fifthItem = Sprite::create("star.png");
 			fifthItem->setPosition(builtItemLocations.at(i));
-			this->addChild(fifthItem, 1);
+			hudLayer->addChild(fifthItem, 1);
 		}
 		else if(builtItemNumbers.at(i) == 6)
 		{
 			auto sixthItem = Sprite::create("star.png");
 			sixthItem->setPosition(builtItemLocations.at(i));
-			this->addChild(sixthItem, 1);
+			hudLayer->addChild(sixthItem, 1);
 		}
 	}
 

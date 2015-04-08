@@ -34,6 +34,8 @@ private:
 	UILayer* uiLayer;
 	MainScene* mainScene;
 
+	int moneyTotal;
+
 	bool boughtWarrior;
 	bool boughtSpaceRanger;
 	bool boughtScout;
@@ -51,6 +53,7 @@ public:
 	void setMainScene(MainScene* scene);
 	void setUpPreviousBoughtItems();
 
+	void setMoneyTotal(int money);
 	void setBoughtHeroOne (bool hero);
 	void setBoughtHeroTwo (bool hero);
 	void setBoughtHeroThree (bool hero);
@@ -65,6 +68,7 @@ public:
 	void buyFifthSoldier(cocos2d::Ref* pSender);
 	void buySixthSoldier(cocos2d::Ref* pSender);
 
+	void cancelFromPurchase(cocos2d::Ref* pSender);
 	void exitPopup(cocos2d::Ref* pSender);
 	void exitFirstPurchase(cocos2d::Ref* pSender);
 	void exitSecondPurchase(cocos2d::Ref* pSender);
