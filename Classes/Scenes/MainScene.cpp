@@ -258,6 +258,7 @@ void MainScene::toUpgradeMenu(Ref* pSender)
 	upgradeScene->setItemSixHealth(galacticStoneHealth);
 
 	upgradeScene->setMoneyTotal(moneyTotal);
+	upgradeScene->loadInitialSoldiers();
 	this->addChild(upgradeScene, 5);
 }
 

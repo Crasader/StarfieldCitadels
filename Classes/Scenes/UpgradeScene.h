@@ -96,6 +96,7 @@ public:
 	void toUpgradeCitadel(cocos2d::Ref* pSender);
 	void cancelFromConfirmUpgrade(cocos2d::Ref* pSender);
 	void cancelFromPurchase(cocos2d::Ref* pSender);
+	void loadInitialSoldiers();
 
 	void upgradeFirstSoldier(cocos2d::Ref* pSender);
 	void confirmFirstUpgrade(cocos2d::Ref* pSender);

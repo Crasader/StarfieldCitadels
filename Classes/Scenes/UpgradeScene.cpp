@@ -77,7 +77,7 @@ bool UpgradeScene::init()
 								origin.y + visibleSize.height - (visibleSize.height / 7)));
 	hudLayer->addChild(label);
 
-	auto soldiersTab = MenuItemImage::create("upgrade_soldiers_tab.png",
+	auto soldiersTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
 													   "upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
@@ -204,7 +204,7 @@ void UpgradeScene::cancelFromPurchase(Ref* pSender)
 	uiLayer->removeChildByTag(39,1);
 }
 
-void UpgradeScene::toUpgradeMenu(Ref* pSender)
+void UpgradeScene::loadInitialSoldiers()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -219,7 +219,7 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	uiLayer->removeChildByTag(94,1);
 	uiLayer->removeChildByTag(95,1);
 
-	auto soldiersTab = MenuItemImage::create("upgrade_soldiers_tab.png",
+	auto soldiersTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
 													   "upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
@@ -251,61 +251,143 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	citadelTitle->setTag(95);
 	uiLayer->addChild(citadelTitle);
 
-	auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeFirstSoldier, this));    // position the label on the center of the screen
+	if(boughtWarrior == true)
+	{
+		auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFirstSoldier, this));    // position the label on the center of the screen
 
-	firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
+		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
 
-	auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
-	firstUpgradeMenu->setPosition(Vec2::ZERO);
-	firstUpgradeMenu->setTag(66);
-	uiLayer->addChild(firstUpgradeMenu);
+		auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
+		firstUpgradeMenu->setPosition(Vec2::ZERO);
+		firstUpgradeMenu->setTag(66);
+		uiLayer->addChild(firstUpgradeMenu);
+	}
+	else
+	{
+		auto firstUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
-	auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeSecondSoldier, this));    // position the label on the center of the screen
+		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
 
-	secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
+		firstUpgradeMenu->setPosition(Vec2::ZERO);
+		firstUpgradeMenu->setTag(66);
+		uiLayer->addChild(firstUpgradeMenu);
+	}
 
-	auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
-	secondUpgradeMenu->setPosition(Vec2::ZERO);
-	secondUpgradeMenu->setTag(67);
-	uiLayer->addChild(secondUpgradeMenu);
+	if(boughtSpaceRanger == true)
+	{
+		auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeSecondSoldier, this));    // position the label on the center of the screen
 
-	auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeThirdSoldier, this));    // position the label on the center of the screen
+		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 
-	thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
+		auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
+		secondUpgradeMenu->setPosition(Vec2::ZERO);
+		secondUpgradeMenu->setTag(67);
+		uiLayer->addChild(secondUpgradeMenu);
+	}
+	else
+	{
+		auto secondUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
-	auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
-	thirdUpgradeMenu->setPosition(Vec2::ZERO);
-	thirdUpgradeMenu->setTag(68);
-	uiLayer->addChild(thirdUpgradeMenu);
+		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 
-	auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeFourthSoldier, this));    // position the label on the center of the screen
+		auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
+		secondUpgradeMenu->setPosition(Vec2::ZERO);
+		secondUpgradeMenu->setTag(67);
+		uiLayer->addChild(secondUpgradeMenu);
+	}
 
-	fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+	if(boughtScout == true)
+	{
+		auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeThirdSoldier, this));    // position the label on the center of the screen
 
-	auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
-	fourthUpgradeMenu->setPosition(Vec2::ZERO);
-	fourthUpgradeMenu->setTag(69);
-	uiLayer->addChild(fourthUpgradeMenu);
+		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
 
-	auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeFifthSoldier, this));    // position the label on the center of the screen
+		auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
+		thirdUpgradeMenu->setPosition(Vec2::ZERO);
+		thirdUpgradeMenu->setTag(68);
+		uiLayer->addChild(thirdUpgradeMenu);
+	}
+	else
+	{
+		auto thirdUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
-	fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
 
-	auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
-	fifthUpgradeMenu->setPosition(Vec2::ZERO);
-	fifthUpgradeMenu->setTag(70);
-	uiLayer->addChild(fifthUpgradeMenu);
+		auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
+		thirdUpgradeMenu->setPosition(Vec2::ZERO);
+		thirdUpgradeMenu->setTag(68);
+		uiLayer->addChild(thirdUpgradeMenu);
+	}
 
+	if (boughtCleric == true)
+	{
+		auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFourthSoldier, this));    // position the label on the center of the screen
+
+		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+
+		auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
+		fourthUpgradeMenu->setPosition(Vec2::ZERO);
+		fourthUpgradeMenu->setTag(69);
+		uiLayer->addChild(fourthUpgradeMenu);
+	}
+	else
+	{
+		auto fourthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+
+		auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
+		fourthUpgradeMenu->setPosition(Vec2::ZERO);
+		fourthUpgradeMenu->setTag(69);
+		uiLayer->addChild(fourthUpgradeMenu);
+	}
+
+	if(boughtAssassin == true)
+	{
+		auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFifthSoldier, this));    // position the label on the center of the screen
+
+		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+
+		auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
+		fifthUpgradeMenu->setPosition(Vec2::ZERO);
+		fifthUpgradeMenu->setTag(70);
+		uiLayer->addChild(fifthUpgradeMenu);
+	}
+	else
+	{
+		auto fifthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+
+		auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
+		fifthUpgradeMenu->setPosition(Vec2::ZERO);
+		fifthUpgradeMenu->setTag(70);
+		uiLayer->addChild(fifthUpgradeMenu);
+	}
+
+	if(boughtMage == true)
+	{
 	auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
 													   "upgrade_the_soldier.png",
 													   CC_CALLBACK_1(UpgradeScene::upgradeSixthSoldier, this));    // position the label on the center of the screen
@@ -316,6 +398,230 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	sixthUpgradeMenu->setPosition(Vec2::ZERO);
 	sixthUpgradeMenu->setTag(71);
 	uiLayer->addChild(sixthUpgradeMenu);
+	}
+	else
+	{
+		auto sixthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
+
+		auto sixthUpgradeMenu = Menu::create(sixthUpgrade, NULL);
+		sixthUpgradeMenu->setPosition(Vec2::ZERO);
+		sixthUpgradeMenu->setTag(71);
+		uiLayer->addChild(sixthUpgradeMenu);
+	}
+}
+
+void UpgradeScene::toUpgradeMenu(Ref* pSender)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	uiLayer->removeChildByTag(64,1);
+	uiLayer->removeChildByTag(65,1);
+	uiLayer->removeChildByTag(66,1);
+	uiLayer->removeChildByTag(67,1);
+	uiLayer->removeChildByTag(68,1);
+	uiLayer->removeChildByTag(69,1);
+	uiLayer->removeChildByTag(70,1);
+	uiLayer->removeChildByTag(71,1);
+	uiLayer->removeChildByTag(94,1);
+	uiLayer->removeChildByTag(95,1);
+
+	auto soldiersTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
+													   "upgrade_soldiers_tab.png",
+													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+	soldiersTab->setPosition((Point(visibleSize.width / 4 , visibleSize.height / 1.4)));
+
+	auto soldiersTabMenu = Menu::create(soldiersTab, NULL);
+	soldiersTabMenu->setPosition(Vec2::ZERO);
+	soldiersTabMenu->setTag(64);
+	uiLayer->addChild(soldiersTabMenu);
+
+	auto citadelTab = MenuItemImage::create("upgrade_soldiers_tab.png",
+													   "upgrade_soldiers_tab.png",
+													   CC_CALLBACK_1(UpgradeScene::toUpgradeCitadel, this));    // position the label on the center of the screen
+
+	citadelTab->setPosition((Point((visibleSize.width / 4) * 3 , visibleSize.height / 1.4)));
+
+	auto citadelTabMenu = Menu::create(citadelTab, NULL);
+	citadelTabMenu->setPosition(Vec2::ZERO);
+	citadelTabMenu->setTag(65);
+	uiLayer->addChild(citadelTabMenu);
+
+	auto soldierTitle = Label::createWithTTF("Soldiers", "fonts/Marker Felt.ttf", 18);
+	soldierTitle->setPosition((Point(visibleSize.width / 4 , visibleSize.height / 1.4)));
+	soldierTitle->setTag(94);
+	uiLayer->addChild(soldierTitle);
+
+	auto citadelTitle = Label::createWithTTF("Citadel", "fonts/Marker Felt.ttf", 18);
+	citadelTitle->setPosition((Point((visibleSize.width / 4) * 3 , visibleSize.height / 1.4)));
+	citadelTitle->setTag(95);
+	uiLayer->addChild(citadelTitle);
+
+	if(boughtWarrior == true)
+	{
+		auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFirstSoldier, this));    // position the label on the center of the screen
+
+		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
+
+		auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
+		firstUpgradeMenu->setPosition(Vec2::ZERO);
+		firstUpgradeMenu->setTag(66);
+		uiLayer->addChild(firstUpgradeMenu);
+	}
+	else
+	{
+		auto firstUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
+
+		auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
+		firstUpgradeMenu->setPosition(Vec2::ZERO);
+		firstUpgradeMenu->setTag(66);
+		uiLayer->addChild(firstUpgradeMenu);
+	}
+
+	if(boughtSpaceRanger == true)
+	{
+		auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeSecondSoldier, this));    // position the label on the center of the screen
+
+		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+
+		auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
+		secondUpgradeMenu->setPosition(Vec2::ZERO);
+		secondUpgradeMenu->setTag(67);
+		uiLayer->addChild(secondUpgradeMenu);
+	}
+	else
+	{
+		auto secondUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+
+		auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
+		secondUpgradeMenu->setPosition(Vec2::ZERO);
+		secondUpgradeMenu->setTag(67);
+		uiLayer->addChild(secondUpgradeMenu);
+	}
+
+	if(boughtScout == true)
+	{
+		auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeThirdSoldier, this));    // position the label on the center of the screen
+
+		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
+
+		auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
+		thirdUpgradeMenu->setPosition(Vec2::ZERO);
+		thirdUpgradeMenu->setTag(68);
+		uiLayer->addChild(thirdUpgradeMenu);
+	}
+	else
+	{
+		auto thirdUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
+
+		auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
+		thirdUpgradeMenu->setPosition(Vec2::ZERO);
+		thirdUpgradeMenu->setTag(68);
+		uiLayer->addChild(thirdUpgradeMenu);
+	}
+
+	if (boughtCleric == true)
+	{
+		auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFourthSoldier, this));    // position the label on the center of the screen
+
+		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+
+		auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
+		fourthUpgradeMenu->setPosition(Vec2::ZERO);
+		fourthUpgradeMenu->setTag(69);
+		uiLayer->addChild(fourthUpgradeMenu);
+	}
+	else
+	{
+		auto fourthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+
+		auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
+		fourthUpgradeMenu->setPosition(Vec2::ZERO);
+		fourthUpgradeMenu->setTag(69);
+		uiLayer->addChild(fourthUpgradeMenu);
+	}
+
+	if(boughtAssassin == true)
+	{
+		auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFifthSoldier, this));    // position the label on the center of the screen
+
+		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+
+		auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
+		fifthUpgradeMenu->setPosition(Vec2::ZERO);
+		fifthUpgradeMenu->setTag(70);
+		uiLayer->addChild(fifthUpgradeMenu);
+	}
+	else
+	{
+		auto fifthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+
+		auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
+		fifthUpgradeMenu->setPosition(Vec2::ZERO);
+		fifthUpgradeMenu->setTag(70);
+		uiLayer->addChild(fifthUpgradeMenu);
+	}
+
+	if(boughtMage == true)
+	{
+	auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+													   "upgrade_the_soldier.png",
+													   CC_CALLBACK_1(UpgradeScene::upgradeSixthSoldier, this));    // position the label on the center of the screen
+
+	sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
+
+	auto sixthUpgradeMenu = Menu::create(sixthUpgrade, NULL);
+	sixthUpgradeMenu->setPosition(Vec2::ZERO);
+	sixthUpgradeMenu->setTag(71);
+	uiLayer->addChild(sixthUpgradeMenu);
+	}
+	else
+	{
+		auto sixthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
+
+		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
+
+		auto sixthUpgradeMenu = Menu::create(sixthUpgrade, NULL);
+		sixthUpgradeMenu->setPosition(Vec2::ZERO);
+		sixthUpgradeMenu->setTag(71);
+		uiLayer->addChild(sixthUpgradeMenu);
+	}
 }
 
 void UpgradeScene::toUpgradeCitadel(Ref* pSender)
@@ -345,7 +651,7 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	soldiersTabMenu->setTag(64);
 	uiLayer->addChild(soldiersTabMenu);
 
-	auto citadelTab = MenuItemImage::create("upgrade_soldiers_tab.png",
+	auto citadelTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
 													   "upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
@@ -366,71 +672,167 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	citadelTitle->setTag(95);
 	uiLayer->addChild(citadelTitle);
 
-	auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeFirstBuiltItem, this));    // position the label on the center of the screen
+	if(boughtHoriWall == true)
+	{
+		auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFirstBuiltItem, this));
 
-	firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
+		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
 
-	auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
-	firstUpgradeMenu->setPosition(Vec2::ZERO);
-	firstUpgradeMenu->setTag(66);
-	uiLayer->addChild(firstUpgradeMenu);
+		auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
+		firstUpgradeMenu->setPosition(Vec2::ZERO);
+		firstUpgradeMenu->setTag(66);
+		uiLayer->addChild(firstUpgradeMenu);
+	}
+	else
+	{
+		auto firstUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
-	auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeSecondBuiltItem, this));    // position the label on the center of the screen
+		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
 
-	secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto firstUpgradeMenu = Menu::create(firstUpgrade, NULL);
+		firstUpgradeMenu->setPosition(Vec2::ZERO);
+		firstUpgradeMenu->setTag(66);
+		uiLayer->addChild(firstUpgradeMenu);
+	}
 
-	auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
-	secondUpgradeMenu->setPosition(Vec2::ZERO);
-	secondUpgradeMenu->setTag(67);
-	uiLayer->addChild(secondUpgradeMenu);
+	if(boughtVerWall == true)
+	{
+		auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeSecondBuiltItem, this));
 
-	auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeThirdBuiltItem, this));    // position the label on the center of the screen
+		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 
-	thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
+		auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
+		secondUpgradeMenu->setPosition(Vec2::ZERO);
+		secondUpgradeMenu->setTag(67);
+		uiLayer->addChild(secondUpgradeMenu);
+	}
+	else
+	{
+		auto secondUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
-	auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
-	thirdUpgradeMenu->setPosition(Vec2::ZERO);
-	thirdUpgradeMenu->setTag(68);
-	uiLayer->addChild(thirdUpgradeMenu);
+		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 
-	auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeFourthBuiltItem, this));    // position the label on the center of the screen
+		auto secondUpgradeMenu = Menu::create(secondUpgrade, NULL);
+		secondUpgradeMenu->setPosition(Vec2::ZERO);
+		secondUpgradeMenu->setTag(67);
+		uiLayer->addChild(secondUpgradeMenu);
+	}
 
-	fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+	if(boughtHoriPlasma == true)
+	{
+		auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeThirdBuiltItem, this));
 
-	auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
-	fourthUpgradeMenu->setPosition(Vec2::ZERO);
-	fourthUpgradeMenu->setTag(69);
-	uiLayer->addChild(fourthUpgradeMenu);
+		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
 
-	auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeFifthBuiltItem, this));    // position the label on the center of the screen
+		auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
+		thirdUpgradeMenu->setPosition(Vec2::ZERO);
+		thirdUpgradeMenu->setTag(68);
+		uiLayer->addChild(thirdUpgradeMenu);
+	}
+	else
+	{
+		auto thirdUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
-	fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
 
-	auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
-	fifthUpgradeMenu->setPosition(Vec2::ZERO);
-	fifthUpgradeMenu->setTag(70);
-	uiLayer->addChild(fifthUpgradeMenu);
+		auto thirdUpgradeMenu = Menu::create(thirdUpgrade, NULL);
+		thirdUpgradeMenu->setPosition(Vec2::ZERO);
+		thirdUpgradeMenu->setTag(68);
+		uiLayer->addChild(thirdUpgradeMenu);
+	}
 
-	auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
-													   CC_CALLBACK_1(UpgradeScene::upgradeSixthBuiltItem, this));    // position the label on the center of the screen
+	if(boughtVerPlasma == true)
+	{
+		auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFourthBuiltItem, this));
 
-	sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
+		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
 
-	auto sixthUpgradeMenu = Menu::create(sixthUpgrade, NULL);
-	sixthUpgradeMenu->setPosition(Vec2::ZERO);
-	sixthUpgradeMenu->setTag(71);
-	uiLayer->addChild(sixthUpgradeMenu);
+		auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
+		fourthUpgradeMenu->setPosition(Vec2::ZERO);
+		fourthUpgradeMenu->setTag(69);
+		uiLayer->addChild(fourthUpgradeMenu);
+	}
+	else
+	{
+		auto fourthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
+
+		auto fourthUpgradeMenu = Menu::create(fourthUpgrade, NULL);
+		fourthUpgradeMenu->setPosition(Vec2::ZERO);
+		fourthUpgradeMenu->setTag(69);
+		uiLayer->addChild(fourthUpgradeMenu);
+	}
+
+	if(boughtStarDustTree == true)
+	{
+		auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeFifthBuiltItem, this));
+
+		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+
+		auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
+		fifthUpgradeMenu->setPosition(Vec2::ZERO);
+		fifthUpgradeMenu->setTag(70);
+		uiLayer->addChild(fifthUpgradeMenu);
+	}
+	else
+	{
+		auto fifthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
+
+		auto fifthUpgradeMenu = Menu::create(fifthUpgrade, NULL);
+		fifthUpgradeMenu->setPosition(Vec2::ZERO);
+		fifthUpgradeMenu->setTag(70);
+		uiLayer->addChild(fifthUpgradeMenu);
+	}
+
+	if(boughtGalacticStone == true)
+	{
+		auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
+														   "upgrade_the_soldier.png",
+														   CC_CALLBACK_1(UpgradeScene::upgradeSixthBuiltItem, this));
+
+		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
+
+		auto sixthUpgradeMenu = Menu::create(sixthUpgrade, NULL);
+		sixthUpgradeMenu->setPosition(Vec2::ZERO);
+		sixthUpgradeMenu->setTag(71);
+		uiLayer->addChild(sixthUpgradeMenu);
+	}
+	else
+	{
+		auto sixthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
+														   "upgradeNotAvailable.png",
+														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
+
+		auto sixthUpgradeMenu = Menu::create(sixthUpgrade, NULL);
+		sixthUpgradeMenu->setPosition(Vec2::ZERO);
+		sixthUpgradeMenu->setTag(71);
+		uiLayer->addChild(sixthUpgradeMenu);
+	}
 }
 
 void UpgradeScene::cancelFromConfirmUpgrade(Ref* pSender)
