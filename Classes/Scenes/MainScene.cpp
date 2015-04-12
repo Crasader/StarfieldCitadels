@@ -472,6 +472,138 @@ void MainScene::setItemSixHealth(string health)
 	galacticStoneHealth = health;
 }
 
+void MainScene::doNothing(Ref* pSender)
+{
+}
+
+void MainScene::moneyTreeClicked(Ref* pSender)
+{
+	moneyTotal = moneyTotal + 4;
+	repostMoneyTotal();
+}
+
+void MainScene::exitMoneyStone(Ref* pSender)
+{
+	uiLayer->removeChildByTag(29,1);
+	uiLayer->removeChildByTag(30,1);
+	uiLayer->removeChildByTag(31,1);
+	uiLayer->removeChildByTag(32,1);
+	uiLayer->removeChildByTag(33,1);
+	uiLayer->removeChildByTag(34,1);
+
+	uiLayer->removeChildByTag(35,1);
+	uiLayer->removeChildByTag(36,1);
+	uiLayer->removeChildByTag(37,1);
+	uiLayer->removeChildByTag(38,1);
+	uiLayer->removeChildByTag(39,1);
+
+	repostMoneyTotal();
+}
+
+void MainScene::stoneWasTouched(Ref* pSender)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int randomNum = rand() % 9 + 1;
+
+	if (randomNum == 9)
+	{
+		moneyTotal = moneyTotal - 700;
+		if (moneyTotal < 0)
+		{
+			moneyTotal = 0;
+		}
+
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(MainScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(35);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(36);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("You incurred the wrath", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
+		label->setTag(37);
+		uiLayer->addChild(label);
+
+		auto labelTwo = Label::createWithTTF("of the galaxy.", "fonts/Marker Felt.ttf", 15);
+		labelTwo->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.95)));
+		labelTwo->setTag(38);
+		uiLayer->addChild(labelTwo);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(MainScene::exitMoneyStone, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.4)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
+	else
+	{
+		moneyTotal = moneyTotal + 100;
+		exitMoneyStone(this);
+	}
+}
+
+void MainScene::moneyStoneClicked(Ref* pSender)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	auto backDrop = MenuItemImage::create("blockOut_Content.png",
+											   "blockOut_Content.png",
+											   CC_CALLBACK_1(MainScene::doNothing, this));
+
+	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+	auto backDropLayer = Menu::create(backDrop, NULL);
+	backDropLayer->setPosition(Vec2::ZERO);
+	backDropLayer->setTag(29);
+	uiLayer->addChild(backDropLayer);
+
+	auto popup = Sprite::create("popup_menu.jpg");
+	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+	popup->setTag(30);
+	uiLayer->addChild(popup);
+
+	auto noButton = MenuItemImage::create("noButton.jpg",
+											   "noButton.jpg",
+											   CC_CALLBACK_1(MainScene::exitMoneyStone, this));
+
+	noButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.45)));
+	auto noButtonMenu = Menu::create(noButton, NULL);
+	noButtonMenu->setPosition(Vec2::ZERO);
+	noButtonMenu->setTag(31);
+	uiLayer->addChild(noButtonMenu);
+
+	auto yesButton = MenuItemImage::create("yesButton.jpg",
+											   "yesButton.jpg",
+											   CC_CALLBACK_1(MainScene::stoneWasTouched, this));
+
+	yesButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.45)));
+	auto yesButtonMenu = Menu::create(yesButton, NULL);
+	yesButtonMenu->setPosition(Vec2::ZERO);
+	yesButtonMenu->setTag(32);
+	uiLayer->addChild(yesButtonMenu);
+
+	auto label = Label::createWithTTF("The stone gives off an ominous", "fonts/Marker Felt.ttf", 17);
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
+	label->setTag(33);
+	uiLayer->addChild(label);
+
+	auto labelTwo = Label::createWithTTF("red glow. Touch the stone?", "fonts/Marker Felt.ttf", 17);
+	labelTwo->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.95)));
+	labelTwo->setTag(34);
+	uiLayer->addChild(labelTwo);
+}
+
 void MainScene::repostMoneyTotal()
 {
 	uiLayer->removeChildByTag(100, 1);
@@ -520,15 +652,23 @@ void MainScene::buildTheItems()
 		}
 		else if(builtItemNumbers.at(i) == 5)
 		{
-			auto fifthItem = Sprite::create("star.png");
+			auto fifthItem = MenuItemImage::create("star.png",
+												   "star.png",
+												   CC_CALLBACK_1(MainScene::moneyTreeClicked, this));
 			fifthItem->setPosition(builtItemLocations.at(i));
-			hudLayer->addChild(fifthItem, 1);
+			auto fifthItemHolder = Menu::create(fifthItem, NULL);
+			fifthItemHolder->setPosition(Vec2::ZERO);
+			hudLayer->addChild(fifthItemHolder, 1);
 		}
 		else if(builtItemNumbers.at(i) == 6)
 		{
-			auto sixthItem = Sprite::create("star.png");
+			auto sixthItem = MenuItemImage::create("star.png",
+												   "star.png",
+												   CC_CALLBACK_1(MainScene::moneyStoneClicked, this));
 			sixthItem->setPosition(builtItemLocations.at(i));
-			hudLayer->addChild(sixthItem, 1);
+			auto sixthItemHolder = Menu::create(sixthItem, NULL);
+			sixthItemHolder->setPosition(Vec2::ZERO);
+			hudLayer->addChild(sixthItemHolder, 1);
 		}
 	}
 

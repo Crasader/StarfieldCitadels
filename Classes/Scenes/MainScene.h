@@ -29,6 +29,7 @@ using namespace evolve2d;
 #include <list>
 #include <vector>
 #include <stdio.h>
+#include <stdlib.h>
 using namespace std;
 
 USING_NS_CC;
@@ -132,8 +133,13 @@ public:
 	void setItemNumbers(vector<int> itemNums);
 	void buildTheItems();
 
+	void doNothing(cocos2d::Ref* pSender);
 	void setMoneyTotal(int money);
 	void repostMoneyTotal();
+	void moneyTreeClicked(cocos2d::Ref* pSender);
+	void moneyStoneClicked(cocos2d::Ref* pSender);
+	void exitMoneyStone(cocos2d::Ref* pSender);
+	void stoneWasTouched(cocos2d::Ref* pSender);
 
 	void setBoughtItemOne (bool item);
 	void setBoughtItemTwo (bool item);
