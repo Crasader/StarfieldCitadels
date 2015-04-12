@@ -179,6 +179,7 @@ void MainScene::toBuildMenu(Ref* pSender)
 	buildScene2->setUpBuiltItemNums(builtItemNumbers);
 	buildScene2->setUpBuiltLocations(builtItemLocations);
 	buildScene2->setUpPreviousBuiltItems();
+	buildScene2->setMoneyTotal(moneyTotal);
 	this->addChild(buildScene2, 5);
 	//Director::getInstance()->replaceScene(buildScene2);
 }
@@ -256,6 +257,7 @@ void MainScene::toUpgradeMenu(Ref* pSender)
 	upgradeScene->setItemFiveHealth(starDustTreeHealth);
 	upgradeScene->setItemSixHealth(galacticStoneHealth);
 
+	upgradeScene->setMoneyTotal(moneyTotal);
 	this->addChild(upgradeScene, 5);
 }
 

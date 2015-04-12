@@ -34,6 +34,8 @@ private:
 	UILayer* uiLayer;
 	MainScene* mainScene;
 
+	int moneyTotal;
+
 	bool boughtWarrior;
 	bool boughtSpaceRanger;
 	bool boughtScout;
@@ -93,6 +95,7 @@ public:
 	void toUpgradeMenu(cocos2d::Ref* pSender);
 	void toUpgradeCitadel(cocos2d::Ref* pSender);
 	void cancelFromConfirmUpgrade(cocos2d::Ref* pSender);
+	void cancelFromPurchase(cocos2d::Ref* pSender);
 
 	void upgradeFirstSoldier(cocos2d::Ref* pSender);
 	void confirmFirstUpgrade(cocos2d::Ref* pSender);
@@ -131,6 +134,8 @@ public:
 	void upgradeSixthBuiltItem(cocos2d::Ref* pSender);
 	void confirmSixthItemUpgrade(cocos2d::Ref* pSender);
 	void upgradeSixthItemStats(cocos2d::Ref* pSender);
+
+	void setMoneyTotal(int money);
 
 	void setBoughtHeroOne (bool hero);
 	void setBoughtHeroTwo (bool hero);
@@ -181,6 +186,8 @@ public:
 	void setItemFiveHealth(string health);
 	void setItemSixHealth(string health);
 
+	int getCostForSoldierRank(int rank);
+	int getCostForItemRank(int rank);
 	// Create the create method for "UpgradeScene" and make the call to the init method using this macro
 	CREATE_FUNC(UpgradeScene);
 };

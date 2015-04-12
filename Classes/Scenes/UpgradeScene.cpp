@@ -196,6 +196,14 @@ void UpgradeScene::cancelFromUpgrade(Ref* pSender)
 	uiLayer->removeChildByTag(58,1);
 }
 
+void UpgradeScene::cancelFromPurchase(Ref* pSender)
+{
+	uiLayer->removeChildByTag(36,1);
+	uiLayer->removeChildByTag(37,1);
+	uiLayer->removeChildByTag(38,1);
+	uiLayer->removeChildByTag(39,1);
+}
+
 void UpgradeScene::toUpgradeMenu(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -432,6 +440,53 @@ void UpgradeScene::cancelFromConfirmUpgrade(Ref* pSender)
 	uiLayer->removeChildByTag(61,1);
 	uiLayer->removeChildByTag(62,1);
 	uiLayer->removeChildByTag(63,1);
+	uiLayer->removeChildByTag(34,1);
+	uiLayer->removeChildByTag(35,1);
+}
+
+int UpgradeScene::getCostForSoldierRank(int rank)
+{
+	if(rank == 0)
+	{
+		return 1000;
+	}
+	else if(rank == 1)
+	{
+		return 2000;
+	}
+	else if(rank == 2)
+	{
+		return 3000;
+	}
+	else
+	{
+		return 5000;
+	}
+}
+
+int UpgradeScene::getCostForItemRank(int rank)
+{
+	if(rank == 0)
+	{
+		return 700;
+	}
+	else if(rank == 1)
+	{
+		return 1600;
+	}
+	else if(rank == 2)
+	{
+		return 2400;
+	}
+	else
+	{
+		return 4100;
+	}
+}
+
+void UpgradeScene::setMoneyTotal(int money)
+{
+	moneyTotal = money;
 }
 
 void UpgradeScene::setBoughtHeroOne(bool hero)
@@ -665,6 +720,8 @@ void UpgradeScene::loadMainView(Ref* pSender)
 	mainScene->setItemFiveHealth(starDustTreeHealth);
 	mainScene->setItemSixHealth(galacticStoneHealth);
 
+	mainScene->setMoneyTotal(moneyTotal);
+	mainScene->repostMoneyTotal();
 	this->removeAllChildren();
 }
 
@@ -814,113 +871,164 @@ void UpgradeScene::confirmFirstUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade the Warrior?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForSoldierRank(warriorRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeFirstStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForSoldierRank(warriorRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		warriorRank = warriorRank + 1;
 
+		if (warriorRank == 1)
+		{
+			warriorHealth = "240";
+			warriorAttack = "20";
+		}
+		else if (warriorRank == 2)
+		{
+			warriorHealth = "280";
+			warriorAttack = "25";
+		}
+		else if (warriorRank == 3)
+		{
+			warriorHealth = "350";
+			warriorAttack = "27";
+		}
+		else if (warriorRank == 4)
+		{
+			warriorHealth = "430";
+			warriorAttack = "35";
+		}
 
-	warriorRank = warriorRank + 1;
+		if (warriorRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (warriorRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (warriorRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (warriorRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (warriorRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (warriorRank == 1)
-	{
-		warriorHealth = "240";
-		warriorAttack = "20";
-	}
-	else if (warriorRank == 2)
-	{
-		warriorHealth = "280";
-		warriorAttack = "25";
-	}
-	else if (warriorRank == 3)
-	{
-		warriorHealth = "350";
-		warriorAttack = "27";
-	}
-	else if (warriorRank == 4)
-	{
-		warriorHealth = "430";
-		warriorAttack = "35";
-	}
+		auto health = Label::createWithTTF("HP:  " + warriorHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (warriorRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (warriorRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (warriorRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (warriorRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (warriorRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		auto attack = Label::createWithTTF("Atk:  " + warriorAttack, "fonts/Marker Felt.ttf", 14);
+		attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
+		attack->setTag(56);
+		uiLayer->addChild(attack);
 
-	auto health = Label::createWithTTF("HP:  " + warriorHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
+		if (warriorRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmFirstUpgrade, this));
 
-	auto attack = Label::createWithTTF("Atk:  " + warriorAttack, "fonts/Marker Felt.ttf", 14);
-	attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
-	attack->setTag(56);
-	uiLayer->addChild(attack);
-
-	if (warriorRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmFirstUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -1070,113 +1178,165 @@ void UpgradeScene::confirmSecondUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade the Space Ranger?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForSoldierRank(spaceRangerRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeSecondStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForSoldierRank(spaceRangerRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
 
+		spaceRangerRank = spaceRangerRank + 1;
 
-	spaceRangerRank = spaceRangerRank + 1;
+		if (spaceRangerRank == 1)
+		{
+			spaceRangerHealth = "220";
+			spaceRangerAttack = "21";
+		}
+		else if (spaceRangerRank == 2)
+		{
+			spaceRangerHealth = "260";
+			spaceRangerAttack = "27";
+		}
+		else if (spaceRangerRank == 3)
+		{
+			spaceRangerHealth = "300";
+			spaceRangerAttack = "33";
+		}
+		else if (spaceRangerRank == 4)
+		{
+			spaceRangerHealth = "370";
+			spaceRangerAttack = "40";
+		}
 
-	if (spaceRangerRank == 1)
-	{
-		spaceRangerHealth = "220";
-		spaceRangerAttack = "21";
-	}
-	else if (spaceRangerRank == 2)
-	{
-		spaceRangerHealth = "260";
-		spaceRangerAttack = "27";
-	}
-	else if (spaceRangerRank == 3)
-	{
-		spaceRangerHealth = "300";
-		spaceRangerAttack = "33";
-	}
-	else if (spaceRangerRank == 4)
-	{
-		spaceRangerHealth = "370";
-		spaceRangerAttack = "40";
-	}
+		if (spaceRangerRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (spaceRangerRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (spaceRangerRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (spaceRangerRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (spaceRangerRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (spaceRangerRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (spaceRangerRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (spaceRangerRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (spaceRangerRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (spaceRangerRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		auto health = Label::createWithTTF("HP:  " + spaceRangerHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	auto health = Label::createWithTTF("HP:  " + spaceRangerHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
+		auto attack = Label::createWithTTF("Atk:  " + spaceRangerAttack, "fonts/Marker Felt.ttf", 14);
+		attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
+		attack->setTag(56);
+		uiLayer->addChild(attack);
 
-	auto attack = Label::createWithTTF("Atk:  " + spaceRangerAttack, "fonts/Marker Felt.ttf", 14);
-	attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
-	attack->setTag(56);
-	uiLayer->addChild(attack);
+		if (spaceRangerRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmSecondUpgrade, this));
 
-	if (spaceRangerRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmSecondUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -1326,113 +1486,164 @@ void UpgradeScene::confirmThirdUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade the Scout?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForSoldierRank(scoutRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeThirdStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForSoldierRank(scoutRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		scoutRank = scoutRank + 1;
 
+		if (scoutRank == 1)
+		{
+			scoutHealth = "180";
+			scoutAttack = "12";
+		}
+		else if (scoutRank == 2)
+		{
+			scoutHealth = "220";
+			scoutAttack = "15";
+		}
+		else if (scoutRank == 3)
+		{
+			scoutHealth = "260";
+			scoutAttack = "18";
+		}
+		else if (scoutRank == 4)
+		{
+			scoutHealth = "330";
+			scoutAttack = "25";
+		}
 
-	scoutRank = scoutRank + 1;
+		if (scoutRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (scoutRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (scoutRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (scoutRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (scoutRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (scoutRank == 1)
-	{
-		scoutHealth = "180";
-		scoutAttack = "12";
-	}
-	else if (scoutRank == 2)
-	{
-		scoutHealth = "220";
-		scoutAttack = "15";
-	}
-	else if (scoutRank == 3)
-	{
-		scoutHealth = "260";
-		scoutAttack = "18";
-	}
-	else if (scoutRank == 4)
-	{
-		scoutHealth = "330";
-		scoutAttack = "25";
-	}
+		auto health = Label::createWithTTF("HP:  " + scoutHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (scoutRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (scoutRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (scoutRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (scoutRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (scoutRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		auto attack = Label::createWithTTF("Atk:  " + scoutAttack, "fonts/Marker Felt.ttf", 14);
+		attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
+		attack->setTag(56);
+		uiLayer->addChild(attack);
 
-	auto health = Label::createWithTTF("HP:  " + scoutHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
+		if (scoutRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmThirdUpgrade, this));
 
-	auto attack = Label::createWithTTF("Atk:  " + scoutAttack, "fonts/Marker Felt.ttf", 14);
-	attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
-	attack->setTag(56);
-	uiLayer->addChild(attack);
-
-	if (scoutRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmThirdUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -1582,113 +1793,164 @@ void UpgradeScene::confirmFourthUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade the Cleric?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForSoldierRank(clericRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeFourthStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForSoldierRank(clericRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		clericRank = clericRank + 1;
 
+		if (clericRank == 1)
+		{
+			clericHealth = "200";
+			clericAttack = "12";
+		}
+		else if (clericRank == 2)
+		{
+			clericHealth = "230";
+			clericAttack = "16";
+		}
+		else if (clericRank == 3)
+		{
+			clericHealth = "290";
+			clericAttack = "20";
+		}
+		else if (clericRank == 4)
+		{
+			clericHealth = "370";
+			clericAttack = "29";
+		}
 
-	clericRank = clericRank + 1;
+		if (clericRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (clericRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (clericRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (clericRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (clericRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (clericRank == 1)
-	{
-		clericHealth = "200";
-		clericAttack = "12";
-	}
-	else if (clericRank == 2)
-	{
-		clericHealth = "230";
-		clericAttack = "16";
-	}
-	else if (clericRank == 3)
-	{
-		clericHealth = "290";
-		clericAttack = "20";
-	}
-	else if (clericRank == 4)
-	{
-		clericHealth = "370";
-		clericAttack = "29";
-	}
+		auto health = Label::createWithTTF("HP:  " + clericHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (clericRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (clericRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (clericRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (clericRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (clericRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		auto attack = Label::createWithTTF("Atk:  " + clericAttack, "fonts/Marker Felt.ttf", 14);
+		attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
+		attack->setTag(56);
+		uiLayer->addChild(attack);
 
-	auto health = Label::createWithTTF("HP:  " + clericHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
+		if (clericRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmFourthUpgrade, this));
 
-	auto attack = Label::createWithTTF("Atk:  " + clericAttack, "fonts/Marker Felt.ttf", 14);
-	attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
-	attack->setTag(56);
-	uiLayer->addChild(attack);
-
-	if (clericRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmFourthUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -1838,116 +2100,166 @@ void UpgradeScene::confirmFifthUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade the Assassin?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForSoldierRank(assassinRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeFifthStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForSoldierRank(assassinRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		assassinRank = assassinRank + 1;
 
+		if (assassinRank == 1)
+		{
+			assassinHealth = "290";
+			assassinAttack = "25";
+		}
+		else if (assassinRank == 2)
+		{
+			assassinHealth = "360";
+			assassinAttack = "34";
+		}
+		else if (assassinRank == 3)
+		{
+			assassinHealth = "460";
+			assassinAttack = "40";
+		}
+		else if (assassinRank == 4)
+		{
+			assassinHealth = "550";
+			assassinAttack = "50";
+		}
 
-	assassinRank = assassinRank + 1;
+		if (assassinRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (assassinRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (assassinRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (assassinRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (assassinRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (assassinRank == 1)
-	{
-		assassinHealth = "290";
-		assassinAttack = "25";
-	}
-	else if (assassinRank == 2)
-	{
-		assassinHealth = "360";
-		assassinAttack = "34";
-	}
-	else if (assassinRank == 3)
-	{
-		assassinHealth = "460";
-		assassinAttack = "40";
-	}
-	else if (assassinRank == 4)
-	{
-		assassinHealth = "550";
-		assassinAttack = "50";
-	}
+		auto health = Label::createWithTTF("HP:  " + assassinHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (assassinRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (assassinRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (assassinRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (assassinRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (assassinRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		auto attack = Label::createWithTTF("Atk:  " + assassinAttack, "fonts/Marker Felt.ttf", 14);
+		attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
+		attack->setTag(56);
+		uiLayer->addChild(attack);
 
-	auto health = Label::createWithTTF("HP:  " + assassinHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
+		if (assassinRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmFifthUpgrade, this));
 
-	auto attack = Label::createWithTTF("Atk:  " + assassinAttack, "fonts/Marker Felt.ttf", 14);
-	attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
-	attack->setTag(56);
-	uiLayer->addChild(attack);
-
-	if (assassinRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmFifthUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
-
 
 void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 {
@@ -2095,116 +2407,166 @@ void UpgradeScene::confirmSixthUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade the Mage?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForSoldierRank(mageRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeSixthStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForSoldierRank(mageRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		mageRank = mageRank + 1;
 
+		if (mageRank == 1)
+		{
+			mageHealth = "180";
+			mageAttack = "19";
+		}
+		else if (mageRank == 2)
+		{
+			mageHealth = "200";
+			mageAttack = "24";
+		}
+		else if (mageRank == 3)
+		{
+			mageHealth = "240";
+			mageAttack = "30";
+		}
+		else if (mageRank == 4)
+		{
+			mageHealth = "310";
+			mageAttack = "38";
+		}
 
-	mageRank = mageRank + 1;
+		if (mageRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (mageRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (mageRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (mageRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (mageRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (mageRank == 1)
-	{
-		mageHealth = "180";
-		mageAttack = "19";
-	}
-	else if (mageRank == 2)
-	{
-		mageHealth = "200";
-		mageAttack = "24";
-	}
-	else if (mageRank == 3)
-	{
-		mageHealth = "240";
-		mageAttack = "30";
-	}
-	else if (mageRank == 4)
-	{
-		mageHealth = "310";
-		mageAttack = "38";
-	}
+		auto health = Label::createWithTTF("HP:  " + mageHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (mageRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (mageRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (mageRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (mageRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (mageRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		auto attack = Label::createWithTTF("Atk:  " + mageAttack, "fonts/Marker Felt.ttf", 14);
+		attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
+		attack->setTag(56);
+		uiLayer->addChild(attack);
 
-	auto health = Label::createWithTTF("HP:  " + mageHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
+		if (mageRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmSixthUpgrade, this));
 
-	auto attack = Label::createWithTTF("Atk:  " + mageAttack, "fonts/Marker Felt.ttf", 14);
-	attack->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.2)));
-	attack->setTag(56);
-	uiLayer->addChild(attack);
-
-	if (mageRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmSixthUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
-
 
 void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 {
@@ -2348,105 +2710,156 @@ void UpgradeScene::confirmFirstItemUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade horizontal walls?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForItemRank(horiWallRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForItemRank(horiWallRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		horiWallRank = horiWallRank + 1;
+
+		if (horiWallRank == 1)
+		{
+			horiWallHealth = "380";
+		}
+		else if (horiWallRank == 2)
+		{
+			horiWallHealth = "440";
+		}
+		else if (horiWallRank == 3)
+		{
+			horiWallHealth = "510";
+		}
+		else if (horiWallRank == 4)
+		{
+			horiWallHealth = "600";
+		}
+
+		if (horiWallRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiWallRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiWallRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiWallRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiWallRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+
+		auto health = Label::createWithTTF("HP:  " + horiWallHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
 
-	horiWallRank = horiWallRank + 1;
+		if (horiWallRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmFirstItemUpgrade, this));
 
-	if (horiWallRank == 1)
-	{
-		horiWallHealth = "380";
-	}
-	else if (horiWallRank == 2)
-	{
-		horiWallHealth = "440";
-	}
-	else if (horiWallRank == 3)
-	{
-		horiWallHealth = "510";
-	}
-	else if (horiWallRank == 4)
-	{
-		horiWallHealth = "600";
-	}
-
-	if (horiWallRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiWallRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiWallRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiWallRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiWallRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-
-	auto health = Label::createWithTTF("HP:  " + horiWallHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
-
-
-	if (horiWallRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmFirstItemUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -2592,104 +3005,155 @@ void UpgradeScene::confirmSecondItemUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade vertical walls?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForItemRank(verWallRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForItemRank(verWallRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		verWallRank = verWallRank + 1;
 
+		if (verWallRank == 1)
+		{
+			verWallHealth = "380";
+		}
+		else if (verWallRank == 2)
+		{
+			verWallHealth = "440";
+		}
+		else if (verWallRank == 3)
+		{
+			verWallHealth = "510";
+		}
+		else if (verWallRank == 4)
+		{
+			verWallHealth = "600";
+		}
 
-	verWallRank = verWallRank + 1;
+		if (verWallRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verWallRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verWallRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verWallRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verWallRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (verWallRank == 1)
-	{
-		verWallHealth = "380";
-	}
-	else if (verWallRank == 2)
-	{
-		verWallHealth = "440";
-	}
-	else if (verWallRank == 3)
-	{
-		verWallHealth = "510";
-	}
-	else if (verWallRank == 4)
-	{
-		verWallHealth = "600";
-	}
+		auto health = Label::createWithTTF("HP:  " + verWallHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (verWallRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verWallRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verWallRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verWallRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verWallRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		if (verWallRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmSecondItemUpgrade, this));
 
-	auto health = Label::createWithTTF("HP:  " + verWallHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
-
-	if (verWallRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmSecondItemUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -2834,105 +3298,156 @@ void UpgradeScene::confirmThirdItemUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade horizontal plasma walls?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForItemRank(horiPlasmaRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForItemRank(horiPlasmaRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		horiPlasmaRank = horiPlasmaRank + 1;
+
+		if (horiPlasmaRank == 1)
+		{
+			horiPlasmaHealth = "520";
+		}
+		else if (horiPlasmaRank == 2)
+		{
+			horiPlasmaHealth = "590";
+		}
+		else if (horiPlasmaRank == 3)
+		{
+			horiPlasmaHealth = "670";
+		}
+		else if (horiPlasmaRank == 4)
+		{
+			horiPlasmaHealth = "820";
+		}
+
+		if (horiPlasmaRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiPlasmaRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiPlasmaRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiPlasmaRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (horiPlasmaRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+
+		auto health = Label::createWithTTF("HP:  " + horiPlasmaHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
 
-	horiPlasmaRank = horiPlasmaRank + 1;
+		if (horiPlasmaRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmThirdItemUpgrade, this));
 
-	if (horiPlasmaRank == 1)
-	{
-		horiPlasmaHealth = "520";
-	}
-	else if (horiPlasmaRank == 2)
-	{
-		horiPlasmaHealth = "590";
-	}
-	else if (horiPlasmaRank == 3)
-	{
-		horiPlasmaHealth = "670";
-	}
-	else if (horiPlasmaRank == 4)
-	{
-		horiPlasmaHealth = "820";
-	}
-
-	if (horiPlasmaRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiPlasmaRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiPlasmaRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiPlasmaRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (horiPlasmaRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-
-	auto health = Label::createWithTTF("HP:  " + horiPlasmaHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
-
-
-	if (horiPlasmaRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmThirdItemUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -3077,104 +3592,155 @@ void UpgradeScene::confirmFourthItemUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade vertical plasma walls?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForItemRank(verPlasmaRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForItemRank(verPlasmaRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		verPlasmaRank = verPlasmaRank + 1;
 
+		if (verPlasmaRank == 1)
+		{
+			verPlasmaHealth = "520";
+		}
+		else if (verPlasmaRank == 2)
+		{
+			verPlasmaHealth = "590";
+		}
+		else if (verPlasmaRank == 3)
+		{
+			verPlasmaHealth = "670";
+		}
+		else if (verPlasmaRank == 4)
+		{
+			verPlasmaHealth = "820";
+		}
 
-	verPlasmaRank = verPlasmaRank + 1;
+		if (verPlasmaRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verPlasmaRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verPlasmaRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verPlasmaRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (verPlasmaRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (verPlasmaRank == 1)
-	{
-		verPlasmaHealth = "520";
-	}
-	else if (verPlasmaRank == 2)
-	{
-		verPlasmaHealth = "590";
-	}
-	else if (verPlasmaRank == 3)
-	{
-		verPlasmaHealth = "670";
-	}
-	else if (verPlasmaRank == 4)
-	{
-		verPlasmaHealth = "820";
-	}
+		auto health = Label::createWithTTF("HP:  " + verPlasmaHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (verPlasmaRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verPlasmaRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verPlasmaRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verPlasmaRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (verPlasmaRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		if (verPlasmaRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmFourthItemUpgrade, this));
 
-	auto health = Label::createWithTTF("HP:  " + verPlasmaHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
-
-	if (verPlasmaRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmFourthItemUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -3319,105 +3885,156 @@ void UpgradeScene::confirmFifthItemUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade star-dust trees?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForItemRank(starDustTreeRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForItemRank(starDustTreeRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		starDustTreeRank = starDustTreeRank + 1;
+
+		if (starDustTreeRank == 1)
+		{
+			starDustTreeHealth = "230";
+		}
+		else if (starDustTreeRank == 2)
+		{
+			starDustTreeHealth = "260";
+		}
+		else if (starDustTreeRank == 3)
+		{
+			starDustTreeHealth = "310";
+		}
+		else if (starDustTreeRank == 4)
+		{
+			starDustTreeHealth = "390";
+		}
+
+		if (starDustTreeRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (starDustTreeRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (starDustTreeRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (starDustTreeRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (starDustTreeRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+
+		auto health = Label::createWithTTF("HP:  " + starDustTreeHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
 
-	starDustTreeRank = starDustTreeRank + 1;
+		if (starDustTreeRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmFifthItemUpgrade, this));
 
-	if (starDustTreeRank == 1)
-	{
-		starDustTreeHealth = "230";
-	}
-	else if (starDustTreeRank == 2)
-	{
-		starDustTreeHealth = "260";
-	}
-	else if (starDustTreeRank == 3)
-	{
-		starDustTreeHealth = "310";
-	}
-	else if (starDustTreeRank == 4)
-	{
-		starDustTreeHealth = "390";
-	}
-
-	if (starDustTreeRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (starDustTreeRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (starDustTreeRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (starDustTreeRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (starDustTreeRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-
-	auto health = Label::createWithTTF("HP:  " + starDustTreeHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
-
-
-	if (starDustTreeRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmFifthItemUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }
 
@@ -3564,103 +4181,154 @@ void UpgradeScene::confirmSixthItemUpgrade(Ref* pSender)
 	uiLayer->addChild(upgradeTheSoldierMenu);
 
 	auto label = Label::createWithTTF("Upgrade galactic stones?", "fonts/Marker Felt.ttf", 12);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(63);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int upgradeCost = getCostForItemRank(galacticStoneRank);
+	sprintf(money,"%d", upgradeCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	int costOfUpgrade = getCostForItemRank(galacticStoneRank);
+	if (moneyTotal >= costOfUpgrade)
+	{
+		moneyTotal = moneyTotal - costOfUpgrade;
+		uiLayer->removeChildByTag(54,1);
+		uiLayer->removeChildByTag(55,1);
+		uiLayer->removeChildByTag(56,1);
+		uiLayer->removeChildByTag(58,1);
+		uiLayer->removeChildByTag(59,1);
+		uiLayer->removeChildByTag(60,1);
+		uiLayer->removeChildByTag(61,1);
+		uiLayer->removeChildByTag(62,1);
+		uiLayer->removeChildByTag(63,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	uiLayer->removeChildByTag(54,1);
-	uiLayer->removeChildByTag(55,1);
-	uiLayer->removeChildByTag(56,1);
-	uiLayer->removeChildByTag(58,1);
-	uiLayer->removeChildByTag(59,1);
-	uiLayer->removeChildByTag(60,1);
-	uiLayer->removeChildByTag(61,1);
-	uiLayer->removeChildByTag(62,1);
-	uiLayer->removeChildByTag(63,1);
+		galacticStoneRank = galacticStoneRank + 1;
 
+		if (galacticStoneRank == 1)
+		{
+			galacticStoneHealth = "460";
+		}
+		else if (galacticStoneRank == 2)
+		{
+			galacticStoneHealth = "550";
+		}
+		else if (galacticStoneRank == 3)
+		{
+			galacticStoneHealth = "610";
+		}
+		else if (galacticStoneRank == 4)
+		{
+			galacticStoneHealth = "760";
+		}
 
-	galacticStoneRank = galacticStoneRank + 1;
+		if (galacticStoneRank == 0)
+		{
+			auto stars = Sprite::create("emptyStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (galacticStoneRank == 1)
+		{
+			auto stars = Sprite::create("oneStar.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (galacticStoneRank == 2)
+		{
+			auto stars = Sprite::create("twoStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (galacticStoneRank == 3)
+		{
+			auto stars = Sprite::create("threeStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
+		else if (galacticStoneRank == 4)
+		{
+			auto stars = Sprite::create("fourStars.png");
+			stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+			stars->setTag(54);
+			uiLayer->addChild(stars);
+		}
 
-	if (galacticStoneRank == 1)
-	{
-		galacticStoneHealth = "460";
-	}
-	else if (galacticStoneRank == 2)
-	{
-		galacticStoneHealth = "550";
-	}
-	else if (galacticStoneRank == 3)
-	{
-		galacticStoneHealth = "610";
-	}
-	else if (galacticStoneRank == 4)
-	{
-		galacticStoneHealth = "760";
-	}
+		auto health = Label::createWithTTF("HP:  " + galacticStoneHealth, "fonts/Marker Felt.ttf", 14);
+		health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		health->setTag(55);
+		uiLayer->addChild(health);
 
-	if (galacticStoneRank == 0)
-	{
-		auto stars = Sprite::create("emptyStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (galacticStoneRank == 1)
-	{
-		auto stars = Sprite::create("oneStar.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (galacticStoneRank == 2)
-	{
-		auto stars = Sprite::create("twoStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (galacticStoneRank == 3)
-	{
-		auto stars = Sprite::create("threeStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
-	else if (galacticStoneRank == 4)
-	{
-		auto stars = Sprite::create("fourStars.png");
-		stars->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
-		stars->setTag(54);
-		uiLayer->addChild(stars);
-	}
+		if (galacticStoneRank < 4)
+		{
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
+													   "upgrade_soldier.jpg",
+													   CC_CALLBACK_1(UpgradeScene::confirmSixthItemUpgrade, this));
 
-	auto health = Label::createWithTTF("HP:  " + galacticStoneHealth, "fonts/Marker Felt.ttf", 14);
-	health->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
-	health->setTag(55);
-	uiLayer->addChild(health);
-
-	if (galacticStoneRank < 4)
-	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
-												   CC_CALLBACK_1(UpgradeScene::confirmSixthItemUpgrade, this));
-
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
-		upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
-		upgradeTheSoldierMenu->setTag(58);
-		uiLayer->addChild(upgradeTheSoldierMenu);
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			auto upgradeTheSoldierMenu = Menu::create(upgradeTheSoldier, NULL);
+			upgradeTheSoldierMenu->setPosition(Vec2::ZERO);
+			upgradeTheSoldierMenu->setTag(58);
+			uiLayer->addChild(upgradeTheSoldierMenu);
+		}
+		else
+		{
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
+			upgradeTheSoldier->setTag(58);
+			uiLayer->addChild(upgradeTheSoldier);
+		}
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
-		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
-		upgradeTheSoldier->setTag(58);
-		uiLayer->addChild(upgradeTheSoldier);
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
 	}
 }

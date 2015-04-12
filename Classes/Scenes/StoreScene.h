@@ -33,6 +33,7 @@ class MainScene;
 
 class StoreScene : public Scene {
 private:
+	int moneyTotal;
 
 	bool boughtHoriWall;
 	bool boughtVerWall;
@@ -84,6 +85,8 @@ public:
 	void buildSixthItem(cocos2d::Ref* pSender);
 	void buildTheSixthItem(cocos2d::Ref* pSender);
 
+	void setMoneyTotal(int money);
+	void cancelFromPurchase(cocos2d::Ref* pSender);
 	void setMainScene(MainScene* scene);
 	void setUpPreviousBuiltItems();
 	void setUpBuiltLocations(vector<Vec2> locations);

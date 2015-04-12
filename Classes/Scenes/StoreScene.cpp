@@ -211,6 +211,19 @@ void StoreScene::setUpPreviousBuiltItems()
 	}
 }
 
+void StoreScene::cancelFromPurchase(Ref* pSender)
+{
+	uiLayer->removeChildByTag(36,1);
+	uiLayer->removeChildByTag(37,1);
+	uiLayer->removeChildByTag(38,1);
+	uiLayer->removeChildByTag(39,1);
+}
+
+void StoreScene::setMoneyTotal(int money)
+{
+	moneyTotal = money;
+}
+
 void StoreScene::setMainScene(MainScene* scene)
 {
 	mainScene = scene;
@@ -234,6 +247,8 @@ void StoreScene::loadMainView(Ref* pSender)
 	mainScene->setItemNumbers(builtItemNumbers);
 	mainScene->setLocations(builtItemLocations);
 	mainScene->buildTheItems();
+	mainScene->setMoneyTotal(moneyTotal);
+	mainScene->repostMoneyTotal();
 	this->removeAllChildren();
 }
 
@@ -432,28 +447,82 @@ void StoreScene::createFirstItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(popUpBuildMenu);
 
 	auto label = Label::createWithTTF("Build a horizontal wall?", "fonts/Marker Felt.ttf", 14);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(93);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int itemCost = 350;
+	sprintf(money,"%d", itemCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void StoreScene::buildTheFirstItem(Ref* pSender)
 {
-	uiLayer->removeChildByTag(88,1);
-	uiLayer->removeChildByTag(89,1);
-	uiLayer->removeChildByTag(90,1);
-	uiLayer->removeChildByTag(91,1);
-	uiLayer->removeChildByTag(92,1);
-	uiLayer->removeChildByTag(93,1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto firstItem = Sprite::create("star.png");
-	firstItem->setPosition(currentTouchedPoint);
-	hudLayer->addChild(firstItem);
+	if (moneyTotal >= 350)
+	{
+		moneyTotal = moneyTotal - 350;
+		uiLayer->removeChildByTag(88,1);
+		uiLayer->removeChildByTag(89,1);
+		uiLayer->removeChildByTag(90,1);
+		uiLayer->removeChildByTag(91,1);
+		uiLayer->removeChildByTag(92,1);
+		uiLayer->removeChildByTag(93,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	builtItemNumbers.push_back(1);
-	builtItemLocations.push_back(currentTouchedPoint);
-	boughtHoriWall = true;
-	mainScene->setBoughtItemOne(boughtHoriWall);
+		auto firstItem = Sprite::create("star.png");
+		firstItem->setPosition(currentTouchedPoint);
+		hudLayer->addChild(firstItem);
+
+		builtItemNumbers.push_back(1);
+		builtItemLocations.push_back(currentTouchedPoint);
+		boughtHoriWall = true;
+		mainScene->setBoughtItemOne(boughtHoriWall);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(StoreScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void StoreScene::buildSecondItem(Ref* pSender)
@@ -556,28 +625,82 @@ void StoreScene::createSecondItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(popUpBuildMenu);
 
 	auto label = Label::createWithTTF("Build a vertical wall?", "fonts/Marker Felt.ttf", 14);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(93);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int itemCost = 350;
+	sprintf(money,"%d", itemCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void StoreScene::buildTheSecondItem(Ref* pSender)
 {
-	uiLayer->removeChildByTag(88,1);
-	uiLayer->removeChildByTag(89,1);
-	uiLayer->removeChildByTag(90,1);
-	uiLayer->removeChildByTag(91,1);
-	uiLayer->removeChildByTag(92,1);
-	uiLayer->removeChildByTag(93,1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto secondItem = Sprite::create("star.png");
-	secondItem->setPosition(currentTouchedPoint);
-	hudLayer->addChild(secondItem);
+	if (moneyTotal >= 350)
+	{
+		moneyTotal = moneyTotal - 350;
+		uiLayer->removeChildByTag(88,1);
+		uiLayer->removeChildByTag(89,1);
+		uiLayer->removeChildByTag(90,1);
+		uiLayer->removeChildByTag(91,1);
+		uiLayer->removeChildByTag(92,1);
+		uiLayer->removeChildByTag(93,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	builtItemNumbers.push_back(2);
-	builtItemLocations.push_back(currentTouchedPoint);
-	boughtVerWall = true;
-	mainScene->setBoughtItemTwo(boughtVerWall);
+		auto secondItem = Sprite::create("star.png");
+		secondItem->setPosition(currentTouchedPoint);
+		hudLayer->addChild(secondItem);
+
+		builtItemNumbers.push_back(2);
+		builtItemLocations.push_back(currentTouchedPoint);
+		boughtVerWall = true;
+		mainScene->setBoughtItemTwo(boughtVerWall);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(StoreScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 
@@ -680,28 +803,82 @@ void StoreScene::createThirdItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(popUpBuildMenu);
 
 	auto label = Label::createWithTTF("Build a horizontal plasma wall?", "fonts/Marker Felt.ttf", 14);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(93);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int itemCost = 800;
+	sprintf(money,"%d", itemCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void StoreScene::buildTheThirdItem(Ref* pSender)
 {
-	uiLayer->removeChildByTag(88,1);
-	uiLayer->removeChildByTag(89,1);
-	uiLayer->removeChildByTag(90,1);
-	uiLayer->removeChildByTag(91,1);
-	uiLayer->removeChildByTag(92,1);
-	uiLayer->removeChildByTag(93,1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto thirdItem = Sprite::create("star.png");
-	thirdItem->setPosition(currentTouchedPoint);
-	hudLayer->addChild(thirdItem);
+	if (moneyTotal >= 800)
+	{
+		moneyTotal = moneyTotal - 800;
+		uiLayer->removeChildByTag(88,1);
+		uiLayer->removeChildByTag(89,1);
+		uiLayer->removeChildByTag(90,1);
+		uiLayer->removeChildByTag(91,1);
+		uiLayer->removeChildByTag(92,1);
+		uiLayer->removeChildByTag(93,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	builtItemNumbers.push_back(3);
-	builtItemLocations.push_back(currentTouchedPoint);
-	boughtHoriPlasma = true;
-	mainScene->setBoughtItemThree(boughtHoriPlasma);
+		auto thirdItem = Sprite::create("star.png");
+		thirdItem->setPosition(currentTouchedPoint);
+		hudLayer->addChild(thirdItem);
+
+		builtItemNumbers.push_back(3);
+		builtItemLocations.push_back(currentTouchedPoint);
+		boughtHoriPlasma = true;
+		mainScene->setBoughtItemThree(boughtHoriPlasma);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(StoreScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 
@@ -804,28 +981,82 @@ void StoreScene::createFourthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(popUpBuildMenu);
 
 	auto label = Label::createWithTTF("Build a vertical plasma wall?", "fonts/Marker Felt.ttf", 14);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(93);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int itemCost = 800;
+	sprintf(money,"%d", itemCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void StoreScene::buildTheFourthItem(Ref* pSender)
 {
-	uiLayer->removeChildByTag(88,1);
-	uiLayer->removeChildByTag(89,1);
-	uiLayer->removeChildByTag(90,1);
-	uiLayer->removeChildByTag(91,1);
-	uiLayer->removeChildByTag(92,1);
-	uiLayer->removeChildByTag(93,1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto fourthItem = Sprite::create("star.png");
-	fourthItem->setPosition(currentTouchedPoint);
-	hudLayer->addChild(fourthItem);
+	if (moneyTotal >= 800)
+	{
+		moneyTotal = moneyTotal - 800;
+		uiLayer->removeChildByTag(88,1);
+		uiLayer->removeChildByTag(89,1);
+		uiLayer->removeChildByTag(90,1);
+		uiLayer->removeChildByTag(91,1);
+		uiLayer->removeChildByTag(92,1);
+		uiLayer->removeChildByTag(93,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	builtItemNumbers.push_back(4);
-	builtItemLocations.push_back(currentTouchedPoint);
-	boughtVerPlasma = true;
-	mainScene->setBoughtItemFour(boughtVerPlasma);
+		auto fourthItem = Sprite::create("star.png");
+		fourthItem->setPosition(currentTouchedPoint);
+		hudLayer->addChild(fourthItem);
+
+		builtItemNumbers.push_back(4);
+		builtItemLocations.push_back(currentTouchedPoint);
+		boughtVerPlasma = true;
+		mainScene->setBoughtItemFour(boughtVerPlasma);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(StoreScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void StoreScene::buildFifthItem(Ref* pSender)
@@ -927,28 +1158,82 @@ void StoreScene::createFifthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(popUpBuildMenu);
 
 	auto label = Label::createWithTTF("Build a star-dust tree?", "fonts/Marker Felt.ttf", 14);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(93);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int itemCost = 500;
+	sprintf(money,"%d", itemCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void StoreScene::buildTheFifthItem(Ref* pSender)
 {
-	uiLayer->removeChildByTag(88,1);
-	uiLayer->removeChildByTag(89,1);
-	uiLayer->removeChildByTag(90,1);
-	uiLayer->removeChildByTag(91,1);
-	uiLayer->removeChildByTag(92,1);
-	uiLayer->removeChildByTag(93,1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto fifthItem = Sprite::create("star.png");
-	fifthItem->setPosition(currentTouchedPoint);
-	hudLayer->addChild(fifthItem);
+	if (moneyTotal >= 500)
+	{
+		moneyTotal = moneyTotal - 500;
+		uiLayer->removeChildByTag(88,1);
+		uiLayer->removeChildByTag(89,1);
+		uiLayer->removeChildByTag(90,1);
+		uiLayer->removeChildByTag(91,1);
+		uiLayer->removeChildByTag(92,1);
+		uiLayer->removeChildByTag(93,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	builtItemNumbers.push_back(5);
-	builtItemLocations.push_back(currentTouchedPoint);
-	boughtStarDustTree = true;
-	mainScene->setBoughtItemFive(boughtStarDustTree);
+		auto fifthItem = Sprite::create("star.png");
+		fifthItem->setPosition(currentTouchedPoint);
+		hudLayer->addChild(fifthItem);
+
+		builtItemNumbers.push_back(5);
+		builtItemLocations.push_back(currentTouchedPoint);
+		boughtStarDustTree = true;
+		mainScene->setBoughtItemFive(boughtStarDustTree);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(StoreScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void StoreScene::buildSixthItem(Ref* pSender)
@@ -1050,28 +1335,82 @@ void StoreScene::createSixthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(popUpBuildMenu);
 
 	auto label = Label::createWithTTF("Build a galactic stone?", "fonts/Marker Felt.ttf", 14);
-	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(93);
 	uiLayer->addChild(label);
+
+	auto moneyHolder = Sprite::create("costObject.jpg");
+	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
+	moneyHolder->setTag(34);
+	uiLayer->addChild(moneyHolder);
+
+	char money[20];
+	int itemCost = 650;
+	sprintf(money,"%d", itemCost);
+
+	auto moneyLabel = Label::createWithTTF(money, "fonts/Marker Felt.ttf", 16);
+	moneyLabel->setPosition((Point(visibleSize.width / 1.9, visibleSize.height / 1.95)));
+	moneyLabel->setTag(35);
+	uiLayer->addChild(moneyLabel);
 }
 
 void StoreScene::buildTheSixthItem(Ref* pSender)
 {
-	uiLayer->removeChildByTag(88,1);
-	uiLayer->removeChildByTag(89,1);
-	uiLayer->removeChildByTag(90,1);
-	uiLayer->removeChildByTag(91,1);
-	uiLayer->removeChildByTag(92,1);
-	uiLayer->removeChildByTag(93,1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto sixthItem = Sprite::create("star.png");
-	sixthItem->setPosition(currentTouchedPoint);
-	hudLayer->addChild(sixthItem);
+	if (moneyTotal >= 650)
+	{
+		moneyTotal = moneyTotal - 650;
+		uiLayer->removeChildByTag(88,1);
+		uiLayer->removeChildByTag(89,1);
+		uiLayer->removeChildByTag(90,1);
+		uiLayer->removeChildByTag(91,1);
+		uiLayer->removeChildByTag(92,1);
+		uiLayer->removeChildByTag(93,1);
+		uiLayer->removeChildByTag(34,1);
+		uiLayer->removeChildByTag(35,1);
 
-	builtItemNumbers.push_back(6);
-	builtItemLocations.push_back(currentTouchedPoint);
-	boughtGalacticStone = true;
-	mainScene->setBoughtItemSix(boughtGalacticStone);
+		auto sixthItem = Sprite::create("star.png");
+		sixthItem->setPosition(currentTouchedPoint);
+		hudLayer->addChild(sixthItem);
+
+		builtItemNumbers.push_back(6);
+		builtItemLocations.push_back(currentTouchedPoint);
+		boughtGalacticStone = true;
+		mainScene->setBoughtItemSix(boughtGalacticStone);
+	}
+	else
+	{
+		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
+												   "blockOut_Content2.png",
+												   CC_CALLBACK_1(StoreScene::doNothing, this));
+
+		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		auto backDropLayer = Menu::create(backDrop, NULL);
+		backDropLayer->setPosition(Vec2::ZERO);
+		backDropLayer->setTag(36);
+		uiLayer->addChild(backDropLayer);
+
+		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+		popup->setTag(37);
+		uiLayer->addChild(popup);
+
+		auto label = Label::createWithTTF("Not enough money.", "fonts/Marker Felt.ttf", 15);
+		label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.8)));
+		label->setTag(38);
+		uiLayer->addChild(label);
+
+		auto okButton = MenuItemImage::create("cancel-button.jpg",
+												   "cancel-button.jpg",
+												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
+
+		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
+		auto okButtonMenu = Menu::create(okButton, NULL);
+		okButtonMenu->setPosition(Vec2::ZERO);
+		okButtonMenu->setTag(39);
+		uiLayer->addChild(okButtonMenu);
+	}
 }
 
 void StoreScene::cancelFromConfirmBuild(Ref* pSender)
@@ -1082,6 +1421,8 @@ void StoreScene::cancelFromConfirmBuild(Ref* pSender)
 	uiLayer->removeChildByTag(91,1);
 	uiLayer->removeChildByTag(92,1);
 	uiLayer->removeChildByTag(93,1);
+	uiLayer->removeChildByTag(34,1);
+	uiLayer->removeChildByTag(35,1);
 }
 
 void StoreScene::doNothing(Ref* pSender)
