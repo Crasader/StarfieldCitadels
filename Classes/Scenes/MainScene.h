@@ -30,6 +30,7 @@ using namespace evolve2d;
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
+#include "SimpleAudioEngine.h"
 using namespace std;
 
 USING_NS_CC;
@@ -53,7 +54,6 @@ private:
     
     // Component declaration
     PositionComponent * comp;
-    StoreScene* buildScene;
 
     // Layers
     BaseLayer* baseLayer;

@@ -278,6 +278,7 @@ void HeroScene::doNothing(Ref* pSender)
 
 void HeroScene::loadMainView(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 	mainScene->setMoneyTotal(moneyTotal);
 	mainScene->repostMoneyTotal();
 	this->removeAllChildren();
@@ -285,6 +286,7 @@ void HeroScene::loadMainView(Ref* pSender)
 
 void HeroScene::cancelFromPurchase(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(36,1);
 	uiLayer->removeChildByTag(37,1);
 	uiLayer->removeChildByTag(38,1);
@@ -293,6 +295,7 @@ void HeroScene::cancelFromPurchase(Ref* pSender)
 
 void HeroScene::buyFirstSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -350,6 +353,7 @@ void HeroScene::buyFirstSoldier(Ref* pSender)
 
 void HeroScene::buySecondSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -407,6 +411,7 @@ void HeroScene::buySecondSoldier(Ref* pSender)
 
 void HeroScene::buyThirdSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -464,6 +469,7 @@ void HeroScene::buyThirdSoldier(Ref* pSender)
 
 void HeroScene::buyFourthSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -521,6 +527,7 @@ void HeroScene::buyFourthSoldier(Ref* pSender)
 
 void HeroScene::buyFifthSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -578,6 +585,7 @@ void HeroScene::buyFifthSoldier(Ref* pSender)
 
 void HeroScene::buySixthSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -634,6 +642,7 @@ void HeroScene::buySixthSoldier(Ref* pSender)
 
 void HeroScene::exitPopup(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(29,1);
 	uiLayer->removeChildByTag(30,1);
 	uiLayer->removeChildByTag(31,1);
@@ -648,6 +657,7 @@ void HeroScene::exitFirstPurchase(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (moneyTotal >= 2000)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("heroBought.wav");
 		moneyTotal = moneyTotal - 2000;
 
 		uiLayer->removeChildByTag(29,1);
@@ -669,6 +679,7 @@ void HeroScene::exitFirstPurchase(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
@@ -706,6 +717,7 @@ void HeroScene::exitSecondPurchase(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (moneyTotal >= 4000)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("heroBought.wav");
 		moneyTotal = moneyTotal - 4000;
 		uiLayer->removeChildByTag(29,1);
 		uiLayer->removeChildByTag(30,1);
@@ -726,6 +738,7 @@ void HeroScene::exitSecondPurchase(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
@@ -763,6 +776,7 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (moneyTotal >= 2500)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("heroBought.wav");
 		moneyTotal = moneyTotal - 2500;
 		uiLayer->removeChildByTag(29,1);
 		uiLayer->removeChildByTag(30,1);
@@ -783,6 +797,7 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
@@ -820,6 +835,7 @@ void HeroScene::exitFourthPurchase(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (moneyTotal >= 3100)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("heroBought.wav");
 		moneyTotal = moneyTotal - 3100;
 		uiLayer->removeChildByTag(29,1);
 		uiLayer->removeChildByTag(30,1);
@@ -840,6 +856,7 @@ void HeroScene::exitFourthPurchase(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
@@ -877,6 +894,7 @@ void HeroScene::exitFifthPurchase(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (moneyTotal >= 6700)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("heroBought.wav");
 		moneyTotal = moneyTotal - 6700;
 		uiLayer->removeChildByTag(29,1);
 		uiLayer->removeChildByTag(30,1);
@@ -897,6 +915,7 @@ void HeroScene::exitFifthPurchase(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
@@ -934,6 +953,7 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (moneyTotal >= 1800)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("heroBought.wav");
 		moneyTotal = moneyTotal - 1800;
 		uiLayer->removeChildByTag(29,1);
 		uiLayer->removeChildByTag(30,1);
@@ -954,6 +974,7 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
@@ -988,6 +1009,7 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 
 void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	uiLayer->removeChildByTag(4,1);
 	uiLayer->removeChildByTag(5,1);
@@ -1080,6 +1102,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 }
 void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	uiLayer->removeChildByTag(1,1);
 	uiLayer->removeChildByTag(2,1);

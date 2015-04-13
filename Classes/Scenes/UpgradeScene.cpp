@@ -185,6 +185,7 @@ bool UpgradeScene::init()
 
 void UpgradeScene::cancelFromUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(50,1);
 	uiLayer->removeChildByTag(51,1);
 	uiLayer->removeChildByTag(52,1);
@@ -198,6 +199,7 @@ void UpgradeScene::cancelFromUpgrade(Ref* pSender)
 
 void UpgradeScene::cancelFromPurchase(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(36,1);
 	uiLayer->removeChildByTag(37,1);
 	uiLayer->removeChildByTag(38,1);
@@ -416,6 +418,7 @@ void UpgradeScene::loadInitialSoldiers()
 
 void UpgradeScene::toUpgradeMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	uiLayer->removeChildByTag(64,1);
@@ -626,6 +629,7 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	uiLayer->removeChildByTag(64,1);
@@ -837,6 +841,7 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 void UpgradeScene::cancelFromConfirmUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(59,1);
 	uiLayer->removeChildByTag(60,1);
 	uiLayer->removeChildByTag(61,1);
@@ -1087,6 +1092,8 @@ void UpgradeScene::doNothing(Ref* pSender)
 
 void UpgradeScene::loadMainView(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
+
 	mainScene->setHeroOneRank(warriorRank);
 	mainScene->setHeroTwoRank(spaceRangerRank);
 	mainScene->setHeroThreeRank(scoutRank);
@@ -1129,6 +1136,7 @@ void UpgradeScene::loadMainView(Ref* pSender)
 
 void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -1234,6 +1242,7 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 
 void UpgradeScene::confirmFirstUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -1298,6 +1307,7 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 	int costOfUpgrade = getCostForSoldierRank(warriorRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -1402,6 +1412,7 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -1436,6 +1447,7 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 
 void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -1541,6 +1553,7 @@ void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 
 void UpgradeScene::confirmSecondUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -1605,6 +1618,7 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 	int costOfUpgrade = getCostForSoldierRank(spaceRangerRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -1710,6 +1724,7 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -1744,6 +1759,7 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 
 void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -1849,6 +1865,7 @@ void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 
 void UpgradeScene::confirmThirdUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -1913,6 +1930,7 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 	int costOfUpgrade = getCostForSoldierRank(scoutRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -2017,6 +2035,7 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -2051,6 +2070,7 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 
 void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -2156,6 +2176,7 @@ void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 
 void UpgradeScene::confirmFourthUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -2220,6 +2241,7 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 	int costOfUpgrade = getCostForSoldierRank(clericRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -2324,6 +2346,7 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -2358,6 +2381,7 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 
 void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -2463,6 +2487,7 @@ void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 
 void UpgradeScene::confirmFifthUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -2527,6 +2552,7 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 	int costOfUpgrade = getCostForSoldierRank(assassinRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -2631,6 +2657,7 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -2665,6 +2692,7 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 
 void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -2770,6 +2798,7 @@ void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 
 void UpgradeScene::confirmSixthUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -2834,6 +2863,7 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 	int costOfUpgrade = getCostForSoldierRank(mageRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -2938,6 +2968,7 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -2972,6 +3003,7 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 
 void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -3073,6 +3105,7 @@ void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 
 void UpgradeScene::confirmFirstItemUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -3137,6 +3170,7 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 	int costOfUpgrade = getCostForItemRank(horiWallRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -3233,6 +3267,7 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -3267,6 +3302,7 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 
 void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -3368,6 +3404,7 @@ void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 
 void UpgradeScene::confirmSecondItemUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -3432,6 +3469,7 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 	int costOfUpgrade = getCostForItemRank(verWallRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -3527,6 +3565,7 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -3561,6 +3600,7 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 
 void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -3661,6 +3701,7 @@ void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 
 void UpgradeScene::confirmThirdItemUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -3725,6 +3766,7 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 	int costOfUpgrade = getCostForItemRank(horiPlasmaRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -3821,6 +3863,7 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -3855,6 +3898,7 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 
 void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -3955,6 +3999,7 @@ void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 
 void UpgradeScene::confirmFourthItemUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -4019,6 +4064,7 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 	int costOfUpgrade = getCostForItemRank(verPlasmaRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -4114,6 +4160,7 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -4148,6 +4195,7 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 
 void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -4248,6 +4296,7 @@ void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 
 void UpgradeScene::confirmFifthItemUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -4312,6 +4361,7 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 	int costOfUpgrade = getCostForItemRank(starDustTreeRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -4408,6 +4458,7 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
@@ -4443,6 +4494,7 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 
 void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",
@@ -4544,6 +4596,7 @@ void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 
 void UpgradeScene::confirmSixthItemUpgrade(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
@@ -4608,6 +4661,7 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 	int costOfUpgrade = getCostForItemRank(galacticStoneRank);
 	if (moneyTotal >= costOfUpgrade)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("upgrade.wav");
 		moneyTotal = moneyTotal - costOfUpgrade;
 		uiLayer->removeChildByTag(54,1);
 		uiLayer->removeChildByTag(55,1);
@@ -4703,6 +4757,7 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));

@@ -213,6 +213,7 @@ void StoreScene::setUpPreviousBuiltItems()
 
 void StoreScene::cancelFromPurchase(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(36,1);
 	uiLayer->removeChildByTag(37,1);
 	uiLayer->removeChildByTag(38,1);
@@ -241,8 +242,7 @@ void StoreScene::setUpBuiltLocations(vector<Vec2> locations)
 
 void StoreScene::loadMainView(Ref* pSender)
 {
-	//auto mainScene2 = MainScene::create();
-	//Director::getInstance()->replaceScene(mainScene2);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 
 	mainScene->setItemNumbers(builtItemNumbers);
 	mainScene->setLocations(builtItemLocations);
@@ -255,7 +255,7 @@ void StoreScene::loadMainView(Ref* pSender)
 
 void StoreScene::toBuildMenuStep(Ref* pSender)
 {
-	//Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(94,1);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -335,6 +335,7 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 
 void StoreScene::buildFirstItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("buildButtons.wav");
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     this->removeChildByName(hudLayer->getName(), 1);
@@ -398,6 +399,7 @@ bool StoreScene::touchChecker(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void StoreScene::createFirstItem(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Vec2 touchPoint = touch->getLocation();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -472,6 +474,7 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 
 	if (moneyTotal >= 350)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal - 350;
 		uiLayer->removeChildByTag(88,1);
 		uiLayer->removeChildByTag(89,1);
@@ -493,6 +496,7 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
@@ -527,6 +531,7 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 
 void StoreScene::buildSecondItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("buildButtons.wav");
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     this->removeChildByName(hudLayer->getName(), 1);
@@ -577,6 +582,7 @@ void StoreScene::buildSecondItem(Ref* pSender)
 
 void StoreScene::createSecondItem(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Vec2 touchPoint = touch->getLocation();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
@@ -650,6 +656,7 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 
 	if (moneyTotal >= 350)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal - 350;
 		uiLayer->removeChildByTag(88,1);
 		uiLayer->removeChildByTag(89,1);
@@ -671,6 +678,7 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
@@ -706,6 +714,7 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 
 void StoreScene::buildThirdItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("buildButtons.wav");
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     this->removeChildByName(hudLayer->getName(), 1);
@@ -755,6 +764,7 @@ void StoreScene::buildThirdItem(Ref* pSender)
 
 void StoreScene::createThirdItem(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Vec2 touchPoint = touch->getLocation();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
@@ -828,6 +838,7 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 
 	if (moneyTotal >= 800)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal - 800;
 		uiLayer->removeChildByTag(88,1);
 		uiLayer->removeChildByTag(89,1);
@@ -849,6 +860,7 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
@@ -884,6 +896,7 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 
 void StoreScene::buildFourthItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("buildButtons.wav");
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     this->removeChildByName(hudLayer->getName(), 1);
@@ -933,6 +946,7 @@ void StoreScene::buildFourthItem(Ref* pSender)
 
 void StoreScene::createFourthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Vec2 touchPoint = touch->getLocation();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
@@ -1006,6 +1020,7 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 
 	if (moneyTotal >= 800)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal - 800;
 		uiLayer->removeChildByTag(88,1);
 		uiLayer->removeChildByTag(89,1);
@@ -1027,6 +1042,7 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
@@ -1061,6 +1077,7 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 
 void StoreScene::buildFifthItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("buildButtons.wav");
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     this->removeChildByName(hudLayer->getName(), 1);
@@ -1110,6 +1127,7 @@ void StoreScene::buildFifthItem(Ref* pSender)
 
 void StoreScene::createFifthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Vec2 touchPoint = touch->getLocation();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
@@ -1183,6 +1201,7 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 
 	if (moneyTotal >= 500)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal - 500;
 		uiLayer->removeChildByTag(88,1);
 		uiLayer->removeChildByTag(89,1);
@@ -1204,6 +1223,7 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
@@ -1238,6 +1258,7 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 
 void StoreScene::buildSixthItem(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("buildButtons.wav");
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     this->removeChildByName(hudLayer->getName(), 1);
@@ -1287,6 +1308,7 @@ void StoreScene::buildSixthItem(Ref* pSender)
 
 void StoreScene::createSixthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Vec2 touchPoint = touch->getLocation();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
@@ -1360,6 +1382,7 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 
 	if (moneyTotal >= 650)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal - 650;
 		uiLayer->removeChildByTag(88,1);
 		uiLayer->removeChildByTag(89,1);
@@ -1381,6 +1404,7 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
 												   "blockOut_Content2.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
@@ -1415,6 +1439,7 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 
 void StoreScene::cancelFromConfirmBuild(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(88,1);
 	uiLayer->removeChildByTag(89,1);
 	uiLayer->removeChildByTag(90,1);

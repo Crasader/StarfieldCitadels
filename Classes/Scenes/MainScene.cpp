@@ -3,6 +3,9 @@
  *
  *  Created on: Feb 9, 2015
  *      Author: ihall1
+ *
+ *  Sound Effects were obtained from soundBible.com, a site
+ *  that allows the free use of it's wav files commercially.
  */
 
 #include "MainScene.h"
@@ -38,6 +41,8 @@ bool MainScene::init()
         return false;
     }
     
+    //CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("background-music-aac.wav", true);
+
     moneyTotal = 4000;
 
     // The first six items in the shop
@@ -173,24 +178,25 @@ void MainScene::update(float delta) {
 
 void MainScene::toBuildMenu(Ref* pSender)
 {
-	//buildScene->setMainScene(this);
-	auto buildScene2 = StoreScene::create();
-	buildScene2->setMainScene(this);
-	buildScene2->setUpBuiltItemNums(builtItemNumbers);
-	buildScene2->setUpBuiltLocations(builtItemLocations);
-	buildScene2->setUpPreviousBuiltItems();
-	buildScene2->setMoneyTotal(moneyTotal);
-	this->addChild(buildScene2, 5);
-	//Director::getInstance()->replaceScene(buildScene2);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("mainMenusClicked.wav");
+	auto buildScene = StoreScene::create();
+	buildScene->setMainScene(this);
+	buildScene->setUpBuiltItemNums(builtItemNumbers);
+	buildScene->setUpBuiltLocations(builtItemLocations);
+	buildScene->setUpPreviousBuiltItems();
+	buildScene->setMoneyTotal(moneyTotal);
+	this->addChild(buildScene, 5);
 }
 
 void MainScene::toFightMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("mainMenusClicked.wav");
 	auto combatScene = CombatScene::create();
 	this->addChild(combatScene, 5);
 }
 void MainScene::toRecruitMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("mainMenusClicked.wav");
 	auto recruitScene = HeroScene::create();
 	recruitScene->setMainScene(this);
 	recruitScene->setMoneyTotal(moneyTotal);
@@ -206,6 +212,7 @@ void MainScene::toRecruitMenu(Ref* pSender)
 
 void MainScene::toUpgradeMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("mainMenusClicked.wav");
 	auto upgradeScene = UpgradeScene::create();
 	upgradeScene->setMainScene(this);
 	upgradeScene->setBoughtHeroOne(boughtHeroOne);
@@ -478,12 +485,14 @@ void MainScene::doNothing(Ref* pSender)
 
 void MainScene::moneyTreeClicked(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 	moneyTotal = moneyTotal + 4;
 	repostMoneyTotal();
 }
 
 void MainScene::exitMoneyStone(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	uiLayer->removeChildByTag(29,1);
 	uiLayer->removeChildByTag(30,1);
 	uiLayer->removeChildByTag(31,1);
@@ -507,6 +516,7 @@ void MainScene::stoneWasTouched(Ref* pSender)
 
 	if (randomNum == 9)
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("lostMoney.wav");
 		moneyTotal = moneyTotal - 700;
 		if (moneyTotal < 0)
 		{
@@ -550,13 +560,21 @@ void MainScene::stoneWasTouched(Ref* pSender)
 	}
 	else
 	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("money.wav");
 		moneyTotal = moneyTotal + 100;
-		exitMoneyStone(this);
+		uiLayer->removeChildByTag(29,1);
+		uiLayer->removeChildByTag(30,1);
+		uiLayer->removeChildByTag(31,1);
+		uiLayer->removeChildByTag(32,1);
+		uiLayer->removeChildByTag(33,1);
+		uiLayer->removeChildByTag(34,1);
+		repostMoneyTotal();
 	}
 }
 
 void MainScene::moneyStoneClicked(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto backDrop = MenuItemImage::create("blockOut_Content.png",
 											   "blockOut_Content.png",

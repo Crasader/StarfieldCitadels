@@ -111,6 +111,7 @@ bool CombatScene::init()
 
 void CombatScene::toFirstFightMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	uiLayer->removeChildByTag(40,1);
 	uiLayer->removeChildByTag(41,1);
 	hudLayer->removeChildByTag(42,1);
@@ -165,6 +166,7 @@ void CombatScene::toFirstFightMenu(Ref* pSender)
 
 void CombatScene::toSecondFightMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	uiLayer->removeChildByTag(40,1);
 	uiLayer->removeChildByTag(41,1);
 	hudLayer->removeChildByTag(42,1);
@@ -219,6 +221,7 @@ void CombatScene::toSecondFightMenu(Ref* pSender)
 
 void CombatScene::toThirdFightMenu(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("toSideMenu.wav");
 	uiLayer->removeChildByTag(40,1);
 	uiLayer->removeChildByTag(41,1);
 	hudLayer->removeChildByTag(42,1);
@@ -277,6 +280,7 @@ void CombatScene::doNothing(Ref* pSender)
 
 void CombatScene::loadMainView(Ref* pSender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 	this->removeAllChildren();
 }
 

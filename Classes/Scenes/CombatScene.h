@@ -18,6 +18,7 @@ using namespace evolve2d;
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 using namespace std;
 
 USING_NS_CC;
