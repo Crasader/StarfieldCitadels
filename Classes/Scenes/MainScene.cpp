@@ -62,6 +62,19 @@ bool MainScene::init()
     _map->setName("Map");
     _map->setPosition(0, 0);
     baseLayer->addChild(_map, 0);
+    
+    Vec3 eye = Vec3(0,0,2000);
+    _camera = Camera::createPerspective(60, visibleSize.width/visibleSize.height, 1, 4000);
+    _camera->setPosition3D(eye);
+    _camera->lookAt(Vec3(0,0,0), Vec3(0,1,0));
+    _camera->setCameraFlag(CameraFlag::USER1);
+    baseLayer->addChild(_camera);
+    auto worldCoordsCam = baseLayer->convertToWorldSpace(_camera->getPosition());
+    auto worldCoordsMap = baseLayer->convertToWorldSpace(_map->getPosition());
+    CCLOG("World Coords of Camera: %f, %f", worldCoordsCam.x, worldCoordsCam.y);
+    CCLOG("World Coords of Map: %f, %f", worldCoordsMap.x, worldCoordsMap.y);
+    
+    _map->setCameraMask((unsigned short)CameraFlag::USER1);
 
     return true;
 }
@@ -150,12 +163,26 @@ void MainScene::PinchViewport(const Point& p0Org,const Point& p1Org, const Point
     // 3. Update look at and camera position
     
     // Octree
-    float scale = scaleAdjust*_viewportScaleOrg;
+    auto baseLayer = this->getChildByName("BaseLayer");
+    //auto worldPinchCoords = convertToWorldCoords(centerNew);
+    //auto worldPinchCoords = baseLayer->convertToWorldSpaceAR(centerNew);
+    //auto worldPinchCoords = Director::getInstance()->convertToGL(centerNew);
     
+    //CCLOG("World Coords of Map: %f, %f", worldPinchCoords.x, worldPinchCoords.y);
+    auto localCoords = _map->convertToNodeSpace(centerNew);
+    CCLOG("Local Coords: %f, %f", localCoords.x, localCoords.y);
+    
+    Vec3 lookDir = _camera->getPosition3D() - Vec3(centerNew.x, centerNew.y, _map->getPositionZ());
+    Vec3 cameraPos = _camera->getPosition3D();
+    if(lookDir.length() >= 50)
+    {
+        cameraPos -= lookDir.getNormalized()*20;
+        _camera->setPosition3D(cameraPos);
+    }
     
     _coords->setPosition(centerNew);
     char tmp[100];
-    sprintf(tmp,"%f,%f", centerNew.x, centerNew.y);
+    sprintf(tmp,"%f,%f\n%f, %f, %f", centerNew.x, centerNew.y, lookDir.getNormalized().x, lookDir.getNormalized().y, lookDir.getNormalized().z);
     _coords->setString(tmp);
 }
 
@@ -178,8 +205,8 @@ void MainScene::TapDragPinchInputPinchBegin(const TOUCH_DATA_T& point0, const TO
 {
     CCLOG("Pinch Begin");
     Notifier::Instance().Notify(Notifier::NE_RESET_DRAW_CYCLE);
-    //_viewportCenterOrg = Viewport::Instance().GetCenterMeters();
-    //_viewportScaleOrg = Viewport::Instance().GetScale();
+    _viewportCenterOrg = Viewport::Instance().GetCenterMeters();
+    _viewportScaleOrg = Viewport::Instance().GetScale();
     PinchViewport(GetPinchPoint0().pos, GetPinchPoint1().pos, point0.pos, point1.pos);
 }
 
