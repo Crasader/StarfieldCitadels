@@ -2,15 +2,15 @@
 
 void StopWatch::Start() {
 	_elapsedSeconds = 0;
-	this->schedule(schedule_selector(StopWatch::Update), 0.001);
+	//this->schedule(schedule_selector(StopWatch::UpdateTimer), 0.001f);
 }
 
-void StopWatch::Update(float dt) {
+void StopWatch::UpdateTimer(float dt) {
 	_elapsedSeconds += dt;
 }
 
 void StopWatch::Stop() {
-	this->unschedule(schedule_selector(StopWatch::Update));
+	//this->unschedule(schedule_selector(StopWatch::UpdateTimer));
 }
 
 void StopWatch::Reset() {

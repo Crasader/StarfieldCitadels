@@ -42,6 +42,17 @@ void Viewport::CalculateViewport()
    _vOffsetPixels.y = -_vScalePixelToMeter.y * (_vCenterMeters.y - _vScale*_worldSizeMeters.height/2/_aspectRatio);
    
    _ptmRatio = _screenSizePixels.width/_vSizeMeters.width;
+    
+    /*CCLOG("Viewport width (m): %f", _vSizeMeters.width);
+    CCLOG("Viewport height (m): %f", _vSizeMeters.height);
+    CCLOG("Viewport bottom left: %f, %f", _vBottomLeftMeters.x, _vBottomLeftMeters.y);
+    CCLOG("Viewport top right: %f, %f", _vTopRightMeters.x, _vTopRightMeters.y);
+    CCLOG("Viewport center: %f, %f", _vCenterMeters.x, _vCenterMeters.y);
+    CCLOG("Viewport scale pixel to meter: %f, %f", _vScalePixelToMeter.x, _vScalePixelToMeter.y);
+    CCLOG("Viewport offset pixels: %f, %f", _vOffsetPixels.x, _vOffsetPixels.y);
+    CCLOG("PTM ratio: %f", _ptmRatio);
+    
+    CCLOG("Pixel coords bottom left: %f, %f", ConvertToPixels(_vBottomLeftMeters).x, ConvertToPixels(_vBottomLeftMeters).y);*/
    
    Notifier::Instance().Notify(Notifier::NE_VIEWPORT_CHANGED);
    
@@ -50,14 +61,14 @@ void Viewport::CalculateViewport()
 
 bool Viewport::Init(float worldSizeMeters)
 {
-   // These are invariant once set.  The reset does not change
-   // these values.
-   _worldSizeMeters.width = worldSizeMeters;
-   _worldSizeMeters.height = worldSizeMeters;
-   _screenSizePixels = CCDirector::sharedDirector()->getWinSize();
-   _aspectRatio = _screenSizePixels.width/_screenSizePixels.height;
-   Reset();
-   return true;
+    // These are invariant once set.  The reset does not change
+    // these values.
+    _worldSizeMeters.width = worldSizeMeters;
+    _worldSizeMeters.height = worldSizeMeters;
+    _screenSizePixels = Director::getInstance()->getVisibleSize();
+    _aspectRatio = _screenSizePixels.width/_screenSizePixels.height;
+    Reset();
+    return true;
 }
 
 
@@ -119,6 +130,25 @@ bool Viewport::IsInViewport(const Vec2& position, float radius)
    return true;
 }
 
+/* To convert a position (meters) to a pixel, we use
+ * the y = mx + b conversion.
+ */
+Vec2 Viewport::ConvertToPixels(const Vec2& position)
+{
+    float xPixel = position.x * _vScalePixelToMeter.x + _vOffsetPixels.x;
+    float yPixel = position.y * _vScalePixelToMeter.y + _vOffsetPixels.y;
+    return Vec2(xPixel,yPixel);
+}
+
+/* To convert a pixel to a position (meters), we invert
+ * the linear equation to get x = (y-b)/m.
+ */
+Vec2 Viewport::ConvertToMeters(const Vec2& pixel)
+{
+    float xMeters = (pixel.x-_vOffsetPixels.x)/_vScalePixelToMeter.x;
+    float yMeters = (pixel.y-_vOffsetPixels.y)/_vScalePixelToMeter.y;
+    return Vec2(xMeters,yMeters);
+}
 
 /* Update the viewport to track a position.  A percentage value is
  * supplied with the call.  This is the percent of the viewport, from

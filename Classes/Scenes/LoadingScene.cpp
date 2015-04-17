@@ -43,6 +43,9 @@ bool LoadingScene::init()
     
     CCLOG("visibleSize:%.1f,%.1f", visibleSize.width, visibleSize.height);
     CCLOG("origin:%.1f,%.1f", origin.x, origin.y);
+    
+    //std::vector<std::vector<std::string>> temp;
+    //temp[0].push_back("Test");
 
 	_resLoader = ResourceLoader::create();
 	_resLoader->retain();

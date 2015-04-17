@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 
 #include "Scenes/LoadingScene.h"
+#include "Gestures/Notifier.h"
 
 AppDelegate::AppDelegate() {
 
@@ -36,6 +37,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+    
+    Notifier::Instance().Init();
 
     // create a scene. it's an autorelease object
     auto scene = LoadingScene::createScene();

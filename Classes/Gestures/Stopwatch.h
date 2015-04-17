@@ -10,7 +10,7 @@ private:
 	float _elapsedSeconds;
 public:
    void Start();
-   void Update(float dt);
+   void UpdateTimer(float dt);
    void Stop();
    void Reset();
    void Continue();

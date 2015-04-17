@@ -4,8 +4,8 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 
-#define TICKS_PER_SECOND (30)
-#define SECONDS_PER_TICK (1.0/30)
+//#define TICKS_PER_SECOND (30)
+//#define SECONDS_PER_TICK (1.0/30)
 
 // Some convenient shortcuts.
 

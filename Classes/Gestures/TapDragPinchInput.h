@@ -1,5 +1,6 @@
 #ifndef __TAP_DRAG_PINCH_INPUT_H__
 #define __TAP_DRAG_PINCH_INPUT_H__
+#define COCOS2D_DEBUG 1
 
 #include "CommonSTL.h"
 #include "CommonProject.h"
@@ -94,11 +95,10 @@ private:
    TapDragPinchInput();
    void StoreTouchData(Touch* touch, TOUCH_DATA_T* touchData);
    TapDragPinchInputTarget* _target;
+    
+    EventListenerTouchOneByOne *_touchListener;
    
 public:
-   // For debugging.
-   void DrawDebug();
-
    virtual ~TapDragPinchInput();
    
    // The class registers/unregisters on entry

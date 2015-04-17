@@ -47,8 +47,6 @@ public:
    {
       NE_MIN = 0,
       NE_DEBUG_BUTTON_PRESSED = NE_MIN,
-      NE_DEBUG_LINE_DRAW_ADD_LINE_PIXELS,
-      NE_DEBUG_TOGGLE_VISIBILITY,
       NE_DEBUG_MESSAGE,
       NE_RESET_DRAW_CYCLE,
       NE_VIEWPORT_CHANGED,
@@ -74,7 +72,7 @@ private:
    // because of a Notify(...) call.  The removed instance could be a dead
    // pointer, so don't try to talk to it.
    vector<Notified*> _detached;
-   int32 _notifyDepth;
+   int _notifyDepth;
    
    void RemoveEvent(NOTIFIED_EVENT_TYPE_VECTOR_T& orgEventTypes, NOTIFIED_EVENT_TYPE_T eventType);
    void RemoveNotified(NOTIFIED_VECTOR_T& orgNotified, Notified* observer);

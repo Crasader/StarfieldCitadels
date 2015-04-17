@@ -1,5 +1,6 @@
 #ifndef __VIEWPORT_H__
 #define __VIEWPORT_H__
+#define COCOS2D_DEBUG 1
 
 #include "CommonProject.h"
 #include "CommonSTL.h"
@@ -99,6 +100,7 @@ public:
    inline const Vec2& GetBottomLeftMeters() { return _vBottomLeftMeters; }
    inline const Vec2& GetTopRightMeters() { return _vTopRightMeters; }
    inline const Size& GetWorldSizeMeters() { return _worldSizeMeters; }
+   inline const Size& GetViewportSizeMeters() { return _vSizeMeters; }
    inline float GetScale() { return _vScale; }
    inline float GetPTMRatio() { return _ptmRatio; }
    inline float GetViewportScaleMin() { return _vScaleMin; }
@@ -113,6 +115,12 @@ public:
    // Include a radius component so we can look at stuff that
    // might be *close* to an edge.
    bool IsInViewport(const Vec2& position, float radius = 0.0f);
+    
+   // Convert a position in meters to pixel coordinates.
+   Vec2 ConvertToPixels(const Vec2& position);
+    
+   // Convert a pixel coordinate to position in meters.
+   Vec2 ConvertToMeters(const Vec2& pixel);
    
    // Update the viewport to track a position.  A percentage value is
    // supplied with the call.  This is the percent of the viewport, from
