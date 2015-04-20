@@ -175,9 +175,11 @@ void MainScene::PinchViewport(const Point& p0Org,const Point& p1Org, const Point
     // Octree
     auto baseLayer = this->getChildByName("BaseLayer");
     auto worldPinchCoords = convertToWorldCoords(centerNew);
+    auto worldCameraCoords = convertToWorldCoords(_camera->getPosition3D());
+    auto worldMapPosition = convertToWorldCoords(_map->getPosition3D());
     //auto worldMapCoords = baseLayer->convertToWorldSpaceAR(_map->getPosition());
     //auto worldPinchCoords = Director::getInstance()->convertToGL(centerNew);
-    auto nodeSpace = _map->convertToNodeSpace(centerNew);
+    //auto nodeSpace = _map->convertToNodeSpace(centerNew);
     
     //CCLOG("World Coords of Map: %f, %f", worldMapCoords.x, worldMapCoords.y);
     //CCLOG("Nodespace Coords of Map: %f, %f", nodeSpace.x, nodeSpace.y);
@@ -185,14 +187,22 @@ void MainScene::PinchViewport(const Point& p0Org,const Point& p1Org, const Point
     //auto mapSize = _map->getContentSize();
     //worldMapCoords-mapSize.width/2;
     //auto localCoords = _map->convertToNodeSpace(centerNew);
-    auto localCoords = convertToLocalCoords(centerNew, _map);
+    //auto localCoords = convertToLocalCoords(centerNew, _map);
     //CCLOG("Local Coords: %f, %f", localCoords.x, localCoords.y);
     
     Vec3 lookDir = _camera->getPosition3D() - worldPinchCoords;
+    //auto worldOrigin = convertToWorldCoords(Vec3(0,0,0));
+    //CCLOG("World Coordinates of 0,0,0: %f, %f, %f", worldOrigin.x, worldOrigin.y, worldOrigin.z);
+    CCLOG("Camera Position: %f, %f, %f", worldCameraCoords.x, worldCameraCoords.y, worldCameraCoords.z);
+    CCLOG("Camera Position World: %f, %f, %f", _camera->getPosition3D().x, _camera->getPosition3D().y, _camera->getPosition3D().z);
+    CCLOG("World Pinch Position: %f, %f, %f", worldPinchCoords.x, worldPinchCoords.y, worldPinchCoords.z);
+    CCLOG("Look Dir: %f, %f, %f", lookDir.x, lookDir.y, lookDir.z);
+    CCLOG("World Map Position: %f, %f, %f", worldMapPosition.x, worldMapPosition.y, worldMapPosition.z);
+    //CCLOG("Map 3D Position: %f, %f, %f", _map->getPosition3D().x, _map->getPosition3D().y, _map->getPosition3D().z);
     Vec3 cameraPos = _camera->getPosition3D();
-    if(lookDir.length() >= 50)
+    //if(lookDir.length() >= 50)
     {
-        cameraPos -= lookDir.getNormalized()*20;
+        cameraPos -= lookDir.getNormalized();
         _camera->setPosition3D(cameraPos);
     }
     
@@ -220,8 +230,9 @@ void MainScene::TapDragPinchInputTap(const TOUCH_DATA_T& point)
 {
     CCLOG("Touch");
     //auto localCoords = _map->convertToNodeSpace(point.pos);
-    //auto worldCoords = convertToWorldCoords(point.pos);
-    auto worldCoords = transformPoint(point.pos);
+    auto worldCoords = convertToWorldCoords(point.pos);
+    //auto worldCoords = Director::getInstance()->convertToGL(point.pos);
+    //auto worldCoords = transformPoint(point.pos);
     _coords->setPosition(point.pos);
     char tmp[100];
     sprintf(tmp,"%f,%f", worldCoords.x, worldCoords.y);
@@ -282,6 +293,25 @@ void MainScene::SetZoom(float scale)
 
 Vec3 MainScene::convertToWorldCoords(Vec2 pos)
 {
+	auto vpSize = Director::getInstance()->getVisibleSize();
+	Vec3 worldCoord;
+	Vec3 nearPlaneIntersection(pos.x, pos.y, -1);
+	_camera->unproject(vpSize, &nearPlaneIntersection, &worldCoord);
+
+	return worldCoord;
+}
+
+Vec3 MainScene::convertToWorldCoords(Vec3 pos)
+{
+	auto vpSize = Director::getInstance()->getVisibleSize();
+	Vec3 worldCoord;
+	_camera->unproject(vpSize, &pos, &worldCoord);
+
+	return worldCoord;
+}
+
+/*Vec3 MainScene::convertToWorldCoords(Vec2 pos)
+{
     auto visibleSize = Director::getInstance()->getVisibleSize();
     
     double x = 2.0 * pos.x/visibleSize.width - 1;
@@ -292,7 +322,7 @@ Vec3 MainScene::convertToWorldCoords(Vec2 pos)
     
     auto point3D = Vec3(x, y, 0);
     return viewProjMatIn*point3D;
-}
+}*/
 
 Point MainScene::transformPoint(Point point)
 {
