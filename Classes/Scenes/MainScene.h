@@ -54,6 +54,9 @@ public:
 	virtual void TapDragPinchInputDragBegin(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1);
 	virtual void TapDragPinchInputDragContinue(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1);
 	virtual void TapDragPinchInputDragEnd(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1);
+    
+    void drawBoundingBox(Node* target, Color4F color);
+    Vec2 convertToLocalCoords(Vec2 pos, Node *target);
 private:
     World world;
     
@@ -83,6 +86,9 @@ private:
     void SetZoom(float zoom);
     void PinchViewport(const Point& p0Org,const Point& p1Org, const Point& p0,const Point& p1);
     Vec3 convertToWorldCoords(Vec2 pos);
+    Point transformPoint(Point point);
+    Vec4 unProjectPoint(Vec3 point);
+
 };
 
 #endif /* __MAIN_SCENE_H__ */
