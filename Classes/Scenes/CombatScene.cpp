@@ -39,8 +39,8 @@ bool CombatScene::init()
     uiLayer = UILayer::create();
     uiLayer->setName("UILayer");
 
-    auto backDrop = MenuItemImage::create("space.jpg",
-											   "space.jpg",
+    auto backDrop = MenuItemImage::create("fightBackground.png",
+											   "fightBackground.png",
 											   CC_CALLBACK_1(CombatScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -50,7 +50,7 @@ bool CombatScene::init()
 	baseLayer->addChild(backDropLayer);
 
 	auto leftArrow = MenuItemImage::create("left_arrow.png",
-												   "left_arrow.png",
+												   "left_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toThirdFightMenu, this));    // position the label on the center of the screen
 
 	leftArrow->setPosition((Point(visibleSize.width / 10, visibleSize.height / 2)));
@@ -60,10 +60,10 @@ bool CombatScene::init()
 	uiLayer->addChild(leftArrowMenu);
 
 	auto rightArrow = MenuItemImage::create("right_arrow.png",
-												   "right_arrow.png",
+												   "right_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toSecondFightMenu, this));    // position the label on the center of the screen
 
-	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 8) , visibleSize.height / 2)));
+	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 9) , visibleSize.height / 2)));
 
 	auto rightArrowMenu = Menu::create(rightArrow, NULL);
 	rightArrowMenu->setPosition(Vec2::ZERO);
@@ -81,8 +81,8 @@ bool CombatScene::init()
 	firstAsteroid->setTag(43);
 	hudLayer->addChild(firstAsteroid);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(CombatScene::loadMainView, this));
 
 	exitButton->setPosition((Point(visibleSize.width / 1.6, visibleSize.height / 6)));
@@ -90,9 +90,9 @@ bool CombatScene::init()
 	exitMenu->setPosition(Vec2::ZERO);
 	uiLayer->addChild(exitMenu);
 
-	auto fightButton = MenuItemImage::create("fight.jpg",
-											   "fight.jpg",
-											   CC_CALLBACK_1(CombatScene::loadMainView, this));
+	auto fightButton = MenuItemImage::create("fight.png",
+											   "fightClicked.png",
+											   CC_CALLBACK_1(CombatScene::updateMessage, this));
 
 	fightButton->setPosition((Point(visibleSize.width / 2.4, visibleSize.height / 6)));
 	auto fightButtonMenu = Menu::create(fightButton, NULL);
@@ -122,7 +122,7 @@ void CombatScene::toFirstFightMenu(Ref* pSender)
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto leftArrow = MenuItemImage::create("left_arrow.png",
-												   "left_arrow.png",
+												   "left_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toThirdFightMenu, this));    // position the label on the center of the screen
 
 	leftArrow->setPosition((Point(visibleSize.width / 10, visibleSize.height / 2)));
@@ -132,10 +132,10 @@ void CombatScene::toFirstFightMenu(Ref* pSender)
 	uiLayer->addChild(leftArrowMenu);
 
 	auto rightArrow = MenuItemImage::create("right_arrow.png",
-												   "right_arrow.png",
+												   "right_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toSecondFightMenu, this));    // position the label on the center of the screen
 
-	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 8) , visibleSize.height / 2)));
+	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 9) , visibleSize.height / 2)));
 
 	auto rightArrowMenu = Menu::create(rightArrow, NULL);
 	rightArrowMenu->setPosition(Vec2::ZERO);
@@ -153,9 +153,9 @@ void CombatScene::toFirstFightMenu(Ref* pSender)
 	firstAsteroid->setTag(43);
 	hudLayer->addChild(firstAsteroid);
 
-	auto fightButton = MenuItemImage::create("fight.jpg",
-											   "fight.jpg",
-											   CC_CALLBACK_1(CombatScene::loadMainView, this));
+	auto fightButton = MenuItemImage::create("fight.png",
+											   "fightClicked.png",
+											   CC_CALLBACK_1(CombatScene::updateMessage, this));
 
 	fightButton->setPosition((Point(visibleSize.width / 2.4, visibleSize.height / 6)));
 	auto fightButtonMenu = Menu::create(fightButton, NULL);
@@ -177,7 +177,7 @@ void CombatScene::toSecondFightMenu(Ref* pSender)
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto leftArrow = MenuItemImage::create("left_arrow.png",
-												   "left_arrow.png",
+												   "left_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toFirstFightMenu, this));    // position the label on the center of the screen
 
 	leftArrow->setPosition((Point(visibleSize.width / 10, visibleSize.height / 2)));
@@ -187,10 +187,10 @@ void CombatScene::toSecondFightMenu(Ref* pSender)
 	uiLayer->addChild(leftArrowMenu);
 
 	auto rightArrow = MenuItemImage::create("right_arrow.png",
-												   "right_arrow.png",
+												   "right_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toThirdFightMenu, this));    // position the label on the center of the screen
 
-	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 8) , visibleSize.height / 2)));
+	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 9) , visibleSize.height / 2)));
 
 	auto rightArrowMenu = Menu::create(rightArrow, NULL);
 	rightArrowMenu->setPosition(Vec2::ZERO);
@@ -208,9 +208,9 @@ void CombatScene::toSecondFightMenu(Ref* pSender)
 	firstAsteroid->setTag(43);
 	hudLayer->addChild(firstAsteroid);
 
-	auto fightButton = MenuItemImage::create("fight.jpg",
-											   "fight.jpg",
-											   CC_CALLBACK_1(CombatScene::loadMainView, this));
+	auto fightButton = MenuItemImage::create("fight.png",
+											   "fightClicked.png",
+											   CC_CALLBACK_1(CombatScene::updateMessage, this));
 
 	fightButton->setPosition((Point(visibleSize.width / 2.4, visibleSize.height / 6)));
 	auto fightButtonMenu = Menu::create(fightButton, NULL);
@@ -232,7 +232,7 @@ void CombatScene::toThirdFightMenu(Ref* pSender)
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto leftArrow = MenuItemImage::create("left_arrow.png",
-												   "left_arrow.png",
+												   "left_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toSecondFightMenu, this));    // position the label on the center of the screen
 
 	leftArrow->setPosition((Point(visibleSize.width / 10, visibleSize.height / 2)));
@@ -242,10 +242,10 @@ void CombatScene::toThirdFightMenu(Ref* pSender)
 	uiLayer->addChild(leftArrowMenu);
 
 	auto rightArrow = MenuItemImage::create("right_arrow.png",
-												   "right_arrow.png",
+												   "right_arrowClicked.png",
 												   CC_CALLBACK_1(CombatScene::toFirstFightMenu, this));    // position the label on the center of the screen
 
-	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 8) , visibleSize.height / 2)));
+	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 9) , visibleSize.height / 2)));
 
 	auto rightArrowMenu = Menu::create(rightArrow, NULL);
 	rightArrowMenu->setPosition(Vec2::ZERO);
@@ -263,9 +263,9 @@ void CombatScene::toThirdFightMenu(Ref* pSender)
 	firstAsteroid->setTag(43);
 	hudLayer->addChild(firstAsteroid);
 
-	auto fightButton = MenuItemImage::create("fight.jpg",
-											   "fight.jpg",
-											   CC_CALLBACK_1(CombatScene::loadMainView, this));
+	auto fightButton = MenuItemImage::create("fight.png",
+											   "fightClicked.png",
+											   CC_CALLBACK_1(CombatScene::updateMessage, this));
 
 	fightButton->setPosition((Point(visibleSize.width / 2.4, visibleSize.height / 6)));
 	auto fightButtonMenu = Menu::create(fightButton, NULL);
@@ -282,5 +282,57 @@ void CombatScene::loadMainView(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
 	this->removeAllChildren();
+}
+
+void CombatScene::updateMessage(Ref* pSender)
+{
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto backDrop = MenuItemImage::create("blockOut_Content5.png",
+											   "blockOut_Content5.png",
+											   CC_CALLBACK_1(CombatScene::doNothing, this));
+
+	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+	auto backDropLayer = Menu::create(backDrop, NULL);
+	backDropLayer->setPosition(Vec2::ZERO);
+	backDropLayer->setTag(50);
+	uiLayer->addChild(backDropLayer);
+
+	auto popup = Sprite::create("popup_menu.png");
+	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
+	popup->setTag(51);
+	uiLayer->addChild(popup);
+
+	auto label = Label::createWithTTF("Fighting will be added", "fonts/Marker Felt.ttf", 20);
+	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
+	label->setTag(52);
+	uiLayer->addChild(label);
+
+	auto label2 = Label::createWithTTF("in the next update.", "fonts/Marker Felt.ttf", 20);
+	label2->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.95)));
+	label2->setTag(53);
+	uiLayer->addChild(label2);
+
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
+											   CC_CALLBACK_1(CombatScene::exitUpdateMessage, this));
+
+	exitButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.5)));
+	auto exitMenu = Menu::create(exitButton, NULL);
+	exitMenu->setPosition(Vec2::ZERO);
+	exitMenu->setTag(54);
+	uiLayer->addChild(exitMenu);
+
+}
+
+void CombatScene::exitUpdateMessage(Ref* pSender)
+{
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
+	uiLayer->removeChildByTag(50,1);
+	uiLayer->removeChildByTag(51,1);
+	uiLayer->removeChildByTag(52,1);
+	uiLayer->removeChildByTag(53,1);
+	uiLayer->removeChildByTag(54,1);
 }
 

@@ -133,6 +133,48 @@ public:
 	void setItemNumbers(vector<int> itemNums);
 	void buildTheItems();
 
+	void startTheTutorial();
+	void tutorialText2(cocos2d::Ref* pSender);
+	void tutorialText3(cocos2d::Ref* pSender);
+	void tutorialText4(cocos2d::Ref* pSender);
+	void tutorialText5(cocos2d::Ref* pSender);
+	void tutorialText6(cocos2d::Ref* pSender);
+	void tutorialText7(cocos2d::Ref* pSender);
+	void tutorialText8(cocos2d::Ref* pSender);
+	void tutorialText9(cocos2d::Ref* pSender);
+	void tutorialText10(cocos2d::Ref* pSender);
+	void tutorialText11(cocos2d::Ref* pSender);
+	void tutorialText12(cocos2d::Ref* pSender);
+	void tutorialText13(cocos2d::Ref* pSender);
+	void tutorialText14(cocos2d::Ref* pSender);
+	void tutorialText15(cocos2d::Ref* pSender);
+	void tutorialText16(cocos2d::Ref* pSender);
+	void tutorialText17(cocos2d::Ref* pSender);
+	void tutorialText18(cocos2d::Ref* pSender);
+	void tutorialText19(cocos2d::Ref* pSender);
+	void tutorialText20(cocos2d::Ref* pSender);
+	void tutorialText21(cocos2d::Ref* pSender);
+	void tutorialText22(cocos2d::Ref* pSender);
+	void tutorialText23(cocos2d::Ref* pSender);
+	void tutorialText24(cocos2d::Ref* pSender);
+	void tutorialText25(cocos2d::Ref* pSender);
+	void tutorialText26(cocos2d::Ref* pSender);
+	void tutorialText27(cocos2d::Ref* pSender);
+	void tutorialText28(cocos2d::Ref* pSender);
+	void tutorialText29(cocos2d::Ref* pSender);
+	void tutorialText30(cocos2d::Ref* pSender);
+	void tutorialText31(cocos2d::Ref* pSender);
+	void tutorialText32(cocos2d::Ref* pSender);
+	void tutorialText33(cocos2d::Ref* pSender);
+	void tutorialText34(cocos2d::Ref* pSender);
+	void tutorialText35(cocos2d::Ref* pSender);
+	void tutorialText36(cocos2d::Ref* pSender);
+	void tutorialText37(cocos2d::Ref* pSender);
+	void tutorialText38(cocos2d::Ref* pSender);
+	void tutorialText39(cocos2d::Ref* pSender);
+
+	void exitTutorial(cocos2d::Ref* pSender);
+
 	void doNothing(cocos2d::Ref* pSender);
 	void setMoneyTotal(int money);
 	void repostMoneyTotal();

@@ -70,8 +70,8 @@ bool StoreScene::init()
     uiLayer = UILayer::create();
     uiLayer->setName("UILayer");
 
-    auto backDrop = MenuItemImage::create("space.jpg",
-											   "space.jpg",
+    auto backDrop = MenuItemImage::create("tileMap.png",
+											   "tileMap.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -80,13 +80,13 @@ bool StoreScene::init()
 	backDropLayer->setTag(89);
 	baseLayer->addChild(backDropLayer);
 
-   	auto sideBuildMenu = Sprite::create("buildMenu.jpg");
+   	auto sideBuildMenu = Sprite::create("buildMenu.png");
    	sideBuildMenu->setPosition((Point(visibleSize.width / 1.25, visibleSize.height / 2)));
    	sideBuildMenu->setTag(80);
    	hudLayer->addChild(sideBuildMenu);
 
    	auto exitButton = MenuItemImage::create("exit_button.png",
-   											   "exit_button.png",
+   											   "exit_buttonClicked.png",
    											   CC_CALLBACK_1(StoreScene::loadMainView, this));
 
    	exitButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height - (visibleSize.height/10))));
@@ -99,8 +99,8 @@ bool StoreScene::init()
    	label->setTag(81);
    	hudLayer->addChild(label);
 
-   	auto firstBuild = MenuItemImage::create("upgrade_the_soldier.png",
-   											   "upgrade_the_soldier.png",
+   	auto firstBuild = MenuItemImage::create("firstItemButton.png",
+   											   "firstItemButtonClicked.png",
    											   CC_CALLBACK_1(StoreScene::buildFirstItem, this));
 
    	firstBuild->setPosition((Point(visibleSize.width / 1.42, visibleSize.height / 1.54)));
@@ -109,8 +109,8 @@ bool StoreScene::init()
    	firstBuildMenu->setTag(82);
    	uiLayer->addChild(firstBuildMenu);
 
-   	auto secondBuild = MenuItemImage::create("upgrade_the_soldier.png",
-   											   "upgrade_the_soldier.png",
+   	auto secondBuild = MenuItemImage::create("secondItemButton.png",
+   											   "secondItemButtonClicked.png",
    											   CC_CALLBACK_1(StoreScene::buildSecondItem, this));
 
    	secondBuild->setPosition((Point(visibleSize.width / 1.12, visibleSize.height / 1.54)));
@@ -119,8 +119,8 @@ bool StoreScene::init()
    	secondBuildMenu->setTag(83);
    	uiLayer->addChild(secondBuildMenu);
 
-   	auto thirdBuild = MenuItemImage::create("upgrade_the_soldier.png",
-   											   "upgrade_the_soldier.png",
+   	auto thirdBuild = MenuItemImage::create("thirdItemButton.png",
+   											   "thirdItemButtonClicked.png",
    											   CC_CALLBACK_1(StoreScene::buildThirdItem, this));
 
    	thirdBuild->setPosition((Point(visibleSize.width / 1.42, visibleSize.height / 2.45)));
@@ -129,8 +129,8 @@ bool StoreScene::init()
    	thirdBuildMenu->setTag(84);
    	uiLayer->addChild(thirdBuildMenu);
 
-   	auto fourthBuild = MenuItemImage::create("upgrade_the_soldier.png",
-   											   "upgrade_the_soldier.png",
+   	auto fourthBuild = MenuItemImage::create("fourthItemButton.png",
+   											   "fourthItemButtonClicked.png",
    											   CC_CALLBACK_1(StoreScene::buildFourthItem, this));
 
    	fourthBuild->setPosition((Point(visibleSize.width / 1.12, visibleSize.height / 2.45)));
@@ -139,8 +139,8 @@ bool StoreScene::init()
    	fourthBuildMenu->setTag(85);
    	uiLayer->addChild(fourthBuildMenu);
 
-   	auto fifthBuild = MenuItemImage::create("upgrade_the_soldier.png",
-   											   "upgrade_the_soldier.png",
+   	auto fifthBuild = MenuItemImage::create("fifthItemButton.png",
+   											   "fifthItemButtonClicked.png",
    											   CC_CALLBACK_1(StoreScene::buildFifthItem, this));
 
    	fifthBuild->setPosition((Point(visibleSize.width / 1.42, visibleSize.height / 6)));
@@ -149,8 +149,8 @@ bool StoreScene::init()
    	fifthBuildMenu->setTag(86);
    	uiLayer->addChild(fifthBuildMenu);
 
-   	auto sixthBuild = MenuItemImage::create("upgrade_the_soldier.png",
-   											   "upgrade_the_soldier.png",
+   	auto sixthBuild = MenuItemImage::create("sixthItemButton.png",
+   											   "sixthItemButtonClicked.png",
    											   CC_CALLBACK_1(StoreScene::buildSixthItem, this));
 
    	sixthBuild->setPosition((Point(visibleSize.width / 1.12, visibleSize.height / 6)));
@@ -174,37 +174,37 @@ void StoreScene::setUpPreviousBuiltItems()
 	{
 		if(builtItemNumbers.at(i) == 1)
 		{
-			auto firstItem = Sprite::create("star.png");
+			auto firstItem = Sprite::create("firstItemTile.png");
 			firstItem->setPosition(builtItemLocations.at(i));
 			baseLayer->addChild(firstItem);
 		}
 		else if(builtItemNumbers.at(i) == 2)
 		{
-			auto secondItem = Sprite::create("star.png");
+			auto secondItem = Sprite::create("secondItemTile.png");
 			secondItem->setPosition(builtItemLocations.at(i));
 			baseLayer->addChild(secondItem);
 		}
 		else if(builtItemNumbers.at(i) == 3)
 		{
-			auto thirdItem = Sprite::create("star.png");
+			auto thirdItem = Sprite::create("thirdItemTile.png");
 			thirdItem->setPosition(builtItemLocations.at(i));
 			baseLayer->addChild(thirdItem);
 		}
 		else if(builtItemNumbers.at(i) == 4)
 		{
-			auto fourthItem = Sprite::create("star.png");
+			auto fourthItem = Sprite::create("fourthItemTile.png");
 			fourthItem->setPosition(builtItemLocations.at(i));
 			baseLayer->addChild(fourthItem);
 		}
 		else if(builtItemNumbers.at(i) == 5)
 		{
-			auto fifthItem = Sprite::create("star.png");
+			auto fifthItem = Sprite::create("fifthItemTile.png");
 			fifthItem->setPosition(builtItemLocations.at(i));
 			baseLayer->addChild(fifthItem);
 		}
 		else if(builtItemNumbers.at(i) == 6)
 		{
-			auto sixthItem = Sprite::create("star.png");
+			auto sixthItem = Sprite::create("sixthItemTile.png");
 			sixthItem->setPosition(builtItemLocations.at(i));
 			baseLayer->addChild(sixthItem);
 		}
@@ -261,7 +261,7 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto sideBuildMenu = Sprite::create("buildMenu.jpg");
+	auto sideBuildMenu = Sprite::create("buildMenu.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 1.25, visibleSize.height / 2)));
 	sideBuildMenu->setTag(80);
 	hudLayer->addChild(sideBuildMenu);
@@ -271,8 +271,8 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	label->setTag(81);
 	hudLayer->addChild(label);
 
-	auto firstBuild = MenuItemImage::create("upgrade_the_soldier.png",
-											   "upgrade_the_soldier.png",
+	auto firstBuild = MenuItemImage::create("firstItemButton.png",
+											   "firstItemButtonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildFirstItem, this));
 
 	firstBuild->setPosition((Point(visibleSize.width / 1.42, visibleSize.height / 1.54)));
@@ -281,8 +281,8 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	firstBuildMenu->setTag(82);
 	uiLayer->addChild(firstBuildMenu);
 
-	auto secondBuild = MenuItemImage::create("upgrade_the_soldier.png",
-											   "upgrade_the_soldier.png",
+	auto secondBuild = MenuItemImage::create("secondItemButton.png",
+											   "secondItemButtonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildSecondItem, this));
 
 	secondBuild->setPosition((Point(visibleSize.width / 1.12, visibleSize.height / 1.54)));
@@ -291,8 +291,8 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	secondBuildMenu->setTag(83);
 	uiLayer->addChild(secondBuildMenu);
 
-	auto thirdBuild = MenuItemImage::create("upgrade_the_soldier.png",
-											   "upgrade_the_soldier.png",
+	auto thirdBuild = MenuItemImage::create("thirdItemButton.png",
+											   "thirdItemButtonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildThirdItem, this));
 
 	thirdBuild->setPosition((Point(visibleSize.width / 1.42, visibleSize.height / 2.45)));
@@ -301,8 +301,8 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	thirdBuildMenu->setTag(84);
 	uiLayer->addChild(thirdBuildMenu);
 
-	auto fourthBuild = MenuItemImage::create("upgrade_the_soldier.png",
-											   "upgrade_the_soldier.png",
+	auto fourthBuild = MenuItemImage::create("fourthItemButton.png",
+											   "fourthItemButtonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildFourthItem, this));
 
 	fourthBuild->setPosition((Point(visibleSize.width / 1.12, visibleSize.height / 2.45)));
@@ -311,8 +311,8 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	fourthBuildMenu->setTag(85);
 	uiLayer->addChild(fourthBuildMenu);
 
-	auto fifthBuild = MenuItemImage::create("upgrade_the_soldier.png",
-											   "upgrade_the_soldier.png",
+	auto fifthBuild = MenuItemImage::create("fifthItemButton.png",
+											   "fifthItemButtonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildFifthItem, this));
 
 	fifthBuild->setPosition((Point(visibleSize.width / 1.42, visibleSize.height / 6)));
@@ -321,8 +321,8 @@ void StoreScene::toBuildMenuStep(Ref* pSender)
 	fifthBuildMenu->setTag(86);
 	uiLayer->addChild(fifthBuildMenu);
 
-	auto sixthBuild = MenuItemImage::create("upgrade_the_soldier.png",
-											   "upgrade_the_soldier.png",
+	auto sixthBuild = MenuItemImage::create("sixthItemButton.png",
+											   "sixthItemButtonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildSixthItem, this));
 
 	sixthBuild->setPosition((Point(visibleSize.width / 1.12, visibleSize.height / 6)));
@@ -361,10 +361,10 @@ void StoreScene::buildFirstItem(Ref* pSender)
 	this->addChild(uiLayer);
 
 	auto buildButton = MenuItemImage::create("side_build_button.png",
-											   "side_build_button.png",
+											   "side_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::toBuildMenuStep, this));
 
-	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height / 11)));
+	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 9), visibleSize.height / 11)));
 	auto buildButtonMenu = Menu::create(buildButton, NULL);
 	buildButtonMenu->setPosition(Vec2::ZERO);
 	buildButtonMenu->setTag(94);
@@ -405,13 +405,13 @@ void StoreScene::createFirstItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 	currentTouchedPoint = touchPoint;
 
-	auto firstItem = Sprite::create("star.png");
+	auto firstItem = Sprite::create("firstItemTile.png");
 	firstItem->setPosition(touchPoint);
 	firstItem->setTag(88);
 	uiLayer->addChild(firstItem);
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("clearButton.png",
+											   "clearButton.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -421,14 +421,14 @@ void StoreScene::createFirstItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(backDropLayer);
 
 
-	auto sideBuildMenu = Sprite::create("popup_build_menu.jpg");
+	auto sideBuildMenu = Sprite::create("popup_build_menu2.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	sideBuildMenu->setTag(90);
 	uiLayer->addChild(sideBuildMenu);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::cancelFromConfirmBuild, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -439,7 +439,7 @@ void StoreScene::createFirstItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 
 	auto popUpBuild = MenuItemImage::create("popup_build_button.png",
-											   "popup_build_button.png",
+											   "popup_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildTheFirstItem, this));
 
 	popUpBuild->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -453,7 +453,7 @@ void StoreScene::createFirstItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	label->setTag(93);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -485,7 +485,7 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 		uiLayer->removeChildByTag(34,1);
 		uiLayer->removeChildByTag(35,1);
 
-		auto firstItem = Sprite::create("star.png");
+		auto firstItem = Sprite::create("firstItemTile.png");
 		firstItem->setPosition(currentTouchedPoint);
 		hudLayer->addChild(firstItem);
 
@@ -497,8 +497,8 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content4.png",
+												   "blockOut_Content4.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -507,7 +507,7 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -517,8 +517,8 @@ void StoreScene::buildTheFirstItem(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -558,10 +558,10 @@ void StoreScene::buildSecondItem(Ref* pSender)
 
 
 	auto buildButton = MenuItemImage::create("side_build_button.png",
-											   "side_build_button.png",
+											   "side_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::toBuildMenuStep, this));
 
-	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height / 11)));
+	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 9), visibleSize.height / 11)));
 	auto buildButtonMenu = Menu::create(buildButton, NULL);
 	buildButtonMenu->setPosition(Vec2::ZERO);
 	buildButtonMenu->setTag(94);
@@ -587,13 +587,13 @@ void StoreScene::createSecondItem(cocos2d::Touch* touch, cocos2d::Event* event)
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
 
-	auto secondItem = Sprite::create("star.png");
+	auto secondItem = Sprite::create("secondItemTile.png");
 	secondItem->setPosition(touchPoint);
 	secondItem->setTag(88);
 	uiLayer->addChild(secondItem);
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("clearButton.png",
+											   "clearButton.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -603,14 +603,14 @@ void StoreScene::createSecondItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(backDropLayer);
 
 
-	auto sideBuildMenu = Sprite::create("popup_build_menu.jpg");
+	auto sideBuildMenu = Sprite::create("popup_build_menu2.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	sideBuildMenu->setTag(90);
 	uiLayer->addChild(sideBuildMenu);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::cancelFromConfirmBuild, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -621,7 +621,7 @@ void StoreScene::createSecondItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 
 	auto popUpBuild = MenuItemImage::create("popup_build_button.png",
-											   "popup_build_button.png",
+											   "popup_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildTheSecondItem, this));
 
 	popUpBuild->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -635,7 +635,7 @@ void StoreScene::createSecondItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	label->setTag(93);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -667,7 +667,7 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 		uiLayer->removeChildByTag(34,1);
 		uiLayer->removeChildByTag(35,1);
 
-		auto secondItem = Sprite::create("star.png");
+		auto secondItem = Sprite::create("secondItemTile.png");
 		secondItem->setPosition(currentTouchedPoint);
 		hudLayer->addChild(secondItem);
 
@@ -679,8 +679,8 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content4.png",
+												   "blockOut_Content4.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -689,7 +689,7 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -699,8 +699,8 @@ void StoreScene::buildTheSecondItem(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -740,10 +740,10 @@ void StoreScene::buildThirdItem(Ref* pSender)
 	this->addChild(uiLayer);
 
 	auto buildButton = MenuItemImage::create("side_build_button.png",
-											   "side_build_button.png",
+											   "side_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::toBuildMenuStep, this));
 
-	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height / 11)));
+	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 9), visibleSize.height / 11)));
 	auto buildButtonMenu = Menu::create(buildButton, NULL);
 	buildButtonMenu->setPosition(Vec2::ZERO);
 	buildButtonMenu->setTag(94);
@@ -769,13 +769,13 @@ void StoreScene::createThirdItem(cocos2d::Touch* touch, cocos2d::Event* event)
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
 
-	auto thirdItem = Sprite::create("star.png");
+	auto thirdItem = Sprite::create("thirdItemTile.png");
 	thirdItem->setPosition(touchPoint);
 	thirdItem->setTag(88);
 	uiLayer->addChild(thirdItem);
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("clearButton.png",
+											   "clearButton.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -785,14 +785,14 @@ void StoreScene::createThirdItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(backDropLayer);
 
 
-	auto sideBuildMenu = Sprite::create("popup_build_menu.jpg");
+	auto sideBuildMenu = Sprite::create("popup_build_menu2.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	sideBuildMenu->setTag(90);
 	uiLayer->addChild(sideBuildMenu);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::cancelFromConfirmBuild, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -803,7 +803,7 @@ void StoreScene::createThirdItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 
 	auto popUpBuild = MenuItemImage::create("popup_build_button.png",
-											   "popup_build_button.png",
+											   "popup_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildTheThirdItem, this));
 
 	popUpBuild->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -817,7 +817,7 @@ void StoreScene::createThirdItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	label->setTag(93);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -849,7 +849,7 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 		uiLayer->removeChildByTag(34,1);
 		uiLayer->removeChildByTag(35,1);
 
-		auto thirdItem = Sprite::create("star.png");
+		auto thirdItem = Sprite::create("thirdItemTile.png");
 		thirdItem->setPosition(currentTouchedPoint);
 		hudLayer->addChild(thirdItem);
 
@@ -861,8 +861,8 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content4.png",
+												   "blockOut_Content4.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -871,7 +871,7 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -881,8 +881,8 @@ void StoreScene::buildTheThirdItem(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -922,10 +922,10 @@ void StoreScene::buildFourthItem(Ref* pSender)
 	this->addChild(uiLayer);
 
 	auto buildButton = MenuItemImage::create("side_build_button.png",
-											   "side_build_button.png",
+											   "side_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::toBuildMenuStep, this));
 
-	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height / 11)));
+	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 9), visibleSize.height / 11)));
 	auto buildButtonMenu = Menu::create(buildButton, NULL);
 	buildButtonMenu->setPosition(Vec2::ZERO);
 	buildButtonMenu->setTag(94);
@@ -951,13 +951,13 @@ void StoreScene::createFourthItem(cocos2d::Touch* touch, cocos2d::Event* event)
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
 
-	auto fourthItem = Sprite::create("star.png");
+	auto fourthItem = Sprite::create("fourthItemTile.png");
 	fourthItem->setPosition(touchPoint);
 	fourthItem->setTag(88);
 	uiLayer->addChild(fourthItem);
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("clearButton.png",
+											   "clearButton.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -967,14 +967,14 @@ void StoreScene::createFourthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(backDropLayer);
 
 
-	auto sideBuildMenu = Sprite::create("popup_build_menu.jpg");
+	auto sideBuildMenu = Sprite::create("popup_build_menu2.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	sideBuildMenu->setTag(90);
 	uiLayer->addChild(sideBuildMenu);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::cancelFromConfirmBuild, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -985,7 +985,7 @@ void StoreScene::createFourthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 
 	auto popUpBuild = MenuItemImage::create("popup_build_button.png",
-											   "popup_build_button.png",
+											   "popup_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildTheFourthItem, this));
 
 	popUpBuild->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -999,7 +999,7 @@ void StoreScene::createFourthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	label->setTag(93);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -1031,7 +1031,7 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 		uiLayer->removeChildByTag(34,1);
 		uiLayer->removeChildByTag(35,1);
 
-		auto fourthItem = Sprite::create("star.png");
+		auto fourthItem = Sprite::create("fourthItemTile.png");
 		fourthItem->setPosition(currentTouchedPoint);
 		hudLayer->addChild(fourthItem);
 
@@ -1043,8 +1043,8 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content4.png",
+												   "blockOut_Content4.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1053,7 +1053,7 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -1063,8 +1063,8 @@ void StoreScene::buildTheFourthItem(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -1103,10 +1103,10 @@ void StoreScene::buildFifthItem(Ref* pSender)
 	this->addChild(uiLayer);
 
 	auto buildButton = MenuItemImage::create("side_build_button.png",
-											   "side_build_button.png",
+											   "side_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::toBuildMenuStep, this));
 
-	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height / 11)));
+	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 9), visibleSize.height / 11)));
 	auto buildButtonMenu = Menu::create(buildButton, NULL);
 	buildButtonMenu->setPosition(Vec2::ZERO);
 	buildButtonMenu->setTag(94);
@@ -1132,13 +1132,13 @@ void StoreScene::createFifthItem(cocos2d::Touch* touch, cocos2d::Event* event)
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
 
-	auto fifthItem = Sprite::create("star.png");
+	auto fifthItem = Sprite::create("fifthItemTile.png");
 	fifthItem->setPosition(touchPoint);
 	fifthItem->setTag(88);
 	uiLayer->addChild(fifthItem);
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("clearButton.png",
+											   "clearButton.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1148,14 +1148,14 @@ void StoreScene::createFifthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(backDropLayer);
 
 
-	auto sideBuildMenu = Sprite::create("popup_build_menu.jpg");
+	auto sideBuildMenu = Sprite::create("popup_build_menu2.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	sideBuildMenu->setTag(90);
 	uiLayer->addChild(sideBuildMenu);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::cancelFromConfirmBuild, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -1166,7 +1166,7 @@ void StoreScene::createFifthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 
 	auto popUpBuild = MenuItemImage::create("popup_build_button.png",
-											   "popup_build_button.png",
+											   "popup_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildTheFifthItem, this));
 
 	popUpBuild->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -1180,7 +1180,7 @@ void StoreScene::createFifthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	label->setTag(93);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -1212,7 +1212,7 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 		uiLayer->removeChildByTag(34,1);
 		uiLayer->removeChildByTag(35,1);
 
-		auto fifthItem = Sprite::create("star.png");
+		auto fifthItem = Sprite::create("fifthItemTile.png");
 		fifthItem->setPosition(currentTouchedPoint);
 		hudLayer->addChild(fifthItem);
 
@@ -1224,8 +1224,8 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content4.png",
+												   "blockOut_Content4.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1234,7 +1234,7 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -1244,8 +1244,8 @@ void StoreScene::buildTheFifthItem(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -1284,10 +1284,10 @@ void StoreScene::buildSixthItem(Ref* pSender)
 	this->addChild(uiLayer);
 
 	auto buildButton = MenuItemImage::create("side_build_button.png",
-											   "side_build_button.png",
+											   "side_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::toBuildMenuStep, this));
 
-	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height / 11)));
+	buildButton->setPosition((Point(visibleSize.width - (visibleSize.width / 9), visibleSize.height / 11)));
 	auto buildButtonMenu = Menu::create(buildButton, NULL);
 	buildButtonMenu->setPosition(Vec2::ZERO);
 	buildButtonMenu->setTag(94);
@@ -1313,13 +1313,13 @@ void StoreScene::createSixthItem(cocos2d::Touch* touch, cocos2d::Event* event)
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	currentTouchedPoint = touchPoint;
 
-	auto sixthItem = Sprite::create("star.png");
+	auto sixthItem = Sprite::create("sixthItemTile.png");
 	sixthItem->setPosition(touchPoint);
 	sixthItem->setTag(88);
 	uiLayer->addChild(sixthItem);
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("clearButton.png",
+											   "clearButton.png",
 											   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1329,14 +1329,14 @@ void StoreScene::createSixthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	uiLayer->addChild(backDropLayer);
 
 
-	auto sideBuildMenu = Sprite::create("popup_build_menu.jpg");
+	auto sideBuildMenu = Sprite::create("popup_build_menu2.png");
 	sideBuildMenu->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	sideBuildMenu->setTag(90);
 	uiLayer->addChild(sideBuildMenu);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::cancelFromConfirmBuild, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -1347,7 +1347,7 @@ void StoreScene::createSixthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 
 
 	auto popUpBuild = MenuItemImage::create("popup_build_button.png",
-											   "popup_build_button.png",
+											   "popup_build_buttonClicked.png",
 											   CC_CALLBACK_1(StoreScene::buildTheSixthItem, this));
 
 	popUpBuild->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -1361,7 +1361,7 @@ void StoreScene::createSixthItem(cocos2d::Touch* touch, cocos2d::Event* event)
 	label->setTag(93);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -1393,7 +1393,7 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 		uiLayer->removeChildByTag(34,1);
 		uiLayer->removeChildByTag(35,1);
 
-		auto sixthItem = Sprite::create("star.png");
+		auto sixthItem = Sprite::create("sixthItemTile.png");
 		sixthItem->setPosition(currentTouchedPoint);
 		hudLayer->addChild(sixthItem);
 
@@ -1405,8 +1405,8 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content4.png",
+												   "blockOut_Content4.png",
 												   CC_CALLBACK_1(StoreScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1415,7 +1415,7 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -1425,8 +1425,8 @@ void StoreScene::buildTheSixthItem(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(StoreScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));

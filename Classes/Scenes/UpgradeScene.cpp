@@ -53,8 +53,8 @@ bool UpgradeScene::init()
     uiLayer = UILayer::create();
     uiLayer->setName("UILayer");
 
-    auto backDrop = MenuItemImage::create("space.jpg",
-											   "space.jpg",
+    auto backDrop = MenuItemImage::create("upgradeBackground.png",
+											   "upgradeBackground.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -64,7 +64,7 @@ bool UpgradeScene::init()
 	baseLayer->addChild(backDropLayer);
 
 	auto exitButton = MenuItemImage::create("exit_button.png",
-											   "exit_button.png",
+											   "exit_buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::loadMainView, this));
 
 	exitButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height - (visibleSize.height/10))));
@@ -78,7 +78,7 @@ bool UpgradeScene::init()
 	hudLayer->addChild(label);
 
 	auto soldiersTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "on_upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 	soldiersTab->setPosition((Point(visibleSize.width / 4 , visibleSize.height / 1.4)));
@@ -89,7 +89,7 @@ bool UpgradeScene::init()
 	uiLayer->addChild(soldiersTabMenu);
 
 	auto citadelTab = MenuItemImage::create("upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "upgrade_soldiers_tabClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::toUpgradeCitadel, this));    // position the label on the center of the screen
 
 	citadelTab->setPosition((Point((visibleSize.width / 4) * 3 , visibleSize.height / 1.4)));
@@ -153,8 +153,8 @@ bool UpgradeScene::init()
 	fourthUpgradeMenu->setTag(69);
 	uiLayer->addChild(fourthUpgradeMenu);
 
-	auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
+	auto fifthUpgrade = MenuItemImage::create("fifthSoldierBought.png",
+													   "fifthSoldierBoughtClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::upgradeFifthSoldier, this));    // position the label on the center of the screen
 
 	fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -222,7 +222,7 @@ void UpgradeScene::loadInitialSoldiers()
 	uiLayer->removeChildByTag(95,1);
 
 	auto soldiersTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "on_upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 	soldiersTab->setPosition((Point(visibleSize.width / 4 , visibleSize.height / 1.4)));
@@ -233,7 +233,7 @@ void UpgradeScene::loadInitialSoldiers()
 	uiLayer->addChild(soldiersTabMenu);
 
 	auto citadelTab = MenuItemImage::create("upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "upgrade_soldiers_tabClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::toUpgradeCitadel, this));    // position the label on the center of the screen
 
 	citadelTab->setPosition((Point((visibleSize.width / 4) * 3 , visibleSize.height / 1.4)));
@@ -282,8 +282,8 @@ void UpgradeScene::loadInitialSoldiers()
 
 	if(boughtSpaceRanger == true)
 	{
-		auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto secondUpgrade = MenuItemImage::create("secondSoldierButton.png",
+														   "secondSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeSecondSoldier, this));    // position the label on the center of the screen
 
 		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -295,8 +295,8 @@ void UpgradeScene::loadInitialSoldiers()
 	}
 	else
 	{
-		auto secondUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto secondUpgrade = MenuItemImage::create("secondSoldierNotAvailable.png",
+														   "secondSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -309,8 +309,8 @@ void UpgradeScene::loadInitialSoldiers()
 
 	if(boughtScout == true)
 	{
-		auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto thirdUpgrade = MenuItemImage::create("thirdSoldierButton.png",
+														   "thirdSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeThirdSoldier, this));    // position the label on the center of the screen
 
 		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
@@ -322,8 +322,8 @@ void UpgradeScene::loadInitialSoldiers()
 	}
 	else
 	{
-		auto thirdUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto thirdUpgrade = MenuItemImage::create("thirdSoldierNotAvailable.png",
+														   "thirdSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
@@ -336,8 +336,8 @@ void UpgradeScene::loadInitialSoldiers()
 
 	if (boughtCleric == true)
 	{
-		auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto fourthUpgrade = MenuItemImage::create("fourthSoldierButton.png",
+														   "fourthSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFourthSoldier, this));    // position the label on the center of the screen
 
 		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
@@ -349,8 +349,8 @@ void UpgradeScene::loadInitialSoldiers()
 	}
 	else
 	{
-		auto fourthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto fourthUpgrade = MenuItemImage::create("fourthSoldierNotAvailable.png",
+														   "fourthSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
@@ -363,8 +363,8 @@ void UpgradeScene::loadInitialSoldiers()
 
 	if(boughtAssassin == true)
 	{
-		auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto fifthUpgrade = MenuItemImage::create("fifthSoldierButton.png",
+														   "fifthSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFifthSoldier, this));    // position the label on the center of the screen
 
 		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -376,8 +376,8 @@ void UpgradeScene::loadInitialSoldiers()
 	}
 	else
 	{
-		auto fifthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto fifthUpgrade = MenuItemImage::create("fifthSoldierNotAvailable.png",
+														   "fifthSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -390,8 +390,8 @@ void UpgradeScene::loadInitialSoldiers()
 
 	if(boughtMage == true)
 	{
-	auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
+	auto sixthUpgrade = MenuItemImage::create("sixthSoldierButton.png",
+													   "sixthSoldierButtonClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::upgradeSixthSoldier, this));    // position the label on the center of the screen
 
 	sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
@@ -403,8 +403,8 @@ void UpgradeScene::loadInitialSoldiers()
 	}
 	else
 	{
-		auto sixthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto sixthUpgrade = MenuItemImage::create("sixthSoldierNotAvailable.png",
+														   "sixthSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
@@ -433,7 +433,7 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	uiLayer->removeChildByTag(95,1);
 
 	auto soldiersTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "on_upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 	soldiersTab->setPosition((Point(visibleSize.width / 4 , visibleSize.height / 1.4)));
@@ -444,7 +444,7 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	uiLayer->addChild(soldiersTabMenu);
 
 	auto citadelTab = MenuItemImage::create("upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "upgrade_soldiers_tabClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::toUpgradeCitadel, this));    // position the label on the center of the screen
 
 	citadelTab->setPosition((Point((visibleSize.width / 4) * 3 , visibleSize.height / 1.4)));
@@ -493,8 +493,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 	if(boughtSpaceRanger == true)
 	{
-		auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto secondUpgrade = MenuItemImage::create("secondSoldierButton.png",
+														   "secondSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeSecondSoldier, this));    // position the label on the center of the screen
 
 		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -506,8 +506,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	}
 	else
 	{
-		auto secondUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto secondUpgrade = MenuItemImage::create("secondSoldierNotAvailable.png",
+														   "secondSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -520,8 +520,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 	if(boughtScout == true)
 	{
-		auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto thirdUpgrade = MenuItemImage::create("thirdSoldierButton.png",
+														   "thirdSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeThirdSoldier, this));    // position the label on the center of the screen
 
 		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
@@ -533,8 +533,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	}
 	else
 	{
-		auto thirdUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto thirdUpgrade = MenuItemImage::create("thirdSoldierNotAvailable.png",
+														   "thirdSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
@@ -547,8 +547,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 	if (boughtCleric == true)
 	{
-		auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto fourthUpgrade = MenuItemImage::create("fourthSoldierButton.png",
+														   "fourthSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFourthSoldier, this));    // position the label on the center of the screen
 
 		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
@@ -560,8 +560,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	}
 	else
 	{
-		auto fourthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto fourthUpgrade = MenuItemImage::create("fourthSoldierNotAvailable.png",
+														   "fourthSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
@@ -574,8 +574,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 	if(boughtAssassin == true)
 	{
-		auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto fifthUpgrade = MenuItemImage::create("fifthSoldierButton.png",
+														   "fifthSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFifthSoldier, this));    // position the label on the center of the screen
 
 		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -587,8 +587,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	}
 	else
 	{
-		auto fifthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto fifthUpgrade = MenuItemImage::create("fifthSoldierNotAvailable.png",
+														   "fifthSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -601,8 +601,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 	if(boughtMage == true)
 	{
-	auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-													   "upgrade_the_soldier.png",
+	auto sixthUpgrade = MenuItemImage::create("sixthSoldierButton.png",
+													   "sixthSoldierButtonClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::upgradeSixthSoldier, this));    // position the label on the center of the screen
 
 	sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
@@ -614,8 +614,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	}
 	else
 	{
-		auto sixthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto sixthUpgrade = MenuItemImage::create("sixthSoldierNotAvailable.png",
+														   "sixthSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
@@ -645,7 +645,7 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 
 	auto soldiersTab = MenuItemImage::create("upgrade_soldiers_tab.png",
-														   "upgrade_soldiers_tab.png",
+														   "upgrade_soldiers_tabClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::toUpgradeMenu, this));    // position the label on the center of the screen
 
 	soldiersTab->setPosition((Point(visibleSize.width / 4 , visibleSize.height / 1.4)));
@@ -656,7 +656,7 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	uiLayer->addChild(soldiersTabMenu);
 
 	auto citadelTab = MenuItemImage::create("on_upgrade_soldiers_tab.png",
-													   "upgrade_soldiers_tab.png",
+													   "on_upgrade_soldiers_tab.png",
 													   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 	citadelTab->setPosition((Point((visibleSize.width / 4) * 3 , visibleSize.height / 1.4)));
@@ -678,8 +678,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 	if(boughtHoriWall == true)
 	{
-		auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto firstUpgrade = MenuItemImage::create("firstItemButton.png",
+														   "firstItemButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFirstBuiltItem, this));
 
 		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
@@ -691,8 +691,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	}
 	else
 	{
-		auto firstUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto firstUpgrade = MenuItemImage::create("firstItemNotAvailable.png",
+														   "firstItemNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
@@ -705,8 +705,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 	if(boughtVerWall == true)
 	{
-		auto secondUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto secondUpgrade = MenuItemImage::create("secondItemButton.png",
+														   "secondItemButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeSecondBuiltItem, this));
 
 		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -718,8 +718,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	}
 	else
 	{
-		auto secondUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto secondUpgrade = MenuItemImage::create("secondItemNotAvailable.png",
+														   "secondItemNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		secondUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -732,8 +732,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 	if(boughtHoriPlasma == true)
 	{
-		auto thirdUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto thirdUpgrade = MenuItemImage::create("thirdItemButton.png",
+														   "thirdItemButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeThirdBuiltItem, this));
 
 		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
@@ -745,8 +745,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	}
 	else
 	{
-		auto thirdUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto thirdUpgrade = MenuItemImage::create("thirdItemNotAvailable.png",
+														   "thirdItemNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		thirdUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 2)));
@@ -759,8 +759,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 	if(boughtVerPlasma == true)
 	{
-		auto fourthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto fourthUpgrade = MenuItemImage::create("fourthItemButton.png",
+														   "fourthItemButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFourthBuiltItem, this));
 
 		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
@@ -772,8 +772,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	}
 	else
 	{
-		auto fourthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto fourthUpgrade = MenuItemImage::create("fourthItemNotAvailable.png",
+														   "fourthItemNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		fourthUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 4)));
@@ -786,8 +786,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 	if(boughtStarDustTree == true)
 	{
-		auto fifthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto fifthUpgrade = MenuItemImage::create("fifthItemButton.png",
+														   "fifthItemButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFifthBuiltItem, this));
 
 		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -799,8 +799,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	}
 	else
 	{
-		auto fifthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto fifthUpgrade = MenuItemImage::create("fifthItemNotAvailable.png",
+														   "fifthItemNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		fifthUpgrade->setPosition((Point(visibleSize.width / 2, visibleSize.height / 4)));
@@ -813,8 +813,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 
 	if(boughtGalacticStone == true)
 	{
-		auto sixthUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto sixthUpgrade = MenuItemImage::create("sixthItemButton.png",
+														   "sixthItemButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeSixthBuiltItem, this));
 
 		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
@@ -826,8 +826,8 @@ void UpgradeScene::toUpgradeCitadel(Ref* pSender)
 	}
 	else
 	{
-		auto sixthUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto sixthUpgrade = MenuItemImage::create("sixthItemNotAvailable.png",
+														   "sixthItemNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		sixthUpgrade->setPosition((Point((visibleSize.width / 4) * 3.1, visibleSize.height / 4)));
@@ -1138,8 +1138,8 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1148,7 +1148,7 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
@@ -1209,8 +1209,8 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 	attack->setTag(56);
 	uiLayer->addChild(attack);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -1221,8 +1221,8 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 
 	if (warriorRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmFirstUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -1233,7 +1233,7 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -1245,8 +1245,8 @@ void UpgradeScene::confirmFirstUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1255,13 +1255,13 @@ void UpgradeScene::confirmFirstUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -1271,8 +1271,8 @@ void UpgradeScene::confirmFirstUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeFirstStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -1286,7 +1286,7 @@ void UpgradeScene::confirmFirstUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -1392,8 +1392,8 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 
 		if (warriorRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmFirstUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -1404,7 +1404,7 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -1413,8 +1413,8 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1423,7 +1423,7 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -1433,8 +1433,8 @@ void UpgradeScene::upgradeFirstStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -1449,8 +1449,8 @@ void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1459,12 +1459,12 @@ void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("second_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("second_soldier_upgrade.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -1520,8 +1520,8 @@ void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 	attack->setTag(56);
 	uiLayer->addChild(attack);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -1532,8 +1532,8 @@ void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 
 	if (spaceRangerRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmSecondUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -1544,7 +1544,7 @@ void UpgradeScene::upgradeSecondSoldier(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -1556,8 +1556,8 @@ void UpgradeScene::confirmSecondUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1566,13 +1566,13 @@ void UpgradeScene::confirmSecondUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -1582,8 +1582,8 @@ void UpgradeScene::confirmSecondUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeSecondStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -1597,7 +1597,7 @@ void UpgradeScene::confirmSecondUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -1704,8 +1704,8 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 
 		if (spaceRangerRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmSecondUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -1716,7 +1716,7 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -1725,8 +1725,8 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1735,7 +1735,7 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -1745,8 +1745,8 @@ void UpgradeScene::upgradeSecondStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -1761,8 +1761,8 @@ void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1771,12 +1771,12 @@ void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("third_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("third_soldier_upgrade.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -1832,8 +1832,8 @@ void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 	attack->setTag(56);
 	uiLayer->addChild(attack);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -1844,8 +1844,8 @@ void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 
 	if (scoutRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmThirdUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -1856,7 +1856,7 @@ void UpgradeScene::upgradeThirdSoldier(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -1868,8 +1868,8 @@ void UpgradeScene::confirmThirdUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -1878,13 +1878,13 @@ void UpgradeScene::confirmThirdUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -1894,8 +1894,8 @@ void UpgradeScene::confirmThirdUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeThirdStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -1909,7 +1909,7 @@ void UpgradeScene::confirmThirdUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -2015,8 +2015,8 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 
 		if (scoutRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmThirdUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2027,7 +2027,7 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -2036,8 +2036,8 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2046,7 +2046,7 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -2056,8 +2056,8 @@ void UpgradeScene::upgradeThirdStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -2072,8 +2072,8 @@ void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2082,12 +2082,12 @@ void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("fourth_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("fourth_soldier_upgrade.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -2143,8 +2143,8 @@ void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 	attack->setTag(56);
 	uiLayer->addChild(attack);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -2155,8 +2155,8 @@ void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 
 	if (clericRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmFourthUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2167,7 +2167,7 @@ void UpgradeScene::upgradeFourthSoldier(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -2179,8 +2179,8 @@ void UpgradeScene::confirmFourthUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2189,13 +2189,13 @@ void UpgradeScene::confirmFourthUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -2205,8 +2205,8 @@ void UpgradeScene::confirmFourthUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeFourthStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -2220,7 +2220,7 @@ void UpgradeScene::confirmFourthUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -2326,8 +2326,8 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 
 		if (clericRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmFourthUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2338,7 +2338,7 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -2347,8 +2347,8 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2357,7 +2357,7 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -2367,8 +2367,8 @@ void UpgradeScene::upgradeFourthStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -2383,8 +2383,8 @@ void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2393,12 +2393,12 @@ void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("fifth_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("fifth_soldier_upgrade.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -2454,8 +2454,8 @@ void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 	attack->setTag(56);
 	uiLayer->addChild(attack);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -2466,8 +2466,8 @@ void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 
 	if (assassinRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmFifthUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2478,7 +2478,7 @@ void UpgradeScene::upgradeFifthSoldier(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -2490,8 +2490,8 @@ void UpgradeScene::confirmFifthUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2500,13 +2500,13 @@ void UpgradeScene::confirmFifthUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -2516,8 +2516,8 @@ void UpgradeScene::confirmFifthUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeFifthStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -2531,7 +2531,7 @@ void UpgradeScene::confirmFifthUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -2637,8 +2637,8 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 
 		if (assassinRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmFifthUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2649,7 +2649,7 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -2658,8 +2658,8 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2668,7 +2668,7 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -2678,8 +2678,8 @@ void UpgradeScene::upgradeFifthStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -2694,8 +2694,8 @@ void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2704,12 +2704,12 @@ void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("sixth_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("sixth_soldier_upgrade.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -2765,8 +2765,8 @@ void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 	attack->setTag(56);
 	uiLayer->addChild(attack);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -2777,8 +2777,8 @@ void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 
 	if (mageRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmSixthUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2789,7 +2789,7 @@ void UpgradeScene::upgradeSixthSoldier(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -2801,8 +2801,8 @@ void UpgradeScene::confirmSixthUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2811,13 +2811,13 @@ void UpgradeScene::confirmSixthUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -2827,8 +2827,8 @@ void UpgradeScene::confirmSixthUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeSixthStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -2842,7 +2842,7 @@ void UpgradeScene::confirmSixthUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -2948,8 +2948,8 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 
 		if (mageRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmSixthUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -2960,7 +2960,7 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -2969,8 +2969,8 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -2979,7 +2979,7 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -2989,8 +2989,8 @@ void UpgradeScene::upgradeSixthStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -3005,8 +3005,8 @@ void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3015,12 +3015,12 @@ void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("first_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("firstItemDisplay.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -3072,8 +3072,8 @@ void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 	uiLayer->addChild(health);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -3084,8 +3084,8 @@ void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 
 	if (horiWallRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmFirstItemUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3096,7 +3096,7 @@ void UpgradeScene::upgradeFirstBuiltItem(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -3108,8 +3108,8 @@ void UpgradeScene::confirmFirstItemUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3118,13 +3118,13 @@ void UpgradeScene::confirmFirstItemUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -3134,8 +3134,8 @@ void UpgradeScene::confirmFirstItemUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeFirstItemStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -3149,7 +3149,7 @@ void UpgradeScene::confirmFirstItemUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -3247,8 +3247,8 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 
 		if (horiWallRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmFirstItemUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3259,7 +3259,7 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -3268,8 +3268,8 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3278,7 +3278,7 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -3288,8 +3288,8 @@ void UpgradeScene::upgradeFirstItemStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -3304,8 +3304,8 @@ void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3314,12 +3314,12 @@ void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("second_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("secondItemDisplay.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -3371,8 +3371,8 @@ void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 	uiLayer->addChild(health);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -3383,8 +3383,8 @@ void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 
 	if (verWallRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmSecondItemUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3395,7 +3395,7 @@ void UpgradeScene::upgradeSecondBuiltItem(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -3407,8 +3407,8 @@ void UpgradeScene::confirmSecondItemUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3417,13 +3417,13 @@ void UpgradeScene::confirmSecondItemUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -3433,8 +3433,8 @@ void UpgradeScene::confirmSecondItemUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeSecondItemStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -3448,7 +3448,7 @@ void UpgradeScene::confirmSecondItemUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -3545,8 +3545,8 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 
 		if (verWallRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmSecondItemUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3557,7 +3557,7 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -3566,8 +3566,8 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3576,7 +3576,7 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -3586,8 +3586,8 @@ void UpgradeScene::upgradeSecondItemStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -3602,8 +3602,8 @@ void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3612,12 +3612,12 @@ void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("third_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("thirdItemDisplay.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -3668,8 +3668,8 @@ void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 	health->setTag(55);
 	uiLayer->addChild(health);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -3680,8 +3680,8 @@ void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 
 	if (horiPlasmaRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmThirdItemUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3692,7 +3692,7 @@ void UpgradeScene::upgradeThirdBuiltItem(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -3704,8 +3704,8 @@ void UpgradeScene::confirmThirdItemUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3714,13 +3714,13 @@ void UpgradeScene::confirmThirdItemUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -3730,8 +3730,8 @@ void UpgradeScene::confirmThirdItemUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeThirdItemStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -3745,7 +3745,7 @@ void UpgradeScene::confirmThirdItemUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -3843,8 +3843,8 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 
 		if (horiPlasmaRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmThirdItemUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3855,7 +3855,7 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -3864,8 +3864,8 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3874,7 +3874,7 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -3884,8 +3884,8 @@ void UpgradeScene::upgradeThirdItemStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -3900,8 +3900,8 @@ void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -3910,12 +3910,12 @@ void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("fourth_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("fourthItemDisplay.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -3966,8 +3966,8 @@ void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 	health->setTag(55);
 	uiLayer->addChild(health);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -3978,8 +3978,8 @@ void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 
 	if (verPlasmaRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmFourthItemUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -3990,7 +3990,7 @@ void UpgradeScene::upgradeFourthBuiltItem(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -4002,8 +4002,8 @@ void UpgradeScene::confirmFourthItemUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4012,13 +4012,13 @@ void UpgradeScene::confirmFourthItemUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -4028,8 +4028,8 @@ void UpgradeScene::confirmFourthItemUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeFourthItemStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -4043,7 +4043,7 @@ void UpgradeScene::confirmFourthItemUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -4140,8 +4140,8 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 
 		if (verPlasmaRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmFourthItemUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -4152,7 +4152,7 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -4161,8 +4161,8 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4171,7 +4171,7 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -4181,8 +4181,8 @@ void UpgradeScene::upgradeFourthItemStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -4197,8 +4197,8 @@ void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4207,12 +4207,12 @@ void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("fifth_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("fifthItemDisplay.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -4263,8 +4263,8 @@ void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 	health->setTag(55);
 	uiLayer->addChild(health);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -4275,8 +4275,8 @@ void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 
 	if (starDustTreeRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmFifthItemUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -4287,7 +4287,7 @@ void UpgradeScene::upgradeFifthBuiltItem(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -4299,8 +4299,8 @@ void UpgradeScene::confirmFifthItemUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4309,13 +4309,13 @@ void UpgradeScene::confirmFifthItemUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -4325,8 +4325,8 @@ void UpgradeScene::confirmFifthItemUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeFifthItemStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -4340,7 +4340,7 @@ void UpgradeScene::confirmFifthItemUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -4438,8 +4438,8 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 
 		if (starDustTreeRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmFifthItemUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -4450,7 +4450,7 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -4459,8 +4459,8 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4469,7 +4469,7 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -4479,8 +4479,8 @@ void UpgradeScene::upgradeFifthItemStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -4496,8 +4496,8 @@ void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto backDrop = MenuItemImage::create("blockOut_Content.png",
-											   "blockOut_Content.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content3.png",
+											   "blockOut_Content3.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4506,12 +4506,12 @@ void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 	backDropLayer->setTag(50);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("sixth_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("sixthItemDisplay.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);
@@ -4563,8 +4563,8 @@ void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 	uiLayer->addChild(health);
 
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.55, visibleSize.height / 2.7)));
@@ -4575,8 +4575,8 @@ void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 
 	if (galacticStoneRank < 4)
 	{
-		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-												   "upgrade_soldier.jpg",
+		auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+												   "upgrade_soldierClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::confirmSixthItemUpgrade, this));
 
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -4587,7 +4587,7 @@ void UpgradeScene::upgradeSixthBuiltItem(Ref* pSender)
 	}
 	else
 	{
-		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+		auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 		upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 		upgradeTheSoldier->setTag(58);
 		uiLayer->addChild(upgradeTheSoldier);
@@ -4599,8 +4599,8 @@ void UpgradeScene::confirmSixthItemUpgrade(Ref* pSender)
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("normalClick.wav");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-											   "blockOut_Content2.png",
+	auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+											   "blockOut_Content6.png",
 											   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4609,13 +4609,13 @@ void UpgradeScene::confirmSixthItemUpgrade(Ref* pSender)
 	backDropLayer->setTag(59);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_upgrade_menu.jpg");
+	auto popup = Sprite::create("popup_upgrade_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(60);
 	uiLayer->addChild(popup);
 
-	auto cancelButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto cancelButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::cancelFromConfirmUpgrade, this));
 
 	cancelButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
@@ -4625,8 +4625,8 @@ void UpgradeScene::confirmSixthItemUpgrade(Ref* pSender)
 	uiLayer->addChild(cancelButtonMenu);
 
 
-	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-											   "upgrade_soldier.jpg",
+	auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+											   "upgrade_soldierClicked.png",
 											   CC_CALLBACK_1(UpgradeScene::upgradeSixthItemStats, this));
 
 	upgradeTheSoldier->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
@@ -4640,7 +4640,7 @@ void UpgradeScene::confirmSixthItemUpgrade(Ref* pSender)
 	label->setTag(63);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -4737,8 +4737,8 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 
 		if (galacticStoneRank < 4)
 		{
-			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.jpg",
-													   "upgrade_soldier.jpg",
+			auto upgradeTheSoldier = MenuItemImage::create("upgrade_soldier.png",
+													   "upgrade_soldierClicked.png",
 													   CC_CALLBACK_1(UpgradeScene::confirmSixthItemUpgrade, this));
 
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
@@ -4749,7 +4749,7 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 		}
 		else
 		{
-			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.jpg");
+			auto upgradeTheSoldier = Sprite::create("upgrade_soldier.png");
 			upgradeTheSoldier->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.7)));
 			upgradeTheSoldier->setTag(58);
 			uiLayer->addChild(upgradeTheSoldier);
@@ -4758,8 +4758,8 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(UpgradeScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -4768,7 +4768,7 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -4778,8 +4778,8 @@ void UpgradeScene::upgradeSixthItemStats(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(UpgradeScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));

@@ -43,6 +43,9 @@ public:
 	void toSecondFightMenu(cocos2d::Ref* pSender);
 	void toThirdFightMenu(cocos2d::Ref* pSender);
 
+	void updateMessage(cocos2d::Ref* pSender);
+	void exitUpdateMessage(cocos2d::Ref* pSender);
+
 	// Create the create method for "CombatScene" and make the call to the init method using this macro
 	CREATE_FUNC(CombatScene);
 };

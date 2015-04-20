@@ -46,8 +46,8 @@ bool HeroScene::init()
     uiLayer = UILayer::create();
     uiLayer->setName("UILayer");
 
-    auto backDrop = MenuItemImage::create("space.jpg",
-											   "space.jpg",
+    auto backDrop = MenuItemImage::create("recruitBackground.png",
+											   "recruitBackground.png",
 											   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 	backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -62,7 +62,7 @@ bool HeroScene::init()
 	hudLayer->addChild(label);
 
 	auto exitButton = MenuItemImage::create("exit_button.png",
-											   "exit_button.png",
+											   "exit_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::loadMainView, this));
 
 	exitButton->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height - (visibleSize.height/10))));
@@ -75,7 +75,7 @@ bool HeroScene::init()
 	leftArrow->setTag(10);
 	uiLayer->addChild(leftArrow);
 	auto rightArrow = MenuItemImage::create("right_arrow.png",
-													   "right_arrow.png",
+													   "right_arrowClicked.png",
 													   CC_CALLBACK_1(HeroScene::secondBatchOfSoldiers, this));    // position the label on the center of the screen
 
 	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 10) , visibleSize.height / 2)));
@@ -109,8 +109,8 @@ bool HeroScene::init()
 
 	if (boughtSpaceRanger == false)
 	{
-		auto secondSoldier = MenuItemImage::create("second_soldier.jpg",
-												   "second_soldier.jpg",
+		auto secondSoldier = MenuItemImage::create("second_soldier.png",
+												   "second_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buySecondSoldier, this));    // position the label on the center of the screen
 
 		secondSoldier->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 2)));
@@ -122,7 +122,7 @@ bool HeroScene::init()
 	}
 	else
 	{
-		auto purchasedSecondSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedSecondSoldier = Sprite::create("secondSoldierBought.png");
 		purchasedSecondSoldier->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 2)));
 		purchasedSecondSoldier->setTag(2);
 		hudLayer->addChild(purchasedSecondSoldier);
@@ -130,8 +130,8 @@ bool HeroScene::init()
 
 	if (boughtScout == false)
 	{
-		auto thirdSoldier = MenuItemImage::create("third_soldier.jpg",
-													   "third_soldier.jpg",
+		auto thirdSoldier = MenuItemImage::create("third_soldier.png",
+													   "third_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buyThirdSoldier, this));    // position the label on the center of the screen
 
 		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
@@ -143,11 +143,26 @@ bool HeroScene::init()
 	}
 	else
 	{
-		auto purchasedThirdSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
 		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
 	}
+
+	auto firstName = Sprite::create("warriorPlate.png");
+	firstName->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38) , visibleSize.height / 7)));
+	firstName->setTag(71);
+	hudLayer->addChild(firstName);
+
+	auto secondName = Sprite::create("spaceRangerPlate.png");
+	secondName->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 7)));
+	secondName->setTag(72);
+	hudLayer->addChild(secondName);
+
+	auto thirdName = Sprite::create("scoutPlate.png");
+	thirdName->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 7)));
+	thirdName->setTag(73);
+	hudLayer->addChild(thirdName);
 
 	this->addChild(baseLayer, 0);
 	this->addChild(animationLayer, 1);
@@ -231,8 +246,8 @@ void HeroScene::setUpPreviousBoughtItems()
 
 	if (boughtSpaceRanger == false)
 	{
-		auto secondSoldier = MenuItemImage::create("second_soldier.jpg",
-												   "second_soldier.jpg",
+		auto secondSoldier = MenuItemImage::create("second_soldier.png",
+												   "second_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buySecondSoldier, this));    // position the label on the center of the screen
 
 		secondSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
@@ -244,7 +259,7 @@ void HeroScene::setUpPreviousBoughtItems()
 	}
 	else
 	{
-		auto purchasedSecondSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedSecondSoldier = Sprite::create("secondSoldierBought.png");
 		purchasedSecondSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
 		purchasedSecondSoldier->setTag(2);
 		hudLayer->addChild(purchasedSecondSoldier);
@@ -252,8 +267,8 @@ void HeroScene::setUpPreviousBoughtItems()
 
 	if (boughtScout == false)
 	{
-		auto thirdSoldier = MenuItemImage::create("third_soldier.jpg",
-													   "third_soldier.jpg",
+		auto thirdSoldier = MenuItemImage::create("third_soldier.png",
+													   "third_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buyThirdSoldier, this));    // position the label on the center of the screen
 
 		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
@@ -265,7 +280,7 @@ void HeroScene::setUpPreviousBoughtItems()
 	}
 	else
 	{
-		auto purchasedThirdSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
 		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
@@ -307,25 +322,25 @@ void HeroScene::buyFirstSoldier(Ref* pSender)
 	backDropLayer->setTag(29);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(30);
 	uiLayer->addChild(popup);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitPopup, this));
 
-	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.3)));
+	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
 	auto exitMenu = Menu::create(exitButton, NULL);
 	exitMenu->setPosition(Vec2::ZERO);
 	exitMenu->setTag(31);
 	uiLayer->addChild(exitMenu);
 	auto buyButton = MenuItemImage::create("hire_button.png",
-											   "hire_button.png",
+											   "hire_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitFirstPurchase, this));
 
-	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.3)));
+	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
 	auto buyButtonMenu = Menu::create(buyButton, NULL);
 	buyButtonMenu->setPosition(Vec2::ZERO);
 	buyButtonMenu->setTag(32);
@@ -336,7 +351,7 @@ void HeroScene::buyFirstSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -365,25 +380,25 @@ void HeroScene::buySecondSoldier(Ref* pSender)
 	backDropLayer->setTag(29);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(30);
 	uiLayer->addChild(popup);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitPopup, this));
 
-	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.3)));
+	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
 	auto exitMenu = Menu::create(exitButton, NULL);
 	exitMenu->setPosition(Vec2::ZERO);
 	exitMenu->setTag(31);
 	uiLayer->addChild(exitMenu);
 	auto buyButton = MenuItemImage::create("hire_button.png",
-											   "hire_button.png",
+											   "hire_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitSecondPurchase, this));
 
-	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.3)));
+	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
 	auto buyButtonMenu = Menu::create(buyButton, NULL);
 	buyButtonMenu->setPosition(Vec2::ZERO);
 	buyButtonMenu->setTag(32);
@@ -394,7 +409,7 @@ void HeroScene::buySecondSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -423,25 +438,25 @@ void HeroScene::buyThirdSoldier(Ref* pSender)
 	backDropLayer->setTag(29);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(30);
 	uiLayer->addChild(popup);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitPopup, this));
 
-	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.3)));
+	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
 	auto exitMenu = Menu::create(exitButton, NULL);
 	exitMenu->setPosition(Vec2::ZERO);
 	exitMenu->setTag(31);
 	uiLayer->addChild(exitMenu);
 	auto buyButton = MenuItemImage::create("hire_button.png",
-											   "hire_button.png",
+											   "hire_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitThirdPurchase, this));
 
-	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.3)));
+	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
 	auto buyButtonMenu = Menu::create(buyButton, NULL);
 	buyButtonMenu->setPosition(Vec2::ZERO);
 	buyButtonMenu->setTag(32);
@@ -452,7 +467,7 @@ void HeroScene::buyThirdSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -481,25 +496,25 @@ void HeroScene::buyFourthSoldier(Ref* pSender)
 	backDropLayer->setTag(29);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(30);
 	uiLayer->addChild(popup);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitPopup, this));
 
-	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.3)));
+	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
 	auto exitMenu = Menu::create(exitButton, NULL);
 	exitMenu->setPosition(Vec2::ZERO);
 	exitMenu->setTag(31);
 	uiLayer->addChild(exitMenu);
 	auto buyButton = MenuItemImage::create("hire_button.png",
-											   "hire_button.png",
+											   "hire_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitFourthPurchase, this));
 
-	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.3)));
+	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
 	auto buyButtonMenu = Menu::create(buyButton, NULL);
 	buyButtonMenu->setPosition(Vec2::ZERO);
 	buyButtonMenu->setTag(32);
@@ -510,7 +525,7 @@ void HeroScene::buyFourthSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -539,25 +554,25 @@ void HeroScene::buyFifthSoldier(Ref* pSender)
 	backDropLayer->setTag(29);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(30);
 	uiLayer->addChild(popup);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitPopup, this));
 
-	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.3)));
+	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
 	auto exitMenu = Menu::create(exitButton, NULL);
 	exitMenu->setPosition(Vec2::ZERO);
 	exitMenu->setTag(31);
 	uiLayer->addChild(exitMenu);
 	auto buyButton = MenuItemImage::create("hire_button.png",
-											   "hire_button.png",
+											   "hire_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitFifthPurchase, this));
 
-	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.3)));
+	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
 	auto buyButtonMenu = Menu::create(buyButton, NULL);
 	buyButtonMenu->setPosition(Vec2::ZERO);
 	buyButtonMenu->setTag(32);
@@ -568,7 +583,7 @@ void HeroScene::buyFifthSoldier(Ref* pSender)
 	label->setTag(33);
 	uiLayer->addChild(label);
 
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -597,25 +612,25 @@ void HeroScene::buySixthSoldier(Ref* pSender)
 	backDropLayer->setTag(29);
 	uiLayer->addChild(backDropLayer);
 
-	auto popup = Sprite::create("popup_menu.jpg");
+	auto popup = Sprite::create("popup_menu.png");
 	popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 	popup->setTag(30);
 	uiLayer->addChild(popup);
 
-	auto exitButton = MenuItemImage::create("cancel-button.jpg",
-											   "cancel-button.jpg",
+	auto exitButton = MenuItemImage::create("cancel-button.png",
+											   "cancel-buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitPopup, this));
 
-	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.3)));
+	exitButton->setPosition((Point(visibleSize.width / 1.7, visibleSize.height / 2.4)));
 	auto exitMenu = Menu::create(exitButton, NULL);
 	exitMenu->setPosition(Vec2::ZERO);
 	exitMenu->setTag(31);
 	uiLayer->addChild(exitMenu);
 	auto buyButton = MenuItemImage::create("hire_button.png",
-											   "hire_button.png",
+											   "hire_buttonClicked.png",
 											   CC_CALLBACK_1(HeroScene::exitSixthPurchase, this));
 
-	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.3)));
+	buyButton->setPosition((Point(visibleSize.width / 2.3, visibleSize.height / 2.4)));
 	auto buyButtonMenu = Menu::create(buyButton, NULL);
 	buyButtonMenu->setPosition(Vec2::ZERO);
 	buyButtonMenu->setTag(32);
@@ -625,7 +640,7 @@ void HeroScene::buySixthSoldier(Ref* pSender)
 	label->setPosition((Point(visibleSize.width / 2, visibleSize.height / 1.7)));
 	label->setTag(33);
 	uiLayer->addChild(label);
-	auto moneyHolder = Sprite::create("costObject.jpg");
+	auto moneyHolder = Sprite::create("costObject.png");
 	moneyHolder->setPosition((Point(visibleSize.width / 2.3 , visibleSize.height / 1.95)));
 	moneyHolder->setTag(34);
 	uiLayer->addChild(moneyHolder);
@@ -680,8 +695,8 @@ void HeroScene::exitFirstPurchase(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -690,7 +705,7 @@ void HeroScene::exitFirstPurchase(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -700,8 +715,8 @@ void HeroScene::exitFirstPurchase(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -731,7 +746,7 @@ void HeroScene::exitSecondPurchase(Ref* pSender)
 		mainScene->setBoughtHeroTwo(boughtSpaceRanger);
 
 		uiLayer->removeChildByTag(2, 1);
-		auto purchasedSecondSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedSecondSoldier = Sprite::create("secondSoldierBought.png");
 		purchasedSecondSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
 		purchasedSecondSoldier->setTag(2);
 		hudLayer->addChild(purchasedSecondSoldier);
@@ -739,8 +754,8 @@ void HeroScene::exitSecondPurchase(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -749,7 +764,7 @@ void HeroScene::exitSecondPurchase(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -759,8 +774,8 @@ void HeroScene::exitSecondPurchase(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -790,7 +805,7 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 		mainScene->setBoughtHeroThree(boughtScout);
 
 		uiLayer->removeChildByTag(3, 1);
-		auto purchasedThirdSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
 		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
@@ -798,8 +813,8 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -808,7 +823,7 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -818,8 +833,8 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -849,7 +864,7 @@ void HeroScene::exitFourthPurchase(Ref* pSender)
 		mainScene->setBoughtHeroFour(boughtCleric);
 
 		uiLayer->removeChildByTag(4, 1);
-		auto purchasedFourthSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFourthSoldier = Sprite::create("fourthSoldierBought.png");
 		purchasedFourthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
 		purchasedFourthSoldier->setTag(4);
 		hudLayer->addChild(purchasedFourthSoldier);
@@ -857,8 +872,8 @@ void HeroScene::exitFourthPurchase(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -867,7 +882,7 @@ void HeroScene::exitFourthPurchase(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -877,8 +892,8 @@ void HeroScene::exitFourthPurchase(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -908,7 +923,7 @@ void HeroScene::exitFifthPurchase(Ref* pSender)
 		mainScene->setBoughtHeroFive(boughtAssassin);
 
 		uiLayer->removeChildByTag(5, 1);
-		auto purchasedFifthSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFifthSoldier = Sprite::create("fifthSoldierBought.png");
 		purchasedFifthSoldier->setPosition((Point(visibleSize.width / 1.98, visibleSize.height / 2)));
 		purchasedFifthSoldier->setTag(5);
 		hudLayer->addChild(purchasedFifthSoldier);
@@ -916,8 +931,8 @@ void HeroScene::exitFifthPurchase(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -926,7 +941,7 @@ void HeroScene::exitFifthPurchase(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -936,8 +951,8 @@ void HeroScene::exitFifthPurchase(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -967,7 +982,7 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 		mainScene->setBoughtHeroSix(boughtMage);
 
 		uiLayer->removeChildByTag(6, 1);
-		auto purchasedSixthSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedSixthSoldier = Sprite::create("sixthSoldierBought.png");
 		purchasedSixthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
 		purchasedSixthSoldier->setTag(6);
 		hudLayer->addChild(purchasedSixthSoldier);
@@ -975,8 +990,8 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 	else
 	{
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("exitButtonClicked.wav");
-		auto backDrop = MenuItemImage::create("blockOut_Content2.png",
-												   "blockOut_Content2.png",
+		auto backDrop = MenuItemImage::create("blockOut_Content6.png",
+												   "blockOut_Content6.png",
 												   CC_CALLBACK_1(HeroScene::doNothing, this));
 
 		backDrop->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
@@ -985,7 +1000,7 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 		backDropLayer->setTag(36);
 		uiLayer->addChild(backDropLayer);
 
-		auto popup = Sprite::create("popup_upgrade_menu.jpg");
+		auto popup = Sprite::create("popup_upgrade_menu.png");
 		popup->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2)));
 		popup->setTag(37);
 		uiLayer->addChild(popup);
@@ -995,8 +1010,8 @@ void HeroScene::exitSixthPurchase(Ref* pSender)
 		label->setTag(38);
 		uiLayer->addChild(label);
 
-		auto okButton = MenuItemImage::create("cancel-button.jpg",
-												   "cancel-button.jpg",
+		auto okButton = MenuItemImage::create("cancel-button.png",
+												   "cancel-buttonClicked.png",
 												   CC_CALLBACK_1(HeroScene::cancelFromPurchase, this));
 
 		okButton->setPosition((Point(visibleSize.width / 2, visibleSize.height / 2.3)));
@@ -1019,6 +1034,9 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	hudLayer->removeChildByTag(6,1);
 	uiLayer->removeChildByTag(10,1);
 	uiLayer->removeChildByTag(20,1);
+	hudLayer->removeChildByTag(71,1);
+	hudLayer->removeChildByTag(72,1);
+	hudLayer->removeChildByTag(73,1);
 
 	auto leftArrow = Sprite::create("left_arrow.png");
 	leftArrow->setPosition((Point(visibleSize.width / 10, visibleSize.height / 2)));
@@ -1026,7 +1044,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	uiLayer->addChild(leftArrow);
 
 	auto rightArrow = MenuItemImage::create("right_arrow.png",
-													   "right_arrow.png",
+													   "right_arrowClicked.png",
 													   CC_CALLBACK_1(HeroScene::secondBatchOfSoldiers, this));    // position the label on the center of the screen
 
 	rightArrow->setPosition((Point(visibleSize.width - (visibleSize.width / 10) , visibleSize.height / 2)));
@@ -1035,6 +1053,22 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	rightArrowMenu->setPosition(Vec2::ZERO);
 	rightArrowMenu->setTag(20);
 	uiLayer->addChild(rightArrowMenu);
+
+
+	auto firstName = Sprite::create("warriorPlate.png");
+	firstName->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38) , visibleSize.height / 7)));
+	firstName->setTag(71);
+	hudLayer->addChild(firstName);
+
+	auto secondName = Sprite::create("spaceRangerPlate.png");
+	secondName->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 7)));
+	secondName->setTag(72);
+	hudLayer->addChild(secondName);
+
+	auto thirdName = Sprite::create("scoutPlate.png");
+	thirdName->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 7)));
+	thirdName->setTag(73);
+	hudLayer->addChild(thirdName);
 
 	if (boughtWarrior == false)
 	{
@@ -1060,8 +1094,8 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 
 	if (boughtSpaceRanger == false)
 	{
-		auto secondSoldier = MenuItemImage::create("second_soldier.jpg",
-												   "second_soldier.jpg",
+		auto secondSoldier = MenuItemImage::create("second_soldier.png",
+												   "second_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buySecondSoldier, this));    // position the label on the center of the screen
 
 		secondSoldier->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 2)));
@@ -1073,7 +1107,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	}
 	else
 	{
-		auto purchasedSecondSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedSecondSoldier = Sprite::create("secondSoldierBought.png");
 		purchasedSecondSoldier->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 2)));
 		purchasedSecondSoldier->setTag(2);
 		hudLayer->addChild(purchasedSecondSoldier);
@@ -1081,8 +1115,8 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 
 	if (boughtScout == false)
 	{
-		auto thirdSoldier = MenuItemImage::create("third_soldier.jpg",
-													   "third_soldier.jpg",
+		auto thirdSoldier = MenuItemImage::create("third_soldier.png",
+													   "third_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buyThirdSoldier, this));    // position the label on the center of the screen
 
 		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
@@ -1094,7 +1128,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	}
 	else
 	{
-		auto purchasedThirdSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
 		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
@@ -1112,9 +1146,12 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 	hudLayer->removeChildByTag(3,1);
 	uiLayer->removeChildByTag(10,1);
 	uiLayer->removeChildByTag(20,1);
+	hudLayer->removeChildByTag(71,1);
+	hudLayer->removeChildByTag(72,1);
+	hudLayer->removeChildByTag(73,1);
 
 	auto leftArrow = MenuItemImage::create("left_arrow.png",
-											   "left_arrow.png",
+											   "left_arrowClicked.png",
 											   CC_CALLBACK_1(HeroScene::firstBatchOfSoldiers, this));    // position the label on the center of the screen
 
 	leftArrow->setPosition((Point(visibleSize.width / 10, visibleSize.height / 2)));
@@ -1128,10 +1165,25 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 	rightArrow->setTag(20);
 	uiLayer->addChild(rightArrow);
 
+	auto fourthName = Sprite::create("clericPlate.png");
+	fourthName->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38) , visibleSize.height / 7)));
+	fourthName->setTag(71);
+	hudLayer->addChild(fourthName);
+
+	auto fifthName = Sprite::create("assassinPlate.png");
+	fifthName->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 7)));
+	fifthName->setTag(72);
+	hudLayer->addChild(fifthName);
+
+	auto sixthName = Sprite::create("magePlate.png");
+	sixthName->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 7)));
+	sixthName->setTag(73);
+	hudLayer->addChild(sixthName);
+
 	if (boughtCleric == false)
 	{
-		auto fourthSoldier = MenuItemImage::create("fourth_soldier.jpg",
-												   "fourth_soldier.jpg",
+		auto fourthSoldier = MenuItemImage::create("fourth_soldier.png",
+												   "fourth_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buyFourthSoldier, this));    // position the label on the center of the screen
 
 		fourthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
@@ -1144,7 +1196,7 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 	}
 	else
 	{
-		auto purchasedFourthSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFourthSoldier = Sprite::create("fourthSoldierBought.png");
 		purchasedFourthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
 		purchasedFourthSoldier->setTag(4);
 		hudLayer->addChild(purchasedFourthSoldier);
@@ -1152,8 +1204,8 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 
 	if (boughtAssassin == false)
 	{
-		auto fifthSoldier = MenuItemImage::create("fifth_soldier.jpg",
-												   "fifth_soldier.jpg",
+		auto fifthSoldier = MenuItemImage::create("fifth_soldier.png",
+												   "fifth_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buyFifthSoldier, this));    // position the label on the center of the screen
 
 		fifthSoldier->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 2)));
@@ -1165,7 +1217,7 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 	}
 	else
 	{
-		auto purchasedFifthSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFifthSoldier = Sprite::create("fifthSoldierBought.png");
 		purchasedFifthSoldier->setPosition((Point(visibleSize.width / 1.98 , visibleSize.height / 2)));
 		purchasedFifthSoldier->setTag(5);
 		hudLayer->addChild(purchasedFifthSoldier);
@@ -1173,8 +1225,8 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 
 	if (boughtMage == false)
 	{
-		auto sixthSoldier = MenuItemImage::create("sixth_soldier.jpg",
-													   "sixth_soldier.jpg",
+		auto sixthSoldier = MenuItemImage::create("sixth_soldier.png",
+													   "sixth_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buySixthSoldier, this));    // position the label on the center of the screen
 
 		sixthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
@@ -1186,7 +1238,7 @@ void HeroScene::secondBatchOfSoldiers(Ref* pSender)
 	}
 	else
 	{
-		auto purchasedSixthSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedSixthSoldier = Sprite::create("sixthSoldierBought.png");
 		purchasedSixthSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
 		purchasedSixthSoldier->setTag(6);
 		hudLayer->addChild(purchasedSixthSoldier);
