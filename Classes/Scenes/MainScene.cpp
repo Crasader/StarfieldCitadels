@@ -736,6 +736,16 @@ void MainScene::startTheTutorial()
 	clickerLayer->setTag(12);
 	uiLayer->addChild(clickerLayer);
 
+	auto skip = MenuItemImage::create("skipButton.png",
+											   "skipButtonClicked.png",
+											   CC_CALLBACK_1(MainScene::exitTutorial, this));
+
+	skip->setPosition((Point(visibleSize.width - (visibleSize.width / 10), visibleSize.height - (visibleSize.height/10))));
+	auto skipButton = Menu::create(skip, NULL);
+	skipButton->setPosition(Vec2::ZERO);
+	skipButton->setTag(14);
+	uiLayer->addChild(skipButton, 2);
+
 }
 
 void MainScene::tutorialText2(Ref* pSender)
@@ -1696,6 +1706,7 @@ void MainScene::exitTutorial(Ref* pSender)
 	uiLayer->removeChildByTag(11,1);
 	uiLayer->removeChildByTag(12,1);
 	uiLayer->removeChildByTag(13,1);
+	uiLayer->removeChildByTag(14,1);
 }
 
 

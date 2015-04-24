@@ -255,8 +255,8 @@ void UpgradeScene::loadInitialSoldiers()
 
 	if(boughtWarrior == true)
 	{
-		auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto firstUpgrade = MenuItemImage::create("firstSoldierButton.png",
+														   "firstSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFirstSoldier, this));    // position the label on the center of the screen
 
 		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
@@ -268,8 +268,8 @@ void UpgradeScene::loadInitialSoldiers()
 	}
 	else
 	{
-		auto firstUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto firstUpgrade = MenuItemImage::create("firstSoldierNotAvailable.png",
+														   "firstSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
@@ -466,8 +466,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 
 	if(boughtWarrior == true)
 	{
-		auto firstUpgrade = MenuItemImage::create("upgrade_the_soldier.png",
-														   "upgrade_the_soldier.png",
+		auto firstUpgrade = MenuItemImage::create("firstSoldierButton.png",
+														   "firstSoldierButtonClicked.png",
 														   CC_CALLBACK_1(UpgradeScene::upgradeFirstSoldier, this));    // position the label on the center of the screen
 
 		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
@@ -479,8 +479,8 @@ void UpgradeScene::toUpgradeMenu(Ref* pSender)
 	}
 	else
 	{
-		auto firstUpgrade = MenuItemImage::create("upgradeNotAvailable.png",
-														   "upgradeNotAvailable.png",
+		auto firstUpgrade = MenuItemImage::create("firstSoldierNotAvailable.png",
+														   "firstSoldierNotAvailable.png",
 														   CC_CALLBACK_1(UpgradeScene::doNothing, this));    // position the label on the center of the screen
 
 		firstUpgrade->setPosition((Point(visibleSize.width / 4.3, visibleSize.height / 2)));
@@ -1153,7 +1153,7 @@ void UpgradeScene::upgradeFirstSoldier(Ref* pSender)
 	popup->setTag(51);
 	uiLayer->addChild(popup);
 
-	auto soldierPic = Sprite::create("first_soldier_upgrade.jpg");
+	auto soldierPic = Sprite::create("first_soldier_upgrade.png");
 	soldierPic->setPosition((Point(visibleSize.width / 2.8, visibleSize.height / 2)));
 	soldierPic->setTag(52);
 	uiLayer->addChild(soldierPic);

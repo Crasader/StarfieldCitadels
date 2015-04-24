@@ -87,8 +87,8 @@ bool HeroScene::init()
 
 	if (boughtWarrior == false)
 	{
-		auto firstSoldier = MenuItemImage::create("first_soldier.jpg",
-												   "first_soldier.jpg",
+		auto firstSoldier = MenuItemImage::create("first_soldier.png",
+												   "first_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buyFirstSoldier, this));    // position the label on the center of the screen
 
 		firstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
@@ -101,7 +101,7 @@ bool HeroScene::init()
 	}
 	else
 	{
-		auto purchasedFirstSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFirstSoldier = Sprite::create("firstSoldierBought.png");
 		purchasedFirstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
 		purchasedFirstSoldier->setTag(1);
 		hudLayer->addChild(purchasedFirstSoldier);
@@ -134,7 +134,7 @@ bool HeroScene::init()
 													   "third_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buyThirdSoldier, this));    // position the label on the center of the screen
 
-		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
+		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 1.95)));
 
 		auto thirdMenu = Menu::create(thirdSoldier, NULL);
 		thirdMenu->setPosition(Vec2::ZERO);
@@ -144,7 +144,7 @@ bool HeroScene::init()
 	else
 	{
 		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
-		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
+		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 1.95)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
 	}
@@ -224,8 +224,8 @@ void HeroScene::setUpPreviousBoughtItems()
 
 	if (boughtWarrior == false)
 	{
-		auto firstSoldier = MenuItemImage::create("first_soldier.jpg",
-												   "first_soldier.jpg",
+		auto firstSoldier = MenuItemImage::create("first_soldier.png",
+												   "first_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buyFirstSoldier, this));    // position the label on the center of the screen
 
 		firstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
@@ -238,7 +238,7 @@ void HeroScene::setUpPreviousBoughtItems()
 	}
 	else
 	{
-		auto purchasedFirstSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFirstSoldier = Sprite::create("firstSoldierBought.png");
 		purchasedFirstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
 		purchasedFirstSoldier->setTag(1);
 		hudLayer->addChild(purchasedFirstSoldier);
@@ -271,7 +271,7 @@ void HeroScene::setUpPreviousBoughtItems()
 													   "third_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buyThirdSoldier, this));    // position the label on the center of the screen
 
-		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
+		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 1.95)));
 
 		auto thirdMenu = Menu::create(thirdSoldier, NULL);
 		thirdMenu->setPosition(Vec2::ZERO);
@@ -281,7 +281,7 @@ void HeroScene::setUpPreviousBoughtItems()
 	else
 	{
 		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
-		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
+		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 1.95)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
 	}
@@ -687,7 +687,7 @@ void HeroScene::exitFirstPurchase(Ref* pSender)
 		mainScene->setBoughtHeroOne(boughtWarrior);
 
 		uiLayer->removeChildByTag(1, 1);
-		auto purchasedFirstSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFirstSoldier = Sprite::create("firstSoldierBought.png");
 		purchasedFirstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
 		purchasedFirstSoldier->setTag(1);
 		hudLayer->addChild(purchasedFirstSoldier);
@@ -806,7 +806,7 @@ void HeroScene::exitThirdPurchase(Ref* pSender)
 
 		uiLayer->removeChildByTag(3, 1);
 		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
-		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 2)));
+		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8), visibleSize.height / 1.95)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
 	}
@@ -1072,8 +1072,8 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 
 	if (boughtWarrior == false)
 	{
-		auto firstSoldier = MenuItemImage::create("first_soldier.jpg",
-												   "first_soldier.jpg",
+		auto firstSoldier = MenuItemImage::create("first_soldier.png",
+												   "first_soldier.png",
 												   CC_CALLBACK_1(HeroScene::buyFirstSoldier, this));    // position the label on the center of the screen
 
 		firstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
@@ -1086,7 +1086,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	}
 	else
 	{
-		auto purchasedFirstSoldier = Sprite::create("bought_soldier.jpg");
+		auto purchasedFirstSoldier = Sprite::create("firstSoldierBought.png");
 		purchasedFirstSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 1.38), visibleSize.height / 2)));
 		purchasedFirstSoldier->setTag(1);
 		hudLayer->addChild(purchasedFirstSoldier);
@@ -1119,7 +1119,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 													   "third_soldier.png",
 													   CC_CALLBACK_1(HeroScene::buyThirdSoldier, this));    // position the label on the center of the screen
 
-		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
+		thirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 1.95)));
 
 		auto thirdMenu = Menu::create(thirdSoldier, NULL);
 		thirdMenu->setPosition(Vec2::ZERO);
@@ -1129,7 +1129,7 @@ void HeroScene::firstBatchOfSoldiers(Ref* pSender)
 	else
 	{
 		auto purchasedThirdSoldier = Sprite::create("thirdSoldierBought.png");
-		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 2)));
+		purchasedThirdSoldier->setPosition((Point(visibleSize.width - (visibleSize.width / 3.8) , visibleSize.height / 1.95)));
 		purchasedThirdSoldier->setTag(3);
 		hudLayer->addChild(purchasedThirdSoldier);
 	}
