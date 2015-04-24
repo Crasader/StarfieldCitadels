@@ -41,7 +41,8 @@ bool MainScene::init()
         return false;
     }
     
-    //CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("background-music-aac.wav", true);
+    // The background music, still need to cite it and say where the source came from. Music is free for commercial use.
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("spaceMusic.mp3", true);
 
     moneyTotal = 40000;
 
