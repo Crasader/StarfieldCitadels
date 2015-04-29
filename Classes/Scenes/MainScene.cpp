@@ -6,6 +6,15 @@
  *
  *  Sound Effects were obtained from soundBible.com, a site
  *  that allows the free use of it's wav files commercially.
+ *
+ *  Citation for Background Music:
+ *  Used the song Parametaphoriquement by gmz. The link to the song is at: http://dig.ccmixter.org/files/gmz/19367
+ *  The credit for this song goes to gmz. The only changes we made to the song were that we removed the lyrics
+ *  which played for about 30 seconds, cut off the last 2 seconds of the song, made the song fade in at the
+ *  beginning, and made it fade out at the end. This song has an Attribution 3.0 license, making it free for
+ *  commercial use. This is our disclaimer notice to give credit to where it is due. The song is also DRM free
+ *  approved and has no restrictions on the different technology it can be implemented in. We thank the site
+ *  and gmz for putting this song up for free use.
  */
 
 #include "MainScene.h"
@@ -41,7 +50,7 @@ bool MainScene::init()
         return false;
     }
     
-    // The background music, still need to cite it and say where the source came from. Music is free for commercial use.
+    // The background music, see the citation at the top of this page in the header.
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("spaceMusic.mp3", true);
 
     moneyTotal = 40000;
