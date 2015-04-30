@@ -83,6 +83,9 @@ private:
     TMXTiledMap *_map;
     Rect _bounds;
     Point _pinchPoint;
+
+    const float MAX_SCALE = 6.0;
+    const float MAX_SCALE_LIMIT = 10.0;
 private:
     // Misc Methods
     void SetZoom(float zoom);
