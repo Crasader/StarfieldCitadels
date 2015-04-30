@@ -31,7 +31,9 @@ bool MainScene::init()
     // Generate Scene layers
     auto baseLayer = BaseLayer::create();
     baseLayer->setName("BaseLayer");
-    //baseLayer->setAnchorPoint(Vec2(0.5, 0.5));
+    baseLayer->setContentSize(Size(4296, 2248));
+    drawBoundingBox(baseLayer, Color4F(1,1,1,1));
+    baseLayer->setAnchorPoint(Vec2(0.5, 0.5));
     
     auto animationLayer = AnimationLayer::create();
     animationLayer->setName("AnimationLayer");
@@ -60,20 +62,12 @@ bool MainScene::init()
     _map = TMXTiledMap::create("iso-test.tmx");
     //_map = TMXTiledMap::create("orthogonal-test6.tmx");
     _map->setName("Map");
-    //_map->setAnchorPoint(Vec2(0.5, 0.5));
-    _map->setPosition(0, 0);
+    _map->setAnchorPoint(Vec2(0.5, 0.5));
+    auto baseLayerSize = baseLayer->getContentSize();
+    _map->setPosition(baseLayerSize.width/2, baseLayerSize.height/2);
     baseLayer->addChild(_map, 0);
     CCLOG("Map Size: %f, %f", _map->getContentSize().width, _map->getContentSize().height);
     drawBoundingBox(_map, Color4F(1, 1, 1, 1));
-    
-    Vec3 eye = Vec3(2048,1024,3000);
-    _camera = Camera::createPerspective(60, visibleSize.width/visibleSize.height, 1, 4000);
-    _camera->setPosition3D(eye);
-    _camera->lookAt(Vec3(2048,1024,0), Vec3(0,1,0));
-    _camera->setCameraFlag(CameraFlag::USER1);
-    baseLayer->addChild(_camera);
-    
-    _map->setCameraMask((unsigned short)CameraFlag::USER1);
 
     return true;
 }
@@ -173,69 +167,31 @@ void MainScene::PinchViewport(const Point& p0Org,const Point& p1Org, const Point
     // 3. Update look at and camera position
     
     // Octree
+    
     auto baseLayer = this->getChildByName("BaseLayer");
-    auto worldPinchCoords = convertToWorldCoords(centerNew);
-    auto worldCameraCoords = convertToWorldCoords(_camera->getPosition3D());
-    auto worldMapPosition = convertToWorldCoords(_map->getPosition3D());
-    //auto worldMapCoords = baseLayer->convertToWorldSpaceAR(_map->getPosition());
-    //auto worldPinchCoords = Director::getInstance()->convertToGL(centerNew);
-    //auto nodeSpace = _map->convertToNodeSpace(centerNew);
-    
-    //CCLOG("World Coords of Map: %f, %f", worldMapCoords.x, worldMapCoords.y);
-    //CCLOG("Nodespace Coords of Map: %f, %f", nodeSpace.x, nodeSpace.y);
-    // Bottom Left corner of the map in world coordinates
-    //auto mapSize = _map->getContentSize();
-    //worldMapCoords-mapSize.width/2;
-    //auto localCoords = _map->convertToNodeSpace(centerNew);
-    //auto localCoords = convertToLocalCoords(centerNew, _map);
-    //CCLOG("Local Coords: %f, %f", localCoords.x, localCoords.y);
-    
-    Vec3 lookDir = _camera->getPosition3D() - worldPinchCoords;
-    //auto worldOrigin = convertToWorldCoords(Vec3(0,0,0));
-    //CCLOG("World Coordinates of 0,0,0: %f, %f, %f", worldOrigin.x, worldOrigin.y, worldOrigin.z);
-    CCLOG("Camera Position: %f, %f, %f", worldCameraCoords.x, worldCameraCoords.y, worldCameraCoords.z);
-    CCLOG("Camera Position World: %f, %f, %f", _camera->getPosition3D().x, _camera->getPosition3D().y, _camera->getPosition3D().z);
-    CCLOG("World Pinch Position: %f, %f, %f", worldPinchCoords.x, worldPinchCoords.y, worldPinchCoords.z);
-    CCLOG("Look Dir: %f, %f, %f", lookDir.x, lookDir.y, lookDir.z);
-    CCLOG("World Map Position: %f, %f, %f", worldMapPosition.x, worldMapPosition.y, worldMapPosition.z);
-    //CCLOG("Map 3D Position: %f, %f, %f", _map->getPosition3D().x, _map->getPosition3D().y, _map->getPosition3D().z);
-    Vec3 cameraPos = _camera->getPosition3D();
-    //if(lookDir.length() >= 50)
-    {
-        cameraPos -= lookDir.getNormalized();
-        _camera->setPosition3D(cameraPos);
-    }
-    
-    _coords->setPosition(centerNew);
-    char tmp[100];
-    sprintf(tmp,"%f,%f\n%f, %f, %f", worldPinchCoords.x, worldPinchCoords.y, lookDir.getNormalized().x, lookDir.getNormalized().y, lookDir.getNormalized().z);
-    _coords->setString(tmp);
-}
+    auto mapPoint = baseLayer->convertToNodeSpace(centerNew);
+    auto mapSize = _map->getContentSize();
 
-Vec2 MainScene::convertToLocalCoords(Vec2 pos, Node* target)
-{
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    auto scaleX = pos.x/visibleSize.width;
-    auto scaleY = pos.y/visibleSize.height;
+    // Compute anchor point
+    baseLayer->setAnchorPoint(Vec2(_pinchPoint.x/mapSize.width, _pinchPoint.y/mapSize.height));
+
+    baseLayer->setScale(scaleAdjust*_viewportScaleOrg);
     
-    auto targetSize = target->getContentSize();
-    float newPosX = targetSize.width*scaleX;
-    float newPosY = targetSize.height*scaleY;
-    
-    return Vec2(newPosX, newPosY);
+    _coords->setPosition(_pinchPoint);
+    char tmp[100];
+    sprintf(tmp,"%f,%f", _pinchPoint.x, _pinchPoint.y);
+    _coords->setString(tmp);
 }
 
 // Handler for Tap/Drag/Pinch Events
 void MainScene::TapDragPinchInputTap(const TOUCH_DATA_T& point)
 {
     CCLOG("Touch");
-    //auto localCoords = _map->convertToNodeSpace(point.pos);
-    auto worldCoords = convertToWorldCoords(point.pos);
-    //auto worldCoords = Director::getInstance()->convertToGL(point.pos);
-    //auto worldCoords = transformPoint(point.pos);
-    _coords->setPosition(point.pos);
+    auto baseLayer = this->getChildByName("BaseLayer");
+    auto mapPoint = baseLayer->convertToNodeSpace(point.pos);
+    _coords->setPosition(mapPoint);
     char tmp[100];
-    sprintf(tmp,"%f,%f", worldCoords.x, worldCoords.y);
+    sprintf(tmp,"%f,%f", mapPoint.x, mapPoint.y);
     _coords->setString(tmp);
 }
 
@@ -247,13 +203,13 @@ void MainScene::TapDragPinchInputLongTap(const TOUCH_DATA_T& point)
 void MainScene::TapDragPinchInputPinchBegin(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
 {
     CCLOG("Pinch Begin");
-    auto midp = point0.pos.getMidpoint(point1.pos);
-    //auto localCoords = _map->convertToNodeSpace(midp);
-    auto localCoords = convertToLocalCoords(midp, _map);
-    CCLOG("Local Coords: %f, %f", localCoords.x, localCoords.y);
+
+    auto baseLayer = this->getChildByName("BaseLayer");
+    _pinchPoint = baseLayer->convertToNodeSpace(point0.pos.getMidpoint(point1.pos));
+
     Notifier::Instance().Notify(Notifier::NE_RESET_DRAW_CYCLE);
     _viewportCenterOrg = Viewport::Instance().GetCenterMeters();
-    _viewportScaleOrg = Viewport::Instance().GetScale();
+    _viewportScaleOrg = baseLayer->getScale();
     PinchViewport(GetPinchPoint0().pos, GetPinchPoint1().pos, point0.pos, point1.pos);
 }
 
@@ -276,9 +232,10 @@ void MainScene::TapDragPinchInputDragBegin(const TOUCH_DATA_T& point0, const TOU
 void MainScene::TapDragPinchInputDragContinue(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
 {
     CCLOG("Draging");
+    auto baseLayer = this->getChildByName("BaseLayer");
     auto delta = point1.pos - point0.pos;
-    auto currentPos = _camera->getPosition();
-    _camera->setPosition(currentPos+delta);
+    auto currentPos = baseLayer->getPosition();
+    baseLayer->setPosition(currentPos+delta*0.05);
 }
 
 void MainScene::TapDragPinchInputDragEnd(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
@@ -289,93 +246,4 @@ void MainScene::TapDragPinchInputDragEnd(const TOUCH_DATA_T& point0, const TOUCH
 void MainScene::SetZoom(float scale)
 {
     Viewport::Instance().SetScale(scale);
-}
-
-Vec3 MainScene::convertToWorldCoords(Vec2 pos)
-{
-	auto vpSize = Director::getInstance()->getVisibleSize();
-	Vec3 worldCoord;
-	Vec3 nearPlaneIntersection(pos.x, pos.y, -1);
-	_camera->unproject(vpSize, &nearPlaneIntersection, &worldCoord);
-
-	return worldCoord;
-}
-
-Vec3 MainScene::convertToWorldCoords(Vec3 pos)
-{
-	auto vpSize = Director::getInstance()->getVisibleSize();
-	Vec3 worldCoord;
-	_camera->unproject(vpSize, &pos, &worldCoord);
-
-	return worldCoord;
-}
-
-/*Vec3 MainScene::convertToWorldCoords(Vec2 pos)
-{
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    
-    double x = 2.0 * pos.x/visibleSize.width - 1;
-    double y = 2.0 * pos.y/visibleSize.height - 1;
-    
-    auto viewProjMatIn = _camera->getViewProjectionMatrix();
-    viewProjMatIn.inverse();
-    
-    auto point3D = Vec3(x, y, 0);
-    return viewProjMatIn*point3D;
-}*/
-
-Point MainScene::transformPoint(Point point)
-{
-    
-    Vec4 start = unProjectPoint(Vec3(point.x, point.y, 0));
-    Vec4 end = unProjectPoint(Vec3(point.x, point.y, -1));
-    
-    Vec4 rayDir = end - start;
-    rayDir.normalize();
-    Vec4 normal = Vec4(0, 0, 1, 0);
-    
-    float rayDirDotNorm = rayDir.dot(normal);
-    float P0DotNorm = start.dot(normal);
-    
-    float t = 0;
-    
-    if (rayDirDotNorm != 0) {
-        t = -P0DotNorm / rayDirDotNorm;
-    }
-    
-    Vec4 result = (rayDir * t) + start;
-    
-    return Point(result.x, result.y);
-    
-}
-
-Vec4 MainScene::unProjectPoint(Vec3 point)
-{
-    Director *d = Director::getInstance();
-    Size screenSize = d->getVisibleSize();
-    Rect viewPort = Rect(0, 0, screenSize.width, screenSize.height);
-    
-    Mat4 projectionMatrix = d->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-    Mat4 modelView = _modelViewTransform;
-    Mat4 finalMatrix = projectionMatrix * _modelViewTransform;
-    assert(finalMatrix.inverse());
-    
-    Vec4 in = Vec4(point.x, point.y, point.z, 1);
-    in.x = (in.x - viewPort.origin.x) / viewPort.size.width;
-    in.y = (in.y - viewPort.origin.y) / viewPort.size.height;
-    
-    in.x = in.x * 2 -1;
-    in.y = in.y * 2 -1;
-    in.z = in.z * 2 -1;
-    
-    Vec4 out = finalMatrix * in;
-    assert(out.w != 0);
-    
-    out.x /= out.w;
-    out.y /= out.w;
-    out.z /= out.w;
-    out.w /= out.w;
-    
-    return out;
-    
 }

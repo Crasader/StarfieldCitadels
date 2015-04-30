@@ -78,18 +78,15 @@ private:
 	TapDragPinchInput* _tapDragPinchInput;
 	list<Vec2> _path;
 	Point _lastPoint;
+
     Label *_coords;
-    Camera *_camera;
     TMXTiledMap *_map;
+    Rect _bounds;
+    Point _pinchPoint;
 private:
     // Misc Methods
     void SetZoom(float zoom);
     void PinchViewport(const Point& p0Org,const Point& p1Org, const Point& p0,const Point& p1);
-    Vec3 convertToWorldCoords(Vec2 pos);
-    Vec3 convertToWorldCoords(Vec3 pos);
-    Point transformPoint(Point point);
-    Vec4 unProjectPoint(Vec3 point);
-
 };
 
 #endif /* __MAIN_SCENE_H__ */
