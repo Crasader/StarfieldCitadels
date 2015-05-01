@@ -19,7 +19,7 @@ ResourceLoader::ResourceLoader()
 	std::string pointer = StringUtils::format("%p", this);
 	_eventName = EventListenerResourceLoader::LISTENER_ID + pointer;
 
-    // Set up scale factors for images and
+    // Set up scale factors for images
 	GameManager::getInstance()->SetUpScaleFactors();
 }
 
@@ -81,7 +81,7 @@ ResourceLoader* ResourceLoader::create() {
 
 void ResourceLoader::buildPreloadingList() {
     // Add all images we want to preload textures for. Add new images here.
-    addImageToBePreloaded("BG.png");
+    addImageToBePreloaded("title.png");
     addImageToBePreloaded("Floor.png");
     addImageToBePreloaded("grossini_dance_01.png");
     addImageToBePreloaded("grossini_dance_02.png");

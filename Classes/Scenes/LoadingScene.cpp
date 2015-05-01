@@ -62,7 +62,8 @@ bool LoadingScene::init()
 	this->addChild(baseLayer, 0);
 	this->addChild(animationLayer, 1);
     
-    auto background = Sprite::create("BG.png");
+    auto background = Sprite::create("title.png");
+    SCALENODE_XY(background);
     background->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
     background->setAnchorPoint(Vec2(0.5, 0.5));
     baseLayer->addChild(background);

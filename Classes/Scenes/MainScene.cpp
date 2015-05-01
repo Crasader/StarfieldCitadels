@@ -6,7 +6,9 @@
  */
 
 #include "MainScene.h"
-#include "../Gestures/Viewport.h"
+
+const float MAX_SCALE = 6.0;
+const float MAX_SCALE_LIMIT = 10.0;
 
 Scene * MainScene::createScene()
 {
@@ -23,17 +25,19 @@ bool MainScene::init()
         return false;
     }
     
-    Viewport::Instance().Init(100.0);
-    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // Generate Scene layers
     auto baseLayer = BaseLayer::create();
     baseLayer->setName("BaseLayer");
-    baseLayer->setContentSize(Size(4296, 2248));
+    baseLayer->setContentSize(Size(2248, 1224));
     drawBoundingBox(baseLayer, Color4F(1,1,1,1));
-    baseLayer->setAnchorPoint(Vec2(0.5, 0.5));
+    auto bottomLeft = Vec2(visibleSize.width/2-baseLayer->getContentSize().width/2, visibleSize.height/2-baseLayer->getContentSize().height/2);
+    auto topRight = Vec2(bottomLeft.x+baseLayer->getContentSize().width, bottomLeft.y+baseLayer->getContentSize().height);
+    baseLayer->setPosition(bottomLeft);
+    baseLayer->ignoreAnchorPointForPosition(true);
+    _bounds = Rect(bottomLeft.x, bottomLeft.y, topRight.x, topRight.y);
     
     auto animationLayer = AnimationLayer::create();
     animationLayer->setName("AnimationLayer");
@@ -49,7 +53,7 @@ bool MainScene::init()
     this->addChild(hudLayer, 2);
     this->addChild(uiLayer, 3);
     
-    _coords = Label::createWithTTF("Test", "fonts/arial.ttf", 30);
+    _coords = Label::createWithTTF("", "fonts/arial.ttf", 30);
     _coords->setName("Coords");
     _coords->setPosition(visibleSize.width/2, visibleSize.height/2);
     baseLayer->addChild(_coords, 1);
@@ -59,8 +63,7 @@ bool MainScene::init()
     _tapDragPinchInput->setAnchorPoint(Vec2(0.5, 0.5));
     this->addChild(_tapDragPinchInput,4);
 
-    _map = TMXTiledMap::create("iso-test.tmx");
-    //_map = TMXTiledMap::create("orthogonal-test6.tmx");
+    _map = TMXTiledMap::create("asteroid_map.tmx");
     _map->setName("Map");
     _map->setAnchorPoint(Vec2(0.5, 0.5));
     auto baseLayerSize = baseLayer->getContentSize();
@@ -146,7 +149,6 @@ void MainScene::Notify(Notifier::NOTIFIED_EVENT_TYPE_T eventType, const void* ev
 
 void MainScene::PinchViewport(const Point& p0Org,const Point& p1Org, const Point& p0,const Point& p1)
 {
-    Viewport& vp = Viewport::Instance();
     float distOrg = p0Org.distance(p1Org);
     float distNew = p0.distance(p1);
 
@@ -159,31 +161,16 @@ void MainScene::PinchViewport(const Point& p0Org,const Point& p1Org, const Point
     Vec2 centerOld = p0Org.getMidpoint(p1Org);
     Vec2 centerNew = p0.getMidpoint(p1);
     
-    vp.SetCenter(_viewportCenterOrg-centerNew+centerOld);
-    vp.SetScale(scaleAdjust*_viewportScaleOrg);
-    
     auto baseLayer = this->getChildByName("BaseLayer");
     auto baseLayerSize = baseLayer->getContentSize();
     auto currentScale = baseLayer->getScale();
 
     // Compute anchor point
-    CCLOG("Current scale: %f", currentScale);
-    if(currentScale < MAX_SCALE_LIMIT-1)
+    if(currentScale < MAX_SCALE_LIMIT-2)
     {
-    	//auto baseLayerAP = baseLayer->getAnchorPoint();
-    	//CCLOG("Base Layer Anchor Point: %f, %f", baseLayerAP.x, baseLayerAP.y);
-    	//auto baseLayerPos = baseLayer->getPosition();
-    	//baseLayer->setPosition(_pinchPoint);
     	auto tempAnchPoint = Vec2(_pinchPoint.x/baseLayerSize.width, _pinchPoint.y/baseLayerSize.height);
-    	//CCLOG("Anchor Point: %f, %f", tempAnchPoint.x, tempAnchPoint.y);
 		baseLayer->setAnchorPoint(tempAnchPoint);
 		baseLayer->setScale(scaleAdjust*_viewportScaleOrg);
-		//baseLayer->setPosition(baseLayerPos);
-		//baseLayer->setAnchorPoint(baseLayerAP);
-    }
-    else
-    {
-
     }
     
     _coords->setPosition(_pinchPoint);
@@ -216,15 +203,12 @@ void MainScene::TapDragPinchInputPinchBegin(const TOUCH_DATA_T& point0, const TO
     auto baseLayer = this->getChildByName("BaseLayer");
     _pinchPoint = baseLayer->convertToNodeSpace(point0.pos.getMidpoint(point1.pos));
 
-    Notifier::Instance().Notify(Notifier::NE_RESET_DRAW_CYCLE);
-    _viewportCenterOrg = Viewport::Instance().GetCenterMeters();
     _viewportScaleOrg = baseLayer->getScale();
     PinchViewport(GetPinchPoint0().pos, GetPinchPoint1().pos, point0.pos, point1.pos);
 }
 
 void MainScene::TapDragPinchInputPinchContinue(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
 {
-    Notifier::Instance().Notify(Notifier::NE_RESET_DRAW_CYCLE);
     PinchViewport(GetPinchPoint0().pos, GetPinchPoint1().pos, point0.pos, point1.pos);
 }
 
@@ -236,43 +220,30 @@ void MainScene::TapDragPinchInputPinchEnd(const TOUCH_DATA_T& point0, const TOUC
 
 	if(currentScale > MAX_SCALE && currentScale <= MAX_SCALE_LIMIT)
 	{
-		//auto baseLayerAP = baseLayer->getAnchorPoint();
 		baseLayer->setAnchorPoint(Vec2(_pinchPoint.x/baseLayerSize.width, _pinchPoint.y/baseLayerSize.height));
 		auto action = ScaleTo::create(0.5, MAX_SCALE);
 		baseLayer->runAction(action);
-		//baseLayer->setAnchorPoint(baseLayerAP);
 	}
-	CCLOG("Current Scale: %f", baseLayer->getScale());
-
-	baseLayer->setAnchorPoint(Vec2(0.5, 0.5));
-    Notifier::Instance().Notify(Notifier::NE_RESET_DRAW_CYCLE);
 }
 
 void MainScene::TapDragPinchInputDragBegin(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
 {
-    Notifier::Instance().Notify(Notifier::NE_RESET_DRAW_CYCLE);
+    
 }
 
 void MainScene::TapDragPinchInputDragContinue(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
 {
-    //CCLOG("Draging");
     auto baseLayer = this->getChildByName("BaseLayer");
+    auto currentPos = baseLayer->getPosition();
     auto localTouch0 = baseLayer->convertToNodeSpace(point0.pos);
     auto localTouch1 = baseLayer->convertToNodeSpace(point1.pos);
     auto delta = localTouch1 - localTouch0;
-    /*CCLOG("Point 1: %f, %f", localTouch0.x, localTouch0.y);
-    CCLOG("Point 2: %f, %f", localTouch1.x, localTouch1.y);
-    CCLOG("Delta: %f, %f", delta.x, delta.y);*/
-    auto currentPos = baseLayer->getPosition();
-    baseLayer->setPosition(currentPos+delta*0.05);
+    CCLOG("Delta: %f, %f", delta.x, delta.y);
+    CCLOG("Current Pos: %f, %f", currentPos.x, currentPos.y);
+    baseLayer->setPosition(currentPos+delta);
 }
 
 void MainScene::TapDragPinchInputDragEnd(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1)
 {
     
-}
-
-void MainScene::SetZoom(float scale)
-{
-    Viewport::Instance().SetScale(scale);
 }

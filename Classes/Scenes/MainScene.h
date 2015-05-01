@@ -56,7 +56,6 @@ public:
 	virtual void TapDragPinchInputDragEnd(const TOUCH_DATA_T& point0, const TOUCH_DATA_T& point1);
     
     void drawBoundingBox(Node* target, Color4F color);
-    Vec2 convertToLocalCoords(Vec2 pos, Node *target);
 private:
     World world;
     
@@ -73,22 +72,14 @@ private:
     PositionComponent * comp;
 
     // Keep the last center point during a pinch.
-	Vec2 _viewportCenterOrg;
 	float _viewportScaleOrg;
 	TapDragPinchInput* _tapDragPinchInput;
-	list<Vec2> _path;
-	Point _lastPoint;
 
     Label *_coords;
     TMXTiledMap *_map;
     Rect _bounds;
     Point _pinchPoint;
-
-    const float MAX_SCALE = 6.0;
-    const float MAX_SCALE_LIMIT = 10.0;
 private:
-    // Misc Methods
-    void SetZoom(float zoom);
     void PinchViewport(const Point& p0Org,const Point& p1Org, const Point& p0,const Point& p1);
 };
 
