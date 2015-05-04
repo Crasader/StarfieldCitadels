@@ -10,3 +10,5 @@ StarfieldCitadels
 https://github.com/NullProductions/StarfieldCitadels/tree/master/Classes
 
 The majority of the files we will be working with will be in this folder but since this is an android project there will also be other folders you will want to take a look at. Namely this one, https://github.com/NullProductions/StarfieldCitadels/tree/master/Resources, as it will contain all of our graphics and other android settings.
+The code for all the menus of our game, along with the loading screen and main screen can be located at:
+https://github.com/NullProductions/StarfieldCitadels/tree/master/Classes/Scenes
